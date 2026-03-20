@@ -1,0 +1,14 @@
+{
+  "2026": {
+    "01-01": {"name": "New Year's Day", "type": "holiday"},
+    "01-19": {"name": "Martin Luther King Jr. Day", "type": "holiday"},
+    "02-16": {"name": "Presidents' Day", "type": "holiday"},
+    "05-25": {"name": "Memorial Day", "type": "holiday"},
+    "07-04": {"name": "Independence Day", "type": "holiday"},
+    "09-07": {"name": "Labor Day", "type": "holiday"},
+    "10-12": {"name": "Columbus Day", "type": "holiday"},
+    "11-11": {"name": "Veterans Day", "type": "holiday"},
+    "11-26": {"name": "Thanksgiving Day", "type": "holiday"},
+    "12-25": {"name": "Christmas Day", "type": "holiday"}
+  }
+}

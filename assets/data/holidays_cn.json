@@ -1,0 +1,22 @@
+{
+  "2026": {
+    "01-01": {"name": "元旦", "type": "holiday"},
+    "01-29": {"name": "春节", "type": "holiday"},
+    "01-30": {"name": "春节", "type": "holiday"},
+    "01-31": {"name": "春节", "type": "holiday"},
+    "02-01": {"name": "春节", "type": "holiday"},
+    "02-02": {"name": "春节", "type": "holiday"},
+    "04-05": {"name": "清明节", "type": "holiday"},
+    "05-01": {"name": "劳动节", "type": "holiday"},
+    "05-02": {"name": "劳动节", "type": "holiday"},
+    "05-03": {"name": "劳动节", "type": "holiday"},
+    "06-19": {"name": "端午节", "type": "holiday"},
+    "10-01": {"name": "国庆节", "type": "holiday"},
+    "10-02": {"name": "国庆节", "type": "holiday"},
+    "10-03": {"name": "国庆节", "type": "holiday"},
+    "10-04": {"name": "中秋节", "type": "holiday"},
+    "10-05": {"name": "国庆节", "type": "holiday"},
+    "10-06": {"name": "国庆节", "type": "holiday"},
+    "10-07": {"name": "国庆节", "type": "holiday"}
+  }
+}
