@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 
 /// A row of previous/next icon buttons for calendar navigation.
 class NavigationButtons extends StatelessWidget {
@@ -20,6 +21,7 @@ class NavigationButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final l = AppLocalizations.of(context);
 
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -27,7 +29,7 @@ class NavigationButtons extends StatelessWidget {
         IconButton(
           onPressed: onPrevious,
           icon: Icon(Icons.chevron_left, size: iconSize),
-          tooltip: previousTooltip ?? '上一页',
+          tooltip: previousTooltip ?? l.previous,
           style: IconButton.styleFrom(
             foregroundColor: colorScheme.onSurfaceVariant,
             shape: RoundedRectangleBorder(
@@ -39,7 +41,7 @@ class NavigationButtons extends StatelessWidget {
         IconButton(
           onPressed: onNext,
           icon: Icon(Icons.chevron_right, size: iconSize),
-          tooltip: nextTooltip ?? '下一页',
+          tooltip: nextTooltip ?? l.next,
           style: IconButton.styleFrom(
             foregroundColor: colorScheme.onSurfaceVariant,
             shape: RoundedRectangleBorder(

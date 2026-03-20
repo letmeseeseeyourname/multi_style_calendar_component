@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import '../../core/utils/date_utils.dart';
+import '../../l10n/app_localizations.dart';
 import '../../theme/color_schemes.dart';
 
 /// Circular week view: 7 days arranged in a circle.
@@ -79,6 +80,7 @@ class _CircularWeekViewState extends State<CircularWeekView>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l = AppLocalizations.of(context);
     final days = List.generate(7, (i) => _weekStart.add(Duration(days: i)));
     final weekNum = CalendarDateUtils.weekNumber(_weekStart);
 
@@ -96,7 +98,7 @@ class _CircularWeekViewState extends State<CircularWeekView>
                 onPressed: _previousWeek,
               ),
               Text(
-                '第 $weekNum 周',
+                l.weekNumber(weekNum),
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
@@ -119,7 +121,7 @@ class _CircularWeekViewState extends State<CircularWeekView>
                 alignment: Alignment.center,
                 children: [
                   // Center info
-                  _buildCenterInfo(theme),
+                  _buildCenterInfo(context, theme),
                   // Connecting lines painted behind day nodes
                   CustomPaint(
                     size: Size(widget.size, widget.size),
@@ -138,7 +140,7 @@ class _CircularWeekViewState extends State<CircularWeekView>
 
                     return Transform.translate(
                       offset: Offset(dx, dy),
-                      child: _buildDayNode(days[i], theme),
+                      child: _buildDayNode(context, days[i], theme),
                     );
                   }),
                 ],
@@ -150,13 +152,14 @@ class _CircularWeekViewState extends State<CircularWeekView>
     );
   }
 
-  Widget _buildCenterInfo(ThemeData theme) {
+  Widget _buildCenterInfo(BuildContext context, ThemeData theme) {
+    final l = AppLocalizations.of(context);
     final display = _selectedDate ?? DateTime.now();
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          '${display.month}月',
+          l.monthNamesShort[display.month],
           style: theme.textTheme.bodySmall?.copyWith(color: Colors.grey),
         ),
         Text(
@@ -170,7 +173,7 @@ class _CircularWeekViewState extends State<CircularWeekView>
     );
   }
 
-  Widget _buildDayNode(DateTime date, ThemeData theme) {
+  Widget _buildDayNode(BuildContext context, DateTime date, ThemeData theme) {
     final isToday = CalendarDateUtils.isSameDay(date, DateTime.now());
     final isSelected =
         _selectedDate != null && CalendarDateUtils.isSameDay(date, _selectedDate!);
@@ -210,7 +213,7 @@ class _CircularWeekViewState extends State<CircularWeekView>
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              CalendarDateUtils.weekdayName(date.weekday),
+              AppLocalizations.of(context).weekdayShort(date.weekday),
               style: TextStyle(
                 fontSize: 10,
                 color: isSelected

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/utils/date_utils.dart';
+import '../../l10n/app_localizations.dart';
 import '../../theme/color_schemes.dart';
 
 /// GitHub 风格的年度热力图
@@ -44,40 +45,41 @@ class YearHeatmap extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildTitle(theme),
+        _buildTitle(context, theme),
         const SizedBox(height: 8),
-        _buildMonthLabels(theme),
+        _buildMonthLabels(context, theme),
         const SizedBox(height: 4),
         SizedBox(
           height: (cellSize + cellSpacing) * 7,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildWeekdayLabels(theme),
+              _buildWeekdayLabels(context, theme),
               const SizedBox(width: 4),
-              Expanded(child: _buildHeatmapGrid(theme)),
+              Expanded(child: _buildHeatmapGrid(context, theme)),
             ],
           ),
         ),
         const SizedBox(height: 8),
-        _buildLegend(theme),
+        _buildLegend(context, theme),
       ],
     );
   }
 
-  Widget _buildTitle(ThemeData theme) {
+  Widget _buildTitle(BuildContext context, ThemeData theme) {
+    final l = AppLocalizations.of(context);
     final totalActivities = data.values.fold<int>(0, (sum, v) => sum + v);
     return Row(
       children: [
         Text(
-          '$year 年活动记录',
+          l.yearActivityTitle(year),
           style: theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.bold,
           ),
         ),
         const SizedBox(width: 8),
         Text(
-          '共 $totalActivities 次活动',
+          l.totalActivities(totalActivities),
           style: theme.textTheme.bodySmall?.copyWith(
             color: theme.hintColor,
           ),
@@ -86,7 +88,8 @@ class YearHeatmap extends StatelessWidget {
     );
   }
 
-  Widget _buildMonthLabels(ThemeData theme) {
+  Widget _buildMonthLabels(BuildContext context, ThemeData theme) {
+    final l = AppLocalizations.of(context);
     // 计算每个月大致对应的周列位置
     final firstDay = DateTime(year, 1, 1);
     final firstDayWeekday = firstDay.weekday; // 1=Mon
@@ -115,7 +118,7 @@ class YearHeatmap extends StatelessWidget {
             return SizedBox(
               width: width,
               child: Text(
-                CalendarDateUtils.monthName(i + 1),
+                l.monthNamesShort[i + 1],
                 style: theme.textTheme.labelSmall?.copyWith(
                   fontSize: 10,
                   color: theme.hintColor,
@@ -128,17 +131,20 @@ class YearHeatmap extends StatelessWidget {
     );
   }
 
-  Widget _buildWeekdayLabels(ThemeData theme) {
-    const labels = ['一', '', '三', '', '五', '', '日'];
+  Widget _buildWeekdayLabels(BuildContext context, ThemeData theme) {
+    final l = AppLocalizations.of(context);
+    // Show labels for Mon(1), Wed(3), Fri(5), Sun(7); blank for others
+    final displayDays = {1, 3, 5, 7};
     return Column(
-      children: labels.map((label) {
+      children: List.generate(7, (i) {
+        final weekday = i + 1; // 1=Mon .. 7=Sun
         return SizedBox(
           height: cellSize + cellSpacing,
           width: 22,
           child: Align(
             alignment: Alignment.centerRight,
             child: Text(
-              label,
+              displayDays.contains(weekday) ? l.weekdayShort(weekday) : '',
               style: theme.textTheme.labelSmall?.copyWith(
                 fontSize: 9,
                 color: theme.hintColor,
@@ -146,11 +152,11 @@ class YearHeatmap extends StatelessWidget {
             ),
           ),
         );
-      }).toList(),
+      }),
     );
   }
 
-  Widget _buildHeatmapGrid(ThemeData theme) {
+  Widget _buildHeatmapGrid(BuildContext context, ThemeData theme) {
     final firstDay = DateTime(year, 1, 1);
     final lastDay = DateTime(year, 12, 31);
     final totalDays = lastDay.difference(firstDay).inDays + 1;
@@ -205,7 +211,7 @@ class YearHeatmap extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () => onDateTap?.call(day),
                   child: Tooltip(
-                    message: '${day.month}月${day.day}日: $value 次活动',
+                    message: AppLocalizations.of(context).dayActivityTooltip(day.month, day.day, value),
                     child: Container(
                       width: cellSize,
                       height: cellSize,
@@ -227,12 +233,13 @@ class YearHeatmap extends StatelessWidget {
     );
   }
 
-  Widget _buildLegend(ThemeData theme) {
+  Widget _buildLegend(BuildContext context, ThemeData theme) {
+    final l = AppLocalizations.of(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Text(
-          '少',
+          l.less,
           style: theme.textTheme.labelSmall?.copyWith(
             fontSize: 10,
             color: theme.hintColor,
@@ -256,7 +263,7 @@ class YearHeatmap extends StatelessWidget {
         }),
         const SizedBox(width: 4),
         Text(
-          '多',
+          l.more_,
           style: theme.textTheme.labelSmall?.copyWith(
             fontSize: 10,
             color: theme.hintColor,

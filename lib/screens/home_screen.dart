@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../l10n/app_localizations.dart';
+import '../providers/settings_provider.dart';
 import 'view_demo_screen.dart';
 import 'style_demo_screen.dart';
 import 'picker_demo_screen.dart';
@@ -6,59 +9,73 @@ import 'business_demo_screen.dart';
 import 'playground_screen.dart';
 
 /// 首页导航
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final l = AppLocalizations.of(context);
+    final locale = ref.watch(localeProvider);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('多样式日历组件库'),
+        title: Text(l.appTitle),
+        actions: [
+          TextButton.icon(
+            onPressed: () {
+              final newLocale = locale.languageCode == 'zh'
+                  ? const Locale('en', 'US')
+                  : const Locale('zh', 'CN');
+              ref.read(localeProvider.notifier).state = newLocale;
+            },
+            icon: const Icon(Icons.language),
+            label: Text(locale.languageCode == 'zh' ? 'EN' : '中文'),
+          ),
+        ],
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          _buildHeader(theme),
+          _buildHeader(context, theme),
           const SizedBox(height: 24),
           _buildSection(
             context,
             icon: Icons.calendar_view_month,
-            title: '视图模式',
-            subtitle: '年 / 月 / 周 / 日 / 日程 / 时间线',
+            title: l.viewModes,
+            subtitle: l.viewModesSubtitle,
             color: Colors.blue,
             onTap: () => _navigate(context, const ViewDemoScreen()),
           ),
           _buildSection(
             context,
             icon: Icons.palette,
-            title: '视觉风格',
-            subtitle: '经典 / 卡片 / 圆形 / 热力图 / 翻页 / 极简 / 毛玻璃',
+            title: l.visualStyles,
+            subtitle: l.visualStylesSubtitle,
             color: Colors.purple,
             onTap: () => _navigate(context, const StyleDemoScreen()),
           ),
           _buildSection(
             context,
             icon: Icons.touch_app,
-            title: '日期选择器',
-            subtitle: '单选 / 多选 / 范围 / 月份 / 年份 / 日期时间',
+            title: l.datePickers,
+            subtitle: l.datePickersSubtitle,
             color: Colors.teal,
             onTap: () => _navigate(context, const PickerDemoScreen()),
           ),
           _buildSection(
             context,
             icon: Icons.business_center,
-            title: '业务场景',
-            subtitle: '考勤 / 习惯 / 预约 / 价格 / 农历 / 倒计时 / 共享',
+            title: l.businessScenarios,
+            subtitle: l.businessScenariosSubtitle,
             color: Colors.orange,
             onTap: () => _navigate(context, const BusinessDemoScreen()),
           ),
           _buildSection(
             context,
             icon: Icons.tune,
-            title: '自由配置',
-            subtitle: '自定义日历参数与交互',
+            title: l.playground,
+            subtitle: l.playgroundSubtitle,
             color: Colors.green,
             onTap: () => _navigate(context, const PlaygroundScreen()),
           ),
@@ -67,7 +84,8 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader(ThemeData theme) {
+  Widget _buildHeader(BuildContext context, ThemeData theme) {
+    final l = AppLocalizations.of(context);
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(24),
@@ -80,14 +98,14 @@ class HomeScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              'Flutter 多样式日历',
+              l.appHeaderTitle,
               style: theme.textTheme.headlineSmall?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 8),
             Text(
-              '涵盖多种历法、视图、交互与业务场景',
+              l.appHeaderSubtitle,
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),

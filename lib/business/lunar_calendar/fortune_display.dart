@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/utils/lunar_utils.dart';
+import '../../../l10n/app_localizations.dart';
 
 /// 每日宜忌展示组件
 class FortuneDisplay extends StatelessWidget {
@@ -12,6 +13,7 @@ class FortuneDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
     final suitable = LunarUtils.getSuitable(date);
     final avoid = LunarUtils.getAvoid(date);
 
@@ -48,7 +50,7 @@ class FortuneDisplay extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Text(
-                '${date.month}月${date.day}日 宜忌',
+                l.fortuneTitle(date.month, date.day),
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -70,9 +72,9 @@ class FortuneDisplay extends StatelessWidget {
                   borderRadius: BorderRadius.circular(6),
                 ),
                 alignment: Alignment.center,
-                child: const Text(
-                  '宜',
-                  style: TextStyle(
+                child: Text(
+                  l.suitable,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
@@ -86,7 +88,7 @@ class FortuneDisplay extends StatelessWidget {
                   runSpacing: 6,
                   children: (suitable.isNotEmpty
                           ? suitable.take(8).toList()
-                          : ['暂无数据'])
+                          : [l.noData])
                       .map((item) => Container(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 10,
@@ -126,9 +128,9 @@ class FortuneDisplay extends StatelessWidget {
                   borderRadius: BorderRadius.circular(6),
                 ),
                 alignment: Alignment.center,
-                child: const Text(
-                  '忌',
-                  style: TextStyle(
+                child: Text(
+                  l.avoid,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
@@ -142,7 +144,7 @@ class FortuneDisplay extends StatelessWidget {
                   runSpacing: 6,
                   children: (avoid.isNotEmpty
                           ? avoid.take(8).toList()
-                          : ['暂无数据'])
+                          : [l.noData])
                       .map((item) => Container(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 10,

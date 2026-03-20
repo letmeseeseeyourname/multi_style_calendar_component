@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import '../../core/utils/date_utils.dart';
+import '../../l10n/app_localizations.dart';
 import '../../theme/color_schemes.dart';
 
 /// 3D flip page calendar showing current date with flip animation to change.
@@ -110,7 +111,7 @@ class _FlipCalendarState extends State<FlipCalendar>
                 return Stack(
                   children: [
                     // Bottom card (new date) - always visible behind
-                    _buildDateCard(_currentDate, isBackground: true),
+                    _buildDateCard(context, _currentDate, isBackground: true),
                     // Top card (flipping) with 3D transform
                     Transform(
                       alignment: Alignment.center,
@@ -118,8 +119,8 @@ class _FlipCalendarState extends State<FlipCalendar>
                         ..setEntry(3, 2, 0.001)
                         ..rotateY(showPrevious ? angle : angle - math.pi),
                       child: showPrevious
-                          ? _buildDateCard(_previousDate)
-                          : _buildDateCard(_currentDate),
+                          ? _buildDateCard(context, _previousDate)
+                          : _buildDateCard(context, _currentDate),
                     ),
                   ],
                 );
@@ -139,7 +140,7 @@ class _FlipCalendarState extends State<FlipCalendar>
             const SizedBox(width: 8),
             _NavButton(
               icon: Icons.today,
-              label: '今天',
+              label: AppLocalizations.of(context).today,
               onTap: _goToToday,
             ),
             const SizedBox(width: 8),
@@ -153,9 +154,10 @@ class _FlipCalendarState extends State<FlipCalendar>
     );
   }
 
-  Widget _buildDateCard(DateTime date, {bool isBackground = false}) {
-    final monthName = CalendarDateUtils.monthName(date.month);
-    final weekday = CalendarDateUtils.weekdayName(date.weekday, short: false);
+  Widget _buildDateCard(BuildContext context, DateTime date, {bool isBackground = false}) {
+    final l = AppLocalizations.of(context);
+    final monthName = l.monthName(date.month);
+    final weekday = l.weekdayLong(date.weekday);
     final isToday = CalendarDateUtils.isSameDay(date, DateTime.now());
 
     return Container(

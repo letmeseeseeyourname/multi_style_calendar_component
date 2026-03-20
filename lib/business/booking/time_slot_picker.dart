@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../l10n/app_localizations.dart';
 
 /// 时间段状态
 enum SlotStatus { available, booked, selected, unavailable }
@@ -64,6 +65,7 @@ class _TimeSlotPickerState extends State<TimeSlotPicker> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -81,7 +83,7 @@ class _TimeSlotPickerState extends State<TimeSlotPicker> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '${widget.date.month}月${widget.date.day}日 可用时间',
+            l.availableTimeTitle(widget.date.month, widget.date.day),
             style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -101,15 +103,16 @@ class _TimeSlotPickerState extends State<TimeSlotPicker> {
   }
 
   Widget _buildLegend() {
+    final l = AppLocalizations.of(context);
     return Row(
       children: [
-        _legendDot(const Color(0xFF4CAF50), '可选'),
+        _legendDot(const Color(0xFF4CAF50), l.available),
         const SizedBox(width: 12),
-        _legendDot(const Color(0xFF2196F3), '已选'),
+        _legendDot(const Color(0xFF2196F3), l.selected),
         const SizedBox(width: 12),
-        _legendDot(Colors.grey.shade400, '已预约'),
+        _legendDot(Colors.grey.shade400, l.booked),
         const SizedBox(width: 12),
-        _legendDot(Colors.grey.shade200, '不可用'),
+        _legendDot(Colors.grey.shade200, l.unavailable),
       ],
     );
   }
@@ -218,6 +221,7 @@ class _TimeSlotPickerState extends State<TimeSlotPicker> {
   }
 
   Widget _buildSelectedInfo() {
+    final l = AppLocalizations.of(context);
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -232,7 +236,7 @@ class _TimeSlotPickerState extends State<TimeSlotPicker> {
           const Icon(Icons.access_time, color: Color(0xFF2196F3), size: 20),
           const SizedBox(width: 8),
           Text(
-            '已选择: ${_selectedSlot!.rangeText}',
+            '${l.selectedSlotLabel}${_selectedSlot!.rangeText}',
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               color: Color(0xFF1565C0),
@@ -244,7 +248,7 @@ class _TimeSlotPickerState extends State<TimeSlotPicker> {
               // Confirm booking action
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('已预约 ${_selectedSlot!.rangeText}'),
+                  content: Text(l.bookedSlot(_selectedSlot!.rangeText)),
                   backgroundColor: const Color(0xFF4CAF50),
                 ),
               );
@@ -257,7 +261,7 @@ class _TimeSlotPickerState extends State<TimeSlotPicker> {
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
-            child: const Text('确认预约', style: TextStyle(fontSize: 13)),
+            child: Text(l.confirmBooking, style: const TextStyle(fontSize: 13)),
           ),
         ],
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/models/calendar_event.dart';
 import '../../core/utils/date_utils.dart';
+import '../../l10n/app_localizations.dart';
 import 'timeline_track.dart';
 
 /// 甘特图风格的水平时间线视图
@@ -70,7 +71,7 @@ class _TimelineViewState extends State<TimelineView> {
 
   double get _totalWidth => _totalDays * widget.dayWidth;
 
-  Map<String, List<CalendarEvent>> get _groupedEvents {
+  Map<String, List<CalendarEvent>> _groupedEvents(String defaultLabel) {
     final groups = <String, List<CalendarEvent>>{};
 
     if (widget.trackLabels != null) {
@@ -80,7 +81,7 @@ class _TimelineViewState extends State<TimelineView> {
     }
 
     for (final event in widget.events) {
-      final key = event.createdBy ?? event.extra?['category'] ?? '默认';
+      final key = event.createdBy ?? event.extra?['category'] ?? defaultLabel;
       groups.putIfAbsent(key, () => []);
       groups[key]!.add(event);
     }
@@ -91,7 +92,8 @@ class _TimelineViewState extends State<TimelineView> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final groups = _groupedEvents;
+    final l = AppLocalizations.of(context);
+    final groups = _groupedEvents(l.default_);
     final trackEntries = groups.entries.toList();
 
     return Column(
@@ -112,7 +114,7 @@ class _TimelineViewState extends State<TimelineView> {
                   ),
                 ),
                 child: Text(
-                  '分类',
+                  l.category,
                   style: theme.textTheme.labelMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
@@ -298,7 +300,7 @@ class _TimelineViewState extends State<TimelineView> {
             ),
           ),
           child: Text(
-            '${year}年${CalendarDateUtils.monthName(month)}',
+            AppLocalizations.of(context).yearMonth(year, month),
             style: theme.textTheme.labelSmall?.copyWith(
               fontWeight: FontWeight.w600,
             ),

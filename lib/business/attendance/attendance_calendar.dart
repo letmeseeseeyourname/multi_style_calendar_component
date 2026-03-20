@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/utils/date_utils.dart';
+import '../../l10n/app_localizations.dart';
 import 'attendance_status.dart';
 import 'attendance_stats.dart';
 
@@ -78,7 +79,7 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
           icon: const Icon(Icons.chevron_left),
         ),
         Text(
-          '${_currentMonth.year}年${_currentMonth.month}月',
+          AppLocalizations.of(context).yearMonth(_currentMonth.year, _currentMonth.month),
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         IconButton(
@@ -144,6 +145,7 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
   }
 
   Widget _buildLegend() {
+    final l = AppLocalizations.of(context);
     final statuses = [
       AttendanceStatus.normal,
       AttendanceStatus.late,
@@ -169,7 +171,7 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
             ),
             const SizedBox(width: 4),
             Text(
-              status.label,
+              status.localizedLabel(l),
               style: const TextStyle(fontSize: 11, color: Colors.grey),
             ),
           ],
@@ -179,6 +181,7 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
   }
 
   Widget _buildDateDetail() {
+    final l = AppLocalizations.of(context);
     final record = _records[_dateKey(_selectedDate!)];
     if (record == null) {
       return Container(
@@ -188,7 +191,7 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Text(
-          '${_selectedDate!.month}月${_selectedDate!.day}日 - 无考勤记录',
+          l.noAttendanceRecord(_selectedDate!.month, _selectedDate!.day),
           style: const TextStyle(color: Colors.grey),
         ),
       );
@@ -210,19 +213,19 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '${_selectedDate!.month}月${_selectedDate!.day}日 - ${record.status.label}',
+                  '${l.monthDay(_selectedDate!.month, _selectedDate!.day)} - ${record.status.localizedLabel(l)}',
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  '签到: ${record.checkInText}  签退: ${record.checkOutText}',
+                  '${l.checkIn}: ${record.checkInText}  ${l.checkOut}: ${record.checkOutText}',
                   style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
                 ),
                 if (record.note != null)
                   Padding(
                     padding: const EdgeInsets.only(top: 2),
                     child: Text(
-                      '备注: ${record.note}',
+                      '${l.remark}: ${record.note}',
                       style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
                     ),
                   ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/models/calendar_event.dart';
 import '../../core/utils/date_utils.dart';
+import '../../l10n/app_localizations.dart';
 import 'year_month_cell.dart';
 
 /// 年视图 - 以 3x4 或 4x3 网格展示 12 个月份缩略图
@@ -74,10 +75,11 @@ class YearView extends StatelessWidget {
 
   Widget _buildYearHeader(BuildContext context) {
     final theme = Theme.of(context);
+    final l = AppLocalizations.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: Text(
-        '$year 年',
+        '$year${l.yearSuffix}',
         style: theme.textTheme.headlineSmall?.copyWith(
           fontWeight: FontWeight.bold,
         ),

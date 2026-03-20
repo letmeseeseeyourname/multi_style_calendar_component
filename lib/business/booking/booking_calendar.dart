@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/utils/date_utils.dart';
+import '../../l10n/app_localizations.dart';
 import 'time_slot_picker.dart';
 import 'availability_grid.dart';
 
@@ -86,6 +87,7 @@ class _BookingCalendarState extends State<BookingCalendar> {
   }
 
   Widget _buildInfoCard() {
+    final l = AppLocalizations.of(context);
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -104,16 +106,16 @@ class _BookingCalendarState extends State<BookingCalendar> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  '预约管理',
-                  style: TextStyle(
+                Text(
+                  l.bookingManagement,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
-                  '选择日期查看可用时间段',
+                  l.selectDateForSlots,
                   style: TextStyle(
                     color: Colors.white.withValues(alpha: 0.8),
                     fontSize: 13,
@@ -128,11 +130,11 @@ class _BookingCalendarState extends State<BookingCalendar> {
               color: Colors.white.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: const Column(
+            child: Column(
               children: [
                 Text(
-                  '本月预约',
-                  style: TextStyle(color: Colors.white70, fontSize: 11),
+                  l.monthlyBookings,
+                  style: const TextStyle(color: Colors.white70, fontSize: 11),
                 ),
                 Text(
                   '12',
@@ -159,7 +161,7 @@ class _BookingCalendarState extends State<BookingCalendar> {
           icon: const Icon(Icons.chevron_left),
         ),
         Text(
-          '${_currentMonth.year}年${_currentMonth.month}月',
+          AppLocalizations.of(context).yearMonth(_currentMonth.year, _currentMonth.month),
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         IconButton(
@@ -257,7 +259,7 @@ class _BookingCalendarState extends State<BookingCalendar> {
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Text(
-                            '$bookingCount可约',
+                            AppLocalizations.of(context).availableSlots(bookingCount),
                             style: TextStyle(
                               fontSize: 8,
                               color: bookingCount > 5

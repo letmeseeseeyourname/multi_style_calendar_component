@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../l10n/app_localizations.dart';
 import 'streak_counter.dart';
 
 /// 习惯统计组件
@@ -14,6 +15,7 @@ class HabitStats extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
     final currentStreak = streakCounter.currentStreak;
     final longestStreak = streakCounter.longestStreak;
     final monthCompleted =
@@ -42,22 +44,22 @@ class HabitStats extends StatelessWidget {
               _StatCard(
                 icon: Icons.local_fire_department,
                 iconColor: const Color(0xFFFF5722),
-                label: '当前连续',
-                value: '$currentStreak天',
+                label: l.currentStreak,
+                value: l.nDays(currentStreak),
               ),
               const SizedBox(width: 12),
               _StatCard(
                 icon: Icons.emoji_events,
                 iconColor: const Color(0xFFFFB300),
-                label: '最长连续',
-                value: '$longestStreak天',
+                label: l.longestStreak,
+                value: l.nDays(longestStreak),
               ),
               const SizedBox(width: 12),
               _StatCard(
                 icon: Icons.check_circle_outline,
                 iconColor: const Color(0xFF4CAF50),
-                label: '总打卡',
-                value: '${streakCounter.totalCompleted}天',
+                label: l.totalCheckins,
+                value: l.nDays(streakCounter.totalCompleted),
               ),
             ],
           ),
@@ -66,12 +68,12 @@ class HabitStats extends StatelessWidget {
           Row(
             children: [
               Text(
-                '${month.month}月完成率',
+                l.completionRate(month.month),
                 style: const TextStyle(fontSize: 13, color: Colors.grey),
               ),
               const Spacer(),
               Text(
-                '$monthCompleted/$monthTotal天 (${(rate * 100).toStringAsFixed(0)}%)',
+                '$monthCompleted/$monthTotal${l.daySuffixUnit} (${(rate * 100).toStringAsFixed(0)}%)',
                 style: const TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.bold,
@@ -98,13 +100,14 @@ class HabitStats extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           // Weekly mini chart
-          _buildWeeklyChart(),
+          _buildWeeklyChart(context),
         ],
       ),
     );
   }
 
-  Widget _buildWeeklyChart() {
+  Widget _buildWeeklyChart(BuildContext context) {
+    final l = AppLocalizations.of(context);
     final now = DateTime.now();
     final days = List.generate(7, (i) => now.subtract(Duration(days: 6 - i)));
 
@@ -112,7 +115,7 @@ class HabitStats extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: days.map((day) {
         final completed = streakCounter.isCompleted(day);
-        final weekdayLabels = ['一', '二', '三', '四', '五', '六', '日'];
+        final weekdayLabels = l.weekdayNamesShort;
         final label = weekdayLabels[(day.weekday - 1) % 7];
 
         return Column(

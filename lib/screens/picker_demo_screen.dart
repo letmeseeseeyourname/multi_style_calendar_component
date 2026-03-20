@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 import '../pickers/single_picker.dart';
 import '../pickers/multi_picker.dart';
 import '../pickers/range_picker.dart';
@@ -15,12 +16,14 @@ class PickerDemoScreen extends StatefulWidget {
 }
 
 class _PickerDemoScreenState extends State<PickerDemoScreen> {
-  String _result = '点击按钮查看选择器';
+  String? _result;
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+
     return Scaffold(
-      appBar: AppBar(title: const Text('日期选择器')),
+      appBar: AppBar(title: Text(l.datePickers)),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
@@ -28,7 +31,7 @@ class _PickerDemoScreenState extends State<PickerDemoScreen> {
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Text(
-                '选择结果: $_result',
+                _result != null ? l.resultLabel(_result!) : l.tapToShowPicker,
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
             ),
@@ -36,7 +39,7 @@ class _PickerDemoScreenState extends State<PickerDemoScreen> {
           const SizedBox(height: 16),
           _buildPickerButton(
             icon: Icons.calendar_today,
-            label: '单选日期',
+            label: l.singleDate,
             color: Colors.blue,
             onTap: () async {
               final date = await SingleDatePicker.show(context);
@@ -47,18 +50,18 @@ class _PickerDemoScreenState extends State<PickerDemoScreen> {
           ),
           _buildPickerButton(
             icon: Icons.date_range,
-            label: '多选日期',
+            label: l.multiDate,
             color: Colors.green,
             onTap: () async {
               final dates = await MultiDatePicker.show(context);
               if (dates != null && dates.isNotEmpty) {
-                setState(() => _result = '已选 ${dates.length} 个日期');
+                setState(() => _result = l.nSelected(dates.length));
               }
             },
           ),
           _buildPickerButton(
             icon: Icons.swap_horiz,
-            label: '范围选择',
+            label: l.rangeSelect,
             color: Colors.orange,
             onTap: () async {
               final range = await DateRangePicker.show(context);
@@ -70,29 +73,29 @@ class _PickerDemoScreenState extends State<PickerDemoScreen> {
           ),
           _buildPickerButton(
             icon: Icons.calendar_view_month,
-            label: '月份选择',
+            label: l.monthSelect,
             color: Colors.purple,
             onTap: () async {
               final date = await MonthPicker.show(context);
               if (date != null) {
-                setState(() => _result = '${date.year}年${date.month}月');
+                setState(() => _result = l.yearMonth(date.year, date.month));
               }
             },
           ),
           _buildPickerButton(
             icon: Icons.calendar_view_day,
-            label: '年份选择',
+            label: l.yearSelect,
             color: Colors.teal,
             onTap: () async {
               final year = await custom_year_picker.YearPicker.show(context);
               if (year != null) {
-                setState(() => _result = '${year}年');
+                setState(() => _result = '$year${l.yearSuffix}');
               }
             },
           ),
           _buildPickerButton(
             icon: Icons.access_time,
-            label: '日期时间选择',
+            label: l.dateTimeSelect,
             color: Colors.red,
             onTap: () async {
               final dt = await DateTimePicker.show(context);

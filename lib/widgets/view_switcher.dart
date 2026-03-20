@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 
 import '../core/models/calendar_config.dart';
 
@@ -21,15 +22,6 @@ class ViewSwitcher extends StatelessWidget {
     ],
   });
 
-  static const _viewLabels = <CalendarViewType, String>{
-    CalendarViewType.year: '年',
-    CalendarViewType.month: '月',
-    CalendarViewType.week: '周',
-    CalendarViewType.day: '日',
-    CalendarViewType.agenda: '日程',
-    CalendarViewType.timeline: '时间线',
-  };
-
   static const _viewIcons = <CalendarViewType, IconData>{
     CalendarViewType.year: Icons.calendar_view_month,
     CalendarViewType.month: Icons.calendar_month,
@@ -39,13 +31,27 @@ class ViewSwitcher extends StatelessWidget {
     CalendarViewType.timeline: Icons.timeline,
   };
 
+  static Map<CalendarViewType, String> _viewLabels(AppLocalizations l) {
+    return {
+      CalendarViewType.year: l.yearLabel,
+      CalendarViewType.month: l.monthLabel,
+      CalendarViewType.week: l.weekLabel,
+      CalendarViewType.day: l.dayLabel,
+      CalendarViewType.agenda: l.agendaLabel,
+      CalendarViewType.timeline: l.timelineLabel,
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final labels = _viewLabels(l);
+
     return SegmentedButton<CalendarViewType>(
       segments: availableViews.map((view) {
         return ButtonSegment<CalendarViewType>(
           value: view,
-          label: Text(_viewLabels[view] ?? view.name),
+          label: Text(labels[view] ?? view.name),
           icon: Icon(_viewIcons[view] ?? Icons.calendar_today, size: 18),
         );
       }).toList(),

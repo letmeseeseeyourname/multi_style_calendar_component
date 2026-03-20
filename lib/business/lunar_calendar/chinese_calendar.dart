@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../core/models/calendar_date.dart';
 import '../../../core/utils/date_utils.dart';
 import '../../../core/utils/lunar_utils.dart';
+import '../../../l10n/app_localizations.dart';
 import 'festival_display.dart';
 import 'fortune_display.dart';
 
@@ -33,6 +34,7 @@ class _ChineseCalendarState extends State<ChineseCalendar> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
     final gridDays = CalendarDateUtils.daysInMonthGrid(_currentMonth);
     final lunarMonthInfo = CalendarDate.fromDateTime(_currentMonth);
 
@@ -40,10 +42,10 @@ class _ChineseCalendarState extends State<ChineseCalendar> {
       child: Column(
       children: [
         // Lunar month header
-        _buildLunarHeader(lunarMonthInfo),
+        _buildLunarHeader(lunarMonthInfo, l),
         const SizedBox(height: 12),
         // Month navigation
-        _buildMonthHeader(),
+        _buildMonthHeader(l),
         const SizedBox(height: 8),
         // Weekday header
         _buildWeekdayHeader(),
@@ -53,7 +55,7 @@ class _ChineseCalendarState extends State<ChineseCalendar> {
         // Selected date details
         if (_selectedDate != null) ...[
           const SizedBox(height: 16),
-          _buildSelectedDateInfo(),
+          _buildSelectedDateInfo(l),
           const SizedBox(height: 12),
           FestivalDisplay(
             date: _selectedDate!,
@@ -69,7 +71,7 @@ class _ChineseCalendarState extends State<ChineseCalendar> {
     );
   }
 
-  Widget _buildLunarHeader(CalendarDate info) {
+  Widget _buildLunarHeader(CalendarDate info, AppLocalizations l) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -86,9 +88,9 @@ class _ChineseCalendarState extends State<ChineseCalendar> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  '农历日历',
-                  style: TextStyle(
+                Text(
+                  l.lunarCalendar,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -137,7 +139,7 @@ class _ChineseCalendarState extends State<ChineseCalendar> {
     );
   }
 
-  Widget _buildMonthHeader() {
+  Widget _buildMonthHeader(AppLocalizations l) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -146,7 +148,7 @@ class _ChineseCalendarState extends State<ChineseCalendar> {
           icon: const Icon(Icons.chevron_left),
         ),
         Text(
-          '${_currentMonth.year}年${_currentMonth.month}月',
+          l.yearMonth(_currentMonth.year, _currentMonth.month),
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         IconButton(
@@ -213,7 +215,7 @@ class _ChineseCalendarState extends State<ChineseCalendar> {
     return Column(children: rows);
   }
 
-  Widget _buildSelectedDateInfo() {
+  Widget _buildSelectedDateInfo(AppLocalizations l) {
     final calDate = CalendarDate.fromDateTime(_selectedDate!);
     final lunar = calDate.lunar;
     if (lunar == null) return const SizedBox.shrink();
@@ -231,7 +233,7 @@ class _ChineseCalendarState extends State<ChineseCalendar> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                '${_selectedDate!.year}年${_selectedDate!.month}月${_selectedDate!.day}日',
+                l.yearMonthDay(_selectedDate!.year, _selectedDate!.month, _selectedDate!.day),
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -243,19 +245,19 @@ class _ChineseCalendarState extends State<ChineseCalendar> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _infoChip('农历', lunar.fullChinese),
-              _infoChip('干支', '${lunar.yearGanZhi}年 ${lunar.monthGanZhi}月 ${lunar.dayGanZhi}日'),
+              _infoChip(l.lunarLabel2, lunar.fullChinese),
+              _infoChip(l.ganZhi, '${lunar.yearGanZhi}${l.yearSuffix} ${lunar.monthGanZhi}${l.monthSuffix} ${lunar.dayGanZhi}${l.daySuffix}'),
             ],
           ),
           const SizedBox(height: 4),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _infoChip('生肖', lunar.zodiac),
+              _infoChip(l.zodiac, lunar.zodiac),
               if (calDate.solarTerm != null)
-                _infoChip('节气', calDate.solarTerm!),
+                _infoChip(l.solarTerm, calDate.solarTerm!),
               if (calDate.lunarFestival != null)
-                _infoChip('节日', calDate.lunarFestival!),
+                _infoChip(l.festival, calDate.lunarFestival!),
             ],
           ),
         ],

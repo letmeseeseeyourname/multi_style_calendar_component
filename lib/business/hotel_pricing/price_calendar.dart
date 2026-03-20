@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/utils/date_utils.dart';
+import '../../../l10n/app_localizations.dart';
 import 'room_availability.dart';
 
 /// 酒店价格日历组件
@@ -121,33 +122,34 @@ class _PriceCalendarState extends State<PriceCalendar> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
     final gridDays = CalendarDateUtils.daysInMonthGrid(_currentMonth);
 
     return SingleChildScrollView(
       child: Column(
       children: [
         // Month header
-        _buildMonthHeader(),
+        _buildMonthHeader(l),
         const SizedBox(height: 4),
         // Legend
-        _buildLegend(),
+        _buildLegend(l),
         const SizedBox(height: 8),
         // Weekday header
         _buildWeekdayHeader(),
         const SizedBox(height: 4),
         // Calendar grid
-        _buildCalendarGrid(gridDays),
+        _buildCalendarGrid(gridDays, l),
         // Price summary
         if (_checkInDate != null) ...[
           const SizedBox(height: 16),
-          _buildPriceSummary(),
+          _buildPriceSummary(l),
         ],
         // Room availability
         if (_checkInDate != null) ...[
           const SizedBox(height: 16),
           RoomAvailabilityWidget(
             date: _checkInDate!,
-            rooms: generateMockRooms(),
+            rooms: generateMockRooms(l),
           ),
         ],
       ],
@@ -155,7 +157,7 @@ class _PriceCalendarState extends State<PriceCalendar> {
     );
   }
 
-  Widget _buildMonthHeader() {
+  Widget _buildMonthHeader(AppLocalizations l) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -166,12 +168,12 @@ class _PriceCalendarState extends State<PriceCalendar> {
         Column(
           children: [
             Text(
-              '${_currentMonth.year}年${_currentMonth.month}月',
+              l.yearMonth(_currentMonth.year, _currentMonth.month),
               style:
                   const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             Text(
-              _isSelectingCheckOut ? '请选择退房日期' : '请选择入住日期',
+              _isSelectingCheckOut ? l.selectCheckOutDate : l.selectCheckInDate,
               style: const TextStyle(fontSize: 12, color: Colors.grey),
             ),
           ],
@@ -184,7 +186,7 @@ class _PriceCalendarState extends State<PriceCalendar> {
     );
   }
 
-  Widget _buildLegend() {
+  Widget _buildLegend(AppLocalizations l) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: PriceLevel.values.map((level) {
@@ -203,7 +205,7 @@ class _PriceCalendarState extends State<PriceCalendar> {
               ),
               const SizedBox(width: 4),
               Text(
-                level.label,
+                level.localizedLabel(l),
                 style: const TextStyle(fontSize: 11, color: Colors.grey),
               ),
             ],
@@ -233,7 +235,7 @@ class _PriceCalendarState extends State<PriceCalendar> {
     );
   }
 
-  Widget _buildCalendarGrid(List<DateTime> gridDays) {
+  Widget _buildCalendarGrid(List<DateTime> gridDays, AppLocalizations l) {
     final now = DateTime.now();
     final rows = <Widget>[];
 
@@ -292,15 +294,15 @@ class _PriceCalendarState extends State<PriceCalendar> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         if (isCheckIn)
-                          const Text(
-                            '入住',
-                            style: TextStyle(
+                          Text(
+                            l.checkInLabel,
+                            style: const TextStyle(
                                 fontSize: 8, color: Colors.white70),
                           )
                         else if (isCheckOut)
-                          const Text(
-                            '退房',
-                            style: TextStyle(
+                          Text(
+                            l.checkOutLabel,
+                            style: const TextStyle(
                                 fontSize: 8, color: Colors.white70),
                           ),
                         Text(
@@ -333,7 +335,7 @@ class _PriceCalendarState extends State<PriceCalendar> {
                             !isCheckIn &&
                             !isCheckOut)
                           Text(
-                            '剩${priceInfo.roomsLeft}间',
+                            l.roomsLeft(priceInfo.roomsLeft!),
                             style: const TextStyle(
                               fontSize: 8,
                               color: Color(0xFFF44336),
@@ -352,7 +354,7 @@ class _PriceCalendarState extends State<PriceCalendar> {
     return Column(children: rows);
   }
 
-  Widget _buildPriceSummary() {
+  Widget _buildPriceSummary(AppLocalizations l) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -370,12 +372,12 @@ class _PriceCalendarState extends State<PriceCalendar> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      '入住',
-                      style: TextStyle(fontSize: 12, color: Colors.grey),
+                    Text(
+                      l.checkInLabel,
+                      style: const TextStyle(fontSize: 12, color: Colors.grey),
                     ),
                     Text(
-                      '${_checkInDate!.month}月${_checkInDate!.day}日',
+                      l.monthDay(_checkInDate!.month, _checkInDate!.day),
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -391,12 +393,12 @@ class _PriceCalendarState extends State<PriceCalendar> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        '退房',
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
+                      Text(
+                        l.checkOutLabel,
+                        style: const TextStyle(fontSize: 12, color: Colors.grey),
                       ),
                       Text(
-                        '${_checkOutDate!.month}月${_checkOutDate!.day}日',
+                        l.monthDay(_checkOutDate!.month, _checkOutDate!.day),
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -409,7 +411,7 @@ class _PriceCalendarState extends State<PriceCalendar> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      '$_nightCount晚 共',
+                      l.nightsTotal(_nightCount),
                       style:
                           const TextStyle(fontSize: 12, color: Colors.grey),
                     ),
@@ -424,10 +426,10 @@ class _PriceCalendarState extends State<PriceCalendar> {
                   ],
                 ),
               ] else
-                const Expanded(
+                Expanded(
                   child: Text(
-                    '请选择退房日期',
-                    style: TextStyle(color: Colors.grey),
+                    l.selectCheckOutDate,
+                    style: const TextStyle(color: Colors.grey),
                     textAlign: TextAlign.center,
                   ),
                 ),

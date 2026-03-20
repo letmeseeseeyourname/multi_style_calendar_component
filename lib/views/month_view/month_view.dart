@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../core/models/calendar_config.dart';
 import '../../core/models/calendar_event.dart';
-import '../../core/utils/date_utils.dart';
+import '../../l10n/app_localizations.dart';
 import '../../theme/calendar_theme.dart';
 import 'week_header.dart';
 import 'month_grid.dart';
@@ -117,6 +117,7 @@ class _MonthViewState extends State<MonthView> {
               ? _pageController.page?.round() ?? _initialPageIndex
               : _initialPageIndex;
           final displayMonth = _monthFromPageIndex(page);
+          final l = AppLocalizations.of(context);
 
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -131,7 +132,7 @@ class _MonthViewState extends State<MonthView> {
                 },
               ),
               Text(
-                '${displayMonth.year}年 ${CalendarDateUtils.monthName(displayMonth.month)}',
+                l.yearMonth(displayMonth.year, displayMonth.month),
                 style: theme.headerTextStyle,
               ),
               IconButton(

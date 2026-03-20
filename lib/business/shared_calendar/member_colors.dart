@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 
 /// 成员颜色分配
 class MemberColors {
@@ -103,30 +104,30 @@ List<CalendarMember> generateMockMembers() {
 }
 
 /// 生成模拟共享事件数据
-List<SharedEvent> generateMockSharedEvents() {
+List<SharedEvent> generateMockSharedEvents(AppLocalizations l) {
   final now = DateTime.now();
   return [
     SharedEvent(
       id: 'se1',
-      title: '团队周会',
+      title: l.teamWeekly,
       startTime: DateTime(now.year, now.month, now.day, 10, 0),
       endTime: DateTime(now.year, now.month, now.day, 11, 0),
       creatorId: 'member_0',
       attendeeIds: ['member_1', 'member_2', 'member_3'],
-      location: '会议室A',
+      location: l.meetingRoomA,
     ),
     SharedEvent(
       id: 'se2',
-      title: '项目评审',
+      title: l.projectReview,
       startTime: DateTime(now.year, now.month, now.day + 1, 14, 0),
       endTime: DateTime(now.year, now.month, now.day + 1, 16, 0),
       creatorId: 'member_1',
       attendeeIds: ['member_0', 'member_2'],
-      location: '会议室B',
+      location: l.meetingRoomB,
     ),
     SharedEvent(
       id: 'se3',
-      title: '产品需求讨论',
+      title: l.requirementDiscussion,
       startTime: DateTime(now.year, now.month, now.day + 2, 9, 0),
       endTime: DateTime(now.year, now.month, now.day + 2, 10, 30),
       creatorId: 'member_2',
@@ -134,7 +135,7 @@ List<SharedEvent> generateMockSharedEvents() {
     ),
     SharedEvent(
       id: 'se4',
-      title: '1对1沟通',
+      title: l.oneOnOne,
       startTime: DateTime(now.year, now.month, now.day + 1, 10, 0),
       endTime: DateTime(now.year, now.month, now.day + 1, 11, 0),
       creatorId: 'member_0',
@@ -142,7 +143,7 @@ List<SharedEvent> generateMockSharedEvents() {
     ),
     SharedEvent(
       id: 'se5',
-      title: '代码评审',
+      title: l.codeReview,
       startTime: DateTime(now.year, now.month, now.day + 3, 15, 0),
       endTime: DateTime(now.year, now.month, now.day + 3, 16, 0),
       creatorId: 'member_3',
@@ -150,16 +151,16 @@ List<SharedEvent> generateMockSharedEvents() {
     ),
     SharedEvent(
       id: 'se6',
-      title: '团建活动',
+      title: l.teamBuilding,
       startTime: DateTime(now.year, now.month, now.day + 5, 13, 0),
       endTime: DateTime(now.year, now.month, now.day + 5, 18, 0),
       creatorId: 'member_0',
       attendeeIds: ['member_1', 'member_2', 'member_3'],
-      location: '户外拓展基地',
+      location: l.outdoorVenue,
     ),
     SharedEvent(
       id: 'se7',
-      title: '技术分享',
+      title: l.techSharing,
       startTime: DateTime(now.year, now.month, now.day - 1, 14, 0),
       endTime: DateTime(now.year, now.month, now.day - 1, 15, 0),
       creatorId: 'member_1',

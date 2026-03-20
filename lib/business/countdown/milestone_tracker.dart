@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 
 /// 里程碑数据
 class Milestone {
@@ -46,6 +47,7 @@ class MilestoneTracker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
     final sorted = List<Milestone>.from(milestones)
       ..sort((a, b) => a.targetDate.compareTo(b.targetDate));
 
@@ -65,13 +67,13 @@ class MilestoneTracker extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(
+          Row(
             children: [
-              Icon(Icons.flag, color: Color(0xFFFF5722), size: 20),
-              SizedBox(width: 8),
+              const Icon(Icons.flag, color: Color(0xFFFF5722), size: 20),
+              const SizedBox(width: 8),
               Text(
-                '里程碑',
-                style: TextStyle(
+                l.milestone,
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
@@ -81,6 +83,7 @@ class MilestoneTracker extends StatelessWidget {
           const SizedBox(height: 12),
           ...sorted.map((milestone) => _MilestoneCard(
                 milestone: milestone,
+                l: l,
                 onTap: () => onMilestoneTap?.call(milestone),
               )),
         ],
@@ -91,10 +94,12 @@ class MilestoneTracker extends StatelessWidget {
 
 class _MilestoneCard extends StatelessWidget {
   final Milestone milestone;
+  final AppLocalizations l;
   final VoidCallback? onTap;
 
   const _MilestoneCard({
     required this.milestone,
+    required this.l,
     this.onTap,
   });
 
@@ -143,7 +148,7 @@ class _MilestoneCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    '${milestone.targetDate.month}月${milestone.targetDate.day}日',
+                    l.monthDay(milestone.targetDate.month, milestone.targetDate.day),
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.grey.shade600,
@@ -176,9 +181,9 @@ class _MilestoneCard extends StatelessWidget {
               children: [
                 Text(
                   milestone.isPast
-                      ? '已过'
+                      ? l.passed
                       : milestone.isToday
-                          ? '今天'
+                          ? l.today
                           : '$days',
                   style: TextStyle(
                     fontSize: milestone.isPast || milestone.isToday ? 14 : 22,
@@ -192,7 +197,7 @@ class _MilestoneCard extends StatelessWidget {
                 ),
                 if (!milestone.isPast && !milestone.isToday)
                   Text(
-                    '天',
+                    l.daySuffixUnit,
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.grey.shade600,
@@ -208,42 +213,42 @@ class _MilestoneCard extends StatelessWidget {
 }
 
 /// 生成模拟里程碑数据
-List<Milestone> generateMockMilestones() {
+List<Milestone> generateMockMilestones(AppLocalizations l) {
   final now = DateTime.now();
   return [
     Milestone(
-      title: '项目交付',
+      title: l.projectDelivery,
       targetDate: now.add(const Duration(days: 15)),
       icon: Icons.rocket_launch,
       color: const Color(0xFF2196F3),
-      description: 'V1.0 版本发布',
+      description: l.v1Release,
     ),
     Milestone(
-      title: '年终考核',
+      title: l.yearEndReview,
       targetDate: now.add(const Duration(days: 45)),
       icon: Icons.assessment,
       color: const Color(0xFFFF9800),
-      description: '准备述职报告',
+      description: l.prepareReport,
     ),
     Milestone(
-      title: '假期出发',
+      title: l.vacationStart,
       targetDate: now.add(const Duration(days: 60)),
       icon: Icons.flight,
       color: const Color(0xFF4CAF50),
-      description: '东京旅行',
+      description: l.tokyoTrip,
     ),
     Milestone(
-      title: '生日',
+      title: l.birthday,
       targetDate: now.add(const Duration(days: 90)),
       icon: Icons.cake,
       color: const Color(0xFFE91E63),
     ),
     Milestone(
-      title: '过去的事件',
+      title: l.pastEvent,
       targetDate: now.subtract(const Duration(days: 5)),
       icon: Icons.check_circle,
       color: const Color(0xFF9E9E9E),
-      description: '已完成',
+      description: l.completed,
     ),
   ];
 }

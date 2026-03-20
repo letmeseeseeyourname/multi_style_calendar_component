@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../l10n/app_localizations.dart';
 import 'attendance_status.dart';
 
 /// 月度考勤统计组件
@@ -24,6 +25,7 @@ class AttendanceStats extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
     final counts = _statusCounts;
     final normalDays = counts[AttendanceStatus.normal] ?? 0;
     final lateDays = counts[AttendanceStatus.late] ?? 0;
@@ -52,7 +54,7 @@ class AttendanceStats extends StatelessWidget {
               const Icon(Icons.bar_chart, size: 20, color: Color(0xFF2196F3)),
               const SizedBox(width: 8),
               Text(
-                '${month.month}月考勤统计',
+                l.attendanceStatsTitle(month.month),
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -64,27 +66,27 @@ class AttendanceStats extends StatelessWidget {
           Row(
             children: [
               _StatItem(
-                label: '出勤',
+                label: l.attendanceDays,
                 value: normalDays,
                 color: AttendanceStatus.normal.color,
               ),
               _StatItem(
-                label: '迟到',
+                label: l.late_,
                 value: lateDays,
                 color: AttendanceStatus.late.color,
               ),
               _StatItem(
-                label: '早退',
+                label: l.leaveEarly,
                 value: leaveEarlyDays,
                 color: AttendanceStatus.leaveEarly.color,
               ),
               _StatItem(
-                label: '缺勤',
+                label: l.absent,
                 value: absentDays,
                 color: AttendanceStatus.absent.color,
               ),
               _StatItem(
-                label: '请假',
+                label: l.onLeave,
                 value: leaveDays,
                 color: AttendanceStatus.leave.color,
               ),
@@ -166,9 +168,9 @@ class _AttendanceRateBar extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
-              '出勤率',
-              style: TextStyle(fontSize: 12, color: Colors.grey),
+            Text(
+              AppLocalizations.of(context).attendanceRate,
+              style: const TextStyle(fontSize: 12, color: Colors.grey),
             ),
             Text(
               '$percentage%',

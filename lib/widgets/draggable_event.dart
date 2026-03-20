@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../l10n/app_localizations.dart';
 
 import '../core/models/calendar_event.dart';
 
@@ -58,6 +59,7 @@ class _DraggableEventState extends State<DraggableEvent>
 
   Widget _buildCard({bool isFeedback = false}) {
     final theme = Theme.of(context);
+    final l = AppLocalizations.of(context);
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
@@ -98,7 +100,7 @@ class _DraggableEventState extends State<DraggableEvent>
           if (widget.height == null || (widget.height ?? 0) > 30)
             Text(
               widget.event.isAllDay
-                  ? '全天'
+                  ? l.allDay
                   : '${_formatTime(widget.event.startTime)} - ${_formatTime(widget.event.endTime)}',
               style: theme.textTheme.labelSmall?.copyWith(
                 color: Colors.white70,

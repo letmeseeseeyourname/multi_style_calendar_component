@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../core/utils/date_utils.dart';
+import '../l10n/app_localizations.dart';
 import '../theme/color_schemes.dart';
 
 /// Combined date and time picker dialog.
@@ -105,6 +106,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l = AppLocalizations.of(context);
 
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -126,7 +128,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '选择日期和时间',
+                    l.selectDateTime,
                     style: theme.textTheme.labelMedium?.copyWith(
                       color: Colors.white70,
                     ),
@@ -134,8 +136,8 @@ class _DateTimePickerState extends State<DateTimePicker> {
                   const SizedBox(height: 4),
                   Text(
                     _selectedDate != null
-                        ? '${_selectedDate!.year}年${_selectedDate!.month}月${_selectedDate!.day}日 ${_formatTime()}'
-                        : '未选择',
+                        ? '${l.yearMonthDay(_selectedDate!.year, _selectedDate!.month, _selectedDate!.day)} ${_formatTime()}'
+                        : l.notSelected,
                     style: theme.textTheme.titleMedium?.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -174,7 +176,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
                           ),
                           const SizedBox(width: 6),
                           Text(
-                            '日期',
+                            l.date,
                             style: theme.textTheme.bodyMedium?.copyWith(
                               color: _currentTab == _PickerTab.date
                                   ? CalendarColors.primary
@@ -216,7 +218,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
                           ),
                           const SizedBox(width: 6),
                           Text(
-                            '时间',
+                            l.time,
                             style: theme.textTheme.bodyMedium?.copyWith(
                               color: _currentTab == _PickerTab.time
                                   ? CalendarColors.primary
@@ -249,14 +251,14 @@ class _DateTimePickerState extends State<DateTimePicker> {
                 children: [
                   TextButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('取消'),
+                    child: Text(l.cancel),
                   ),
                   const SizedBox(width: 8),
                   FilledButton(
                     onPressed: _selectedDate != null
                         ? () => Navigator.of(context).pop(_buildResult())
                         : null,
-                    child: const Text('确定'),
+                    child: Text(l.confirm),
                   ),
                 ],
               ),
@@ -268,6 +270,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
   }
 
   Widget _buildDatePicker(ThemeData theme) {
+    final l = AppLocalizations.of(context);
     final now = DateTime.now();
     final gridDays = CalendarDateUtils.daysInMonthGrid(_displayMonth);
 
@@ -286,7 +289,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
                 onPressed: _previousMonth,
               ),
               Text(
-                '${_displayMonth.year}年 ${CalendarDateUtils.monthName(_displayMonth.month)}',
+                l.yearMonth(_displayMonth.year, _displayMonth.month),
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
@@ -307,7 +310,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
               return Expanded(
                 child: Center(
                   child: Text(
-                    CalendarDateUtils.weekdayName(i + 1),
+                    l.weekdayShort(i + 1),
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: isWeekend ? CalendarColors.weekend : null,
                       fontWeight: FontWeight.w600,
@@ -422,7 +425,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
             runSpacing: 8,
             alignment: WrapAlignment.center,
             children: [
-              _quickTimeChip(theme, '现在', () {
+              _quickTimeChip(theme, AppLocalizations.of(context).now, () {
                 final now = DateTime.now();
                 setState(() {
                   _selectedHour = now.hour;

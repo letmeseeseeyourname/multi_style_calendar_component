@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../core/utils/date_utils.dart';
+import '../l10n/app_localizations.dart';
 import '../theme/color_schemes.dart';
 
 /// Single date picker dialog.
@@ -75,6 +76,7 @@ class _SingleDatePickerState extends State<SingleDatePicker> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l = AppLocalizations.of(context);
     final now = DateTime.now();
     final gridDays = CalendarDateUtils.daysInMonthGrid(_displayMonth);
 
@@ -97,7 +99,7 @@ class _SingleDatePickerState extends State<SingleDatePicker> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '选择日期',
+                    l.selectDate,
                     style: theme.textTheme.labelMedium?.copyWith(
                       color: Colors.white70,
                     ),
@@ -105,8 +107,8 @@ class _SingleDatePickerState extends State<SingleDatePicker> {
                   const SizedBox(height: 4),
                   Text(
                     _selectedDate != null
-                        ? '${_selectedDate!.year}年${_selectedDate!.month}月${_selectedDate!.day}日'
-                        : '未选择',
+                        ? l.yearMonthDay(_selectedDate!.year, _selectedDate!.month, _selectedDate!.day)
+                        : l.notSelected,
                     style: theme.textTheme.headlineSmall?.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -126,7 +128,7 @@ class _SingleDatePickerState extends State<SingleDatePicker> {
                     onPressed: _previousMonth,
                   ),
                   Text(
-                    '${_displayMonth.year}年 ${CalendarDateUtils.monthName(_displayMonth.month)}',
+                    l.yearMonth(_displayMonth.year, _displayMonth.month),
                     style: theme.textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
@@ -148,7 +150,7 @@ class _SingleDatePickerState extends State<SingleDatePicker> {
                   return Expanded(
                     child: Center(
                       child: Text(
-                        CalendarDateUtils.weekdayName(i + 1),
+                        l.weekdayShort(i + 1),
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: isWeekend ? CalendarColors.weekend : null,
                           fontWeight: FontWeight.w600,
@@ -224,14 +226,14 @@ class _SingleDatePickerState extends State<SingleDatePicker> {
                 children: [
                   TextButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('取消'),
+                    child: Text(l.cancel),
                   ),
                   const SizedBox(width: 8),
                   FilledButton(
                     onPressed: _selectedDate != null
                         ? () => Navigator.of(context).pop(_selectedDate)
                         : null,
-                    child: const Text('确定'),
+                    child: Text(l.confirm),
                   ),
                 ],
               ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../l10n/app_localizations.dart';
 
 import '../core/models/calendar_event.dart';
 
@@ -39,6 +40,7 @@ class EventPopup extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final l = AppLocalizations.of(context);
     final timeFormat = DateFormat('HH:mm');
     final dateFormat = DateFormat('yyyy-MM-dd');
 
@@ -82,7 +84,7 @@ class EventPopup extends StatelessWidget {
             icon: Icons.access_time,
             child: Text(
               event.isAllDay
-                  ? '全天  ${dateFormat.format(event.startTime)}'
+                  ? '${l.allDay}  ${dateFormat.format(event.startTime)}'
                   : event.isMultiDay
                       ? '${dateFormat.format(event.startTime)} ${timeFormat.format(event.startTime)}'
                           ' - ${dateFormat.format(event.endTime)} ${timeFormat.format(event.endTime)}'
@@ -152,7 +154,7 @@ class EventPopup extends StatelessWidget {
                       onDelete!();
                     },
                     icon: const Icon(Icons.delete_outline, size: 18),
-                    label: const Text('删除'),
+                    label: Text(l.delete_),
                     style: TextButton.styleFrom(
                       foregroundColor: colorScheme.error,
                     ),
@@ -164,7 +166,7 @@ class EventPopup extends StatelessWidget {
                       Navigator.of(context).pop();
                       onEdit!();
                     },
-                    child: const Text('编辑'),
+                    child: Text(l.edit),
                   ),
                 ],
               ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 
 /// 房间类型
 class RoomType {
@@ -40,7 +41,21 @@ class PriceInfo {
 enum PriceLevel { low, normal, high, peak }
 
 extension PriceLevelExtension on PriceLevel {
-  String get label {
+  String get label => localizedLabel(null);
+
+  String localizedLabel(AppLocalizations? l) {
+    if (l != null) {
+      switch (this) {
+        case PriceLevel.low:
+          return l.special;
+        case PriceLevel.normal:
+          return l.normal_;
+        case PriceLevel.high:
+          return l.peakSeason;
+        case PriceLevel.peak:
+          return l.highPeak;
+      }
+    }
     switch (this) {
       case PriceLevel.low:
         return '特惠';
@@ -82,6 +97,7 @@ class RoomAvailabilityWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -99,7 +115,7 @@ class RoomAvailabilityWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '${date.month}月${date.day}日 房型',
+            l.roomTypeTitle(date.month, date.day),
             style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -108,6 +124,7 @@ class RoomAvailabilityWidget extends StatelessWidget {
           const SizedBox(height: 12),
           ...rooms.map((room) => _RoomCard(
                 room: room,
+                l: l,
                 onTap: room.isAvailable
                     ? () => onRoomSelected?.call(room)
                     : null,
@@ -120,9 +137,10 @@ class RoomAvailabilityWidget extends StatelessWidget {
 
 class _RoomCard extends StatelessWidget {
   final RoomType room;
+  final AppLocalizations l;
   final VoidCallback? onTap;
 
-  const _RoomCard({required this.room, this.onTap});
+  const _RoomCard({required this.room, required this.l, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -184,8 +202,8 @@ class _RoomCard extends StatelessWidget {
                   if (room.isAvailable)
                     Text(
                       room.isLowAvailability
-                          ? '仅剩${room.availableRooms}间'
-                          : '剩余${room.availableRooms}间',
+                          ? l.roomsLow(room.availableRooms)
+                          : l.roomsAvailable(room.availableRooms),
                       style: TextStyle(
                         fontSize: 11,
                         color: room.isLowAvailability
@@ -203,7 +221,7 @@ class _RoomCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  room.isAvailable ? '¥${room.basePrice.toInt()}' : '已满',
+                  room.isAvailable ? '¥${room.basePrice.toInt()}' : l.soldOut,
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -213,9 +231,9 @@ class _RoomCard extends StatelessWidget {
                   ),
                 ),
                 if (room.isAvailable)
-                  const Text(
-                    '/晚',
-                    style: TextStyle(fontSize: 11, color: Colors.grey),
+                  Text(
+                    l.perNight,
+                    style: const TextStyle(fontSize: 11, color: Colors.grey),
                   ),
               ],
             ),
@@ -227,32 +245,32 @@ class _RoomCard extends StatelessWidget {
 }
 
 /// 生成模拟房间数据
-List<RoomType> generateMockRooms() {
-  return const [
+List<RoomType> generateMockRooms(AppLocalizations l) {
+  return [
     RoomType(
-      name: '标准大床房',
-      description: '1.8m大床 / 25m² / 含早',
+      name: l.standardRoom,
+      description: l.standardRoomDesc,
       basePrice: 388,
       totalRooms: 20,
       availableRooms: 8,
     ),
     RoomType(
-      name: '豪华双床房',
-      description: '2×1.2m单人床 / 30m² / 含早',
+      name: l.deluxeTwinRoom,
+      description: l.deluxeTwinRoomDesc,
       basePrice: 458,
       totalRooms: 15,
       availableRooms: 2,
     ),
     RoomType(
-      name: '行政套房',
-      description: '1.8m大床 / 45m² / 行政酒廊',
+      name: l.executiveSuite,
+      description: l.executiveSuiteDesc,
       basePrice: 688,
       totalRooms: 8,
       availableRooms: 5,
     ),
     RoomType(
-      name: '总统套房',
-      description: '2.0m大床 / 80m² / 全景',
+      name: l.presidentialSuite,
+      description: l.presidentialSuiteDesc,
       basePrice: 1288,
       totalRooms: 2,
       availableRooms: 0,

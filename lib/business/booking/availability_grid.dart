@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/utils/date_utils.dart';
+import '../../l10n/app_localizations.dart';
 
 /// 周可用性网格组件 - 展示一周内每天各时段的预约情况
 class AvailabilityGrid extends StatelessWidget {
@@ -16,6 +17,7 @@ class AvailabilityGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
     final hours = List.generate(10, (i) => i + 8); // 8:00 - 17:00
 
     return Container(
@@ -34,18 +36,18 @@ class AvailabilityGrid extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            '本周可用时间',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          Text(
+            l.weeklyAvailability,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 4),
           Row(
             children: [
-              _legendDot(const Color(0xFF4CAF50).withValues(alpha: 0.3), '可用'),
+              _legendDot(const Color(0xFF4CAF50).withValues(alpha: 0.3), l.available),
               const SizedBox(width: 12),
-              _legendDot(const Color(0xFFF44336).withValues(alpha: 0.3), '已约'),
+              _legendDot(const Color(0xFFF44336).withValues(alpha: 0.3), l.booked),
               const SizedBox(width: 12),
-              _legendDot(Colors.grey.shade200, '不可用'),
+              _legendDot(Colors.grey.shade200, l.unavailable),
             ],
           ),
           const SizedBox(height: 12),

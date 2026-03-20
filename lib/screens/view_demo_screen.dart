@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 import '../views/month_view/month_view.dart';
 import '../views/week_view/week_view.dart';
 import '../views/day_view/day_view.dart';
@@ -13,21 +14,23 @@ class ViewDemoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+
     return DefaultTabController(
       length: 7,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('视图模式'),
-          bottom: const TabBar(
+          title: Text(l.viewModes),
+          bottom: TabBar(
             isScrollable: true,
             tabs: [
-              Tab(text: '月视图'),
-              Tab(text: '周视图'),
-              Tab(text: '日视图'),
-              Tab(text: '年视图'),
-              Tab(text: '日程列表'),
-              Tab(text: '时间线'),
-              Tab(text: '滚动选择'),
+              Tab(text: l.monthView),
+              Tab(text: l.weekView),
+              Tab(text: l.dayView),
+              Tab(text: l.yearView),
+              Tab(text: l.agendaView),
+              Tab(text: l.timelineView),
+              Tab(text: l.scrollPicker),
             ],
           ),
         ),

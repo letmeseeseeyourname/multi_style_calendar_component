@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 import '../../../core/utils/date_utils.dart';
+import '../../../l10n/app_localizations.dart';
 import 'milestone_tracker.dart';
 
 /// 倒计时日历组件
@@ -16,12 +17,14 @@ class _CountdownCalendarState extends State<CountdownCalendar> {
   late DateTime _targetDate;
   late List<Milestone> _milestones;
 
+  bool _milestonesInitialized = false;
+
   @override
   void initState() {
     super.initState();
     _currentMonth = DateTime(DateTime.now().year, DateTime.now().month, 1);
     _targetDate = DateTime.now().add(const Duration(days: 30));
-    _milestones = generateMockMilestones();
+    _milestones = [];
   }
 
   void _changeMonth(int delta) {
@@ -41,22 +44,27 @@ class _CountdownCalendarState extends State<CountdownCalendar> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    if (!_milestonesInitialized) {
+      _milestones = generateMockMilestones(l);
+      _milestonesInitialized = true;
+    }
     final gridDays = CalendarDateUtils.daysInMonthGrid(_currentMonth);
 
     return SingleChildScrollView(
       child: Column(
       children: [
         // Countdown display
-        _buildCountdownCard(),
+        _buildCountdownCard(l),
         const SizedBox(height: 16),
         // Month header
-        _buildMonthHeader(),
+        _buildMonthHeader(l),
         const SizedBox(height: 8),
         // Weekday header
         _buildWeekdayHeader(),
         const SizedBox(height: 4),
         // Calendar grid
-        _buildCalendarGrid(gridDays),
+        _buildCalendarGrid(gridDays, l),
         const SizedBox(height: 16),
         // Milestones
         MilestoneTracker(milestones: _milestones),
@@ -65,7 +73,7 @@ class _CountdownCalendarState extends State<CountdownCalendar> {
     );
   }
 
-  Widget _buildCountdownCard() {
+  Widget _buildCountdownCard(AppLocalizations l) {
     final days = _daysRemaining;
     final isPast = days < 0;
 
@@ -83,9 +91,9 @@ class _CountdownCalendarState extends State<CountdownCalendar> {
       ),
       child: Column(
         children: [
-          const Text(
-            '目标倒计时',
-            style: TextStyle(color: Colors.white70, fontSize: 14),
+          Text(
+            l.targetCountdown,
+            style: const TextStyle(color: Colors.white70, fontSize: 14),
           ),
           const SizedBox(height: 8),
           Row(
@@ -94,7 +102,7 @@ class _CountdownCalendarState extends State<CountdownCalendar> {
           ),
           const SizedBox(height: 8),
           Text(
-            isPast ? '已过 ${days.abs()} 天' : '距目标还有 $days 天',
+            isPast ? l.daysPassed(days.abs()) : l.daysRemaining(days),
             style: const TextStyle(
               color: Colors.white,
               fontSize: 16,
@@ -103,7 +111,7 @@ class _CountdownCalendarState extends State<CountdownCalendar> {
           ),
           const SizedBox(height: 4),
           Text(
-            '${_targetDate.year}年${_targetDate.month}月${_targetDate.day}日',
+            l.yearMonthDay(_targetDate.year, _targetDate.month, _targetDate.day),
             style: const TextStyle(color: Colors.white60, fontSize: 13),
           ),
           const SizedBox(height: 12),
@@ -161,7 +169,7 @@ class _CountdownCalendarState extends State<CountdownCalendar> {
     }).toList();
   }
 
-  Widget _buildMonthHeader() {
+  Widget _buildMonthHeader(AppLocalizations l) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -170,7 +178,7 @@ class _CountdownCalendarState extends State<CountdownCalendar> {
           icon: const Icon(Icons.chevron_left),
         ),
         Text(
-          '${_currentMonth.year}年${_currentMonth.month}月',
+          l.yearMonth(_currentMonth.year, _currentMonth.month),
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         IconButton(
@@ -201,7 +209,7 @@ class _CountdownCalendarState extends State<CountdownCalendar> {
     );
   }
 
-  Widget _buildCalendarGrid(List<DateTime> gridDays) {
+  Widget _buildCalendarGrid(List<DateTime> gridDays, AppLocalizations l) {
     final now = DateTime.now();
     final rows = <Widget>[];
 
@@ -276,9 +284,9 @@ class _CountdownCalendarState extends State<CountdownCalendar> {
                             ),
                           ),
                           if (isTarget)
-                            const Text(
-                              '目标',
-                              style: TextStyle(
+                            Text(
+                              l.target,
+                              style: const TextStyle(
                                   fontSize: 8, color: Colors.white70),
                             ),
                         ],

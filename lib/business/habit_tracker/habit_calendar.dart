@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/utils/date_utils.dart';
+import '../../l10n/app_localizations.dart';
 import 'streak_counter.dart';
 import 'habit_stats.dart';
 
@@ -88,7 +89,7 @@ class _HabitCalendarState extends State<HabitCalendar> {
           icon: const Icon(Icons.chevron_left),
         ),
         Text(
-          '${_currentMonth.year}年${_currentMonth.month}月',
+          AppLocalizations.of(context).yearMonth(_currentMonth.year, _currentMonth.month),
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         IconButton(

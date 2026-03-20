@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../l10n/app_localizations.dart';
 import 'wheel_picker.dart';
 
 /// 滚动式日期选择器
@@ -87,18 +88,19 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l = AppLocalizations.of(context);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         // 标题
         if (widget.showConfirmButton)
-          _buildHeader(theme),
+          _buildHeader(context, theme),
         // 选中日期预览
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
           child: Text(
-            '$_selectedYear年$_selectedMonth月$_selectedDay日',
+            l.yearMonthDay(_selectedYear, _selectedMonth, _selectedDay),
             style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
             ),
@@ -117,7 +119,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
                     itemCount: _maxYear - _minYear + 1,
                     initialIndex: _selectedYear - _minYear,
                     itemExtent: widget.itemExtent,
-                    labelBuilder: (index) => '${_minYear + index}年',
+                    labelBuilder: (index) => '${_minYear + index}${l.yearSuffix}',
                     onSelectedItemChanged: (index) {
                       setState(() {
                         _selectedYear = _minYear + index;
@@ -134,7 +136,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
                   itemCount: 12,
                   initialIndex: _selectedMonth - 1,
                   itemExtent: widget.itemExtent,
-                  labelBuilder: (index) => '${index + 1}月',
+                  labelBuilder: (index) => '${index + 1}${l.monthSuffix}',
                   onSelectedItemChanged: (index) {
                     setState(() {
                       _selectedMonth = index + 1;
@@ -152,7 +154,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
                   itemCount: _daysInSelectedMonth,
                   initialIndex: (_selectedDay - 1).clamp(0, _daysInSelectedMonth - 1),
                   itemExtent: widget.itemExtent,
-                  labelBuilder: (index) => '${index + 1}日',
+                  labelBuilder: (index) => '${index + 1}${l.daySuffix}',
                   onSelectedItemChanged: (index) {
                     setState(() {
                       _selectedDay = index + 1;
@@ -179,7 +181,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
                   );
                   widget.onConfirm?.call(date);
                 },
-                child: const Text('确认'),
+                child: Text(l.confirmSelection),
               ),
             ),
           ),
@@ -187,7 +189,8 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
     );
   }
 
-  Widget _buildHeader(ThemeData theme) {
+  Widget _buildHeader(BuildContext context, ThemeData theme) {
+    final l = AppLocalizations.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Row(
@@ -195,10 +198,10 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
         children: [
           TextButton(
             onPressed: () => Navigator.of(context).maybePop(),
-            child: const Text('取消'),
+            child: Text(l.cancel),
           ),
           Text(
-            '选择日期',
+            l.selectDate,
             style: theme.textTheme.titleSmall?.copyWith(
               fontWeight: FontWeight.w600,
             ),
@@ -212,7 +215,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
               );
               widget.onConfirm?.call(date);
             },
-            child: const Text('确认'),
+            child: Text(l.confirmSelection),
           ),
         ],
       ),

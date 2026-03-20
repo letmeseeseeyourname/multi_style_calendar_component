@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 import '../styles/classic_grid/classic_grid_style.dart';
 import '../styles/card_style/card_calendar.dart';
 import '../styles/circular/circular_week.dart';
@@ -16,22 +17,24 @@ class StyleDemoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+
     return DefaultTabController(
       length: 8,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('视觉风格'),
-          bottom: const TabBar(
+          title: Text(l.visualStyles),
+          bottom: TabBar(
             isScrollable: true,
             tabs: [
-              Tab(text: '经典网格'),
-              Tab(text: '卡片式'),
-              Tab(text: '圆形'),
-              Tab(text: '热力图'),
-              Tab(text: '翻页'),
-              Tab(text: '极简'),
-              Tab(text: '毛玻璃'),
-              Tab(text: '更多'),
+              Tab(text: l.classicGrid),
+              Tab(text: l.cardStyle),
+              Tab(text: l.circular),
+              Tab(text: l.heatmap),
+              Tab(text: l.flip),
+              Tab(text: l.minimal),
+              Tab(text: l.glassmorphism),
+              Tab(text: l.more),
             ],
           ),
         ),
@@ -39,47 +42,49 @@ class StyleDemoScreen extends StatelessWidget {
           children: [
             const ClassicGridCalendar(),
             const CardCalendar(),
-            _buildCircularTab(),
-            _buildHeatmapTab(),
+            _buildCircularTab(context),
+            _buildHeatmapTab(context),
             const FlipCalendar(),
             const MinimalCalendar(),
             const GlassCalendar(),
-            _buildMoreStylesTab(),
+            _buildMoreStylesTab(context),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildCircularTab() {
+  Widget _buildCircularTab(BuildContext context) {
+    final l = AppLocalizations.of(context);
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        const Text('圆形周视图', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        Text(l.circularWeekView, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         const SizedBox(height: 8),
         const SizedBox(height: 350, child: CircularWeekView()),
         const SizedBox(height: 24),
-        const Text('环形月视图', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        Text(l.ringMonthView, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         const SizedBox(height: 8),
         const SizedBox(height: 350, child: RingMonthView()),
         const SizedBox(height: 24),
-        const Text('时钟式日视图', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        Text(l.clockDayView, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         const SizedBox(height: 8),
         SizedBox(height: 350, child: ClockDayView(date: DateTime.now())),
       ],
     );
   }
 
-  Widget _buildHeatmapTab() {
+  Widget _buildHeatmapTab(BuildContext context) {
+    final l = AppLocalizations.of(context);
     final now = DateTime.now();
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        const Text('GitHub 风格热力图', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        Text(l.githubHeatmap, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         const SizedBox(height: 8),
         SizedBox(height: 200, child: GitHubHeatmap(year: now.year, data: const {})),
         const SizedBox(height: 24),
-        const Text('活动热力图', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        Text(l.activityHeatmap, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         const SizedBox(height: 8),
         SizedBox(
           height: 200,
@@ -93,15 +98,16 @@ class StyleDemoScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildMoreStylesTab() {
+  Widget _buildMoreStylesTab(BuildContext context) {
+    final l = AppLocalizations.of(context);
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        const Text('环形月视图', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        Text(l.ringMonthView, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         const SizedBox(height: 8),
         const SizedBox(height: 350, child: RingMonthView()),
         const SizedBox(height: 24),
-        const Text('时钟日视图', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        Text(l.clockDayView, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         const SizedBox(height: 8),
         SizedBox(height: 350, child: ClockDayView(date: DateTime.now())),
       ],

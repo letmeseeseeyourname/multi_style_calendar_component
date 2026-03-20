@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 
 import '../core/utils/lunar_utils.dart';
 
@@ -106,6 +107,7 @@ class LunarInfoDetailBadge extends StatelessWidget {
   void _showLunarDetail(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final l = AppLocalizations.of(context);
     final lunar = LunarUtils.fromDate(date);
 
     final dayInChinese = lunar.getDayInChinese();
@@ -130,14 +132,14 @@ class LunarInfoDetailBadge extends StatelessWidget {
           children: [
             // Lunar date header
             Text(
-              '${monthInChinese}月$dayInChinese',
+              '$monthInChinese${l.monthSuffix}$dayInChinese',
               style: theme.textTheme.headlineMedium?.copyWith(
                 fontWeight: FontWeight.w700,
               ),
             ),
             const SizedBox(height: 8),
             Text(
-              '$yearInGanZhi年  $dayInGanZhi日  $zodiac',
+              '$yearInGanZhi${l.yearSuffix}  $dayInGanZhi${l.daySuffix}  $zodiac',
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: colorScheme.onSurfaceVariant,
               ),
@@ -147,7 +149,7 @@ class LunarInfoDetailBadge extends StatelessWidget {
             if (jieQi != null) ...[
               const SizedBox(height: 12),
               Chip(
-                label: Text('节气: ${jieQi.getName()}'),
+                label: Text('${l.solarTerm}: ${jieQi.getName()}'),
                 avatar: const Icon(Icons.wb_sunny, size: 16),
                 backgroundColor: colorScheme.tertiaryContainer,
                 labelStyle: TextStyle(color: colorScheme.onTertiaryContainer),
@@ -183,8 +185,8 @@ class LunarInfoDetailBadge extends StatelessWidget {
                       color: Colors.green.shade100,
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: const Text('宜',
-                        style: TextStyle(
+                    child: Text(l.suitable,
+                        style: const TextStyle(
                             color: Colors.green, fontWeight: FontWeight.bold)),
                   ),
                   const SizedBox(width: 8),
@@ -215,8 +217,8 @@ class LunarInfoDetailBadge extends StatelessWidget {
                       color: Colors.red.shade100,
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: const Text('忌',
-                        style: TextStyle(
+                    child: Text(l.avoid,
+                        style: const TextStyle(
                             color: Colors.red, fontWeight: FontWeight.bold)),
                   ),
                   const SizedBox(width: 8),

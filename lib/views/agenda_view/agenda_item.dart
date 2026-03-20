@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/models/calendar_event.dart';
+import '../../l10n/app_localizations.dart';
 
 /// 日程列表中的单个事件项
 class AgendaItem extends StatelessWidget {
@@ -47,7 +48,7 @@ class AgendaItem extends StatelessWidget {
               // 时间列
               SizedBox(
                 width: 56,
-                child: _buildTimeColumn(theme),
+                child: _buildTimeColumn(context, theme),
               ),
               const SizedBox(width: 12),
               // 内容列
@@ -68,10 +69,10 @@ class AgendaItem extends StatelessWidget {
     );
   }
 
-  Widget _buildTimeColumn(ThemeData theme) {
+  Widget _buildTimeColumn(BuildContext context, ThemeData theme) {
     if (event.isAllDay) {
       return Text(
-        '全天',
+        AppLocalizations.of(context).allDay,
         style: theme.textTheme.labelMedium?.copyWith(
           color: event.color,
           fontWeight: FontWeight.w600,

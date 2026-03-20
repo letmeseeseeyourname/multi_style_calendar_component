@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../core/models/date_range.dart';
 import '../core/utils/date_utils.dart';
+import '../l10n/app_localizations.dart';
 import '../theme/color_schemes.dart';
 
 /// Date range picker dialog.
@@ -114,16 +115,19 @@ class _DateRangePickerState extends State<DateRangePicker> {
     });
   }
 
-  String _formatHeader() {
-    if (_startDate == null) return '选择开始日期';
-    if (_endDate == null) return '${_startDate!.month}月${_startDate!.day}日 - 选择结束日期';
+  String _formatHeader(AppLocalizations l) {
+    if (_startDate == null) return l.selectStartDate;
+    if (_endDate == null) {
+      return '${l.monthDay(_startDate!.month, _startDate!.day)}${l.selectEndDate(0)}';
+    }
     final days = _endDate!.difference(_startDate!).inDays + 1;
-    return '${_startDate!.month}月${_startDate!.day}日 - ${_endDate!.month}月${_endDate!.day}日 (${days}天)';
+    return '${l.monthDay(_startDate!.month, _startDate!.day)} - ${l.monthDay(_endDate!.month, _endDate!.day)} (${l.nDays(days)})';
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l = AppLocalizations.of(context);
     final now = DateTime.now();
     final gridDays = CalendarDateUtils.daysInMonthGrid(_displayMonth);
 
@@ -147,14 +151,14 @@ class _DateRangePickerState extends State<DateRangePicker> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '选择日期范围',
+                    l.selectRange,
                     style: theme.textTheme.labelMedium?.copyWith(
                       color: Colors.white70,
                     ),
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    _formatHeader(),
+                    _formatHeader(l),
                     style: theme.textTheme.titleMedium?.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -174,7 +178,7 @@ class _DateRangePickerState extends State<DateRangePicker> {
                     onPressed: _previousMonth,
                   ),
                   Text(
-                    '${_displayMonth.year}年 ${CalendarDateUtils.monthName(_displayMonth.month)}',
+                    l.yearMonth(_displayMonth.year, _displayMonth.month),
                     style: theme.textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
@@ -195,7 +199,7 @@ class _DateRangePickerState extends State<DateRangePicker> {
                   return Expanded(
                     child: Center(
                       child: Text(
-                        CalendarDateUtils.weekdayName(i + 1),
+                        l.weekdayShort(i + 1),
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: isWeekend ? CalendarColors.weekend : null,
                           fontWeight: FontWeight.w600,
@@ -311,7 +315,7 @@ class _DateRangePickerState extends State<DateRangePicker> {
                 children: [
                   TextButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('取消'),
+                    child: Text(l.cancel),
                   ),
                   const SizedBox(width: 8),
                   FilledButton(
@@ -319,7 +323,7 @@ class _DateRangePickerState extends State<DateRangePicker> {
                         ? () => Navigator.of(context)
                             .pop(DateRange(_startDate!, _endDate!))
                         : null,
-                    child: const Text('确定'),
+                    child: Text(l.confirm),
                   ),
                 ],
               ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/utils/date_utils.dart';
+import '../../../l10n/app_localizations.dart';
 import 'member_colors.dart';
 import 'conflict_detector.dart';
 
@@ -18,14 +19,14 @@ class _SharedCalendarState extends State<SharedCalendar> {
   late List<SharedEvent> _events;
   final Set<String> _visibleMemberIds = {};
 
+  bool _dataInitialized = false;
+
   @override
   void initState() {
     super.initState();
     _currentMonth = DateTime(DateTime.now().year, DateTime.now().month, 1);
-    _members = generateMockMembers();
-    _events = generateMockSharedEvents();
-    // All members visible by default
-    _visibleMemberIds.addAll(_members.map((m) => m.id));
+    _members = [];
+    _events = [];
   }
 
   void _changeMonth(int delta) {
@@ -54,16 +55,23 @@ class _SharedCalendarState extends State<SharedCalendar> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    if (!_dataInitialized) {
+      _members = generateMockMembers();
+      _events = generateMockSharedEvents(l);
+      _visibleMemberIds.addAll(_members.map((m) => m.id));
+      _dataInitialized = true;
+    }
     final gridDays = CalendarDateUtils.daysInMonthGrid(_currentMonth);
 
     return SingleChildScrollView(
       child: Column(
       children: [
         // Member filter
-        _buildMemberFilter(),
+        _buildMemberFilter(l),
         const SizedBox(height: 12),
         // Month header
-        _buildMonthHeader(),
+        _buildMonthHeader(l),
         const SizedBox(height: 8),
         // Weekday header
         _buildWeekdayHeader(),
@@ -73,14 +81,14 @@ class _SharedCalendarState extends State<SharedCalendar> {
         // Selected date events
         if (_selectedDate != null) ...[
           const SizedBox(height: 16),
-          _buildDayEvents(),
+          _buildDayEvents(l),
         ],
       ],
     ),
     );
   }
 
-  Widget _buildMemberFilter() {
+  Widget _buildMemberFilter(AppLocalizations l) {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -97,13 +105,13 @@ class _SharedCalendarState extends State<SharedCalendar> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(
+          Row(
             children: [
-              Icon(Icons.people, size: 18, color: Color(0xFF2196F3)),
-              SizedBox(width: 6),
+              const Icon(Icons.people, size: 18, color: Color(0xFF2196F3)),
+              const SizedBox(width: 6),
               Text(
-                '成员日历',
-                style: TextStyle(
+                l.memberCalendar,
+                style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                 ),
@@ -170,7 +178,7 @@ class _SharedCalendarState extends State<SharedCalendar> {
     );
   }
 
-  Widget _buildMonthHeader() {
+  Widget _buildMonthHeader(AppLocalizations l) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -179,7 +187,7 @@ class _SharedCalendarState extends State<SharedCalendar> {
           icon: const Icon(Icons.chevron_left),
         ),
         Text(
-          '${_currentMonth.year}年${_currentMonth.month}月',
+          l.yearMonth(_currentMonth.year, _currentMonth.month),
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         IconButton(
@@ -323,7 +331,7 @@ class _SharedCalendarState extends State<SharedCalendar> {
     return Column(children: rows);
   }
 
-  Widget _buildDayEvents() {
+  Widget _buildDayEvents(AppLocalizations l) {
     final dayEvents = _getEventsOnDate(_selectedDate!);
     final conflicts =
         ConflictDetector.findConflictsOnDate(_events, _selectedDate!);
@@ -345,7 +353,7 @@ class _SharedCalendarState extends State<SharedCalendar> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '${_selectedDate!.month}月${_selectedDate!.day}日 日程',
+            l.daySchedule(_selectedDate!.month, _selectedDate!.day),
             style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -375,7 +383,7 @@ class _SharedCalendarState extends State<SharedCalendar> {
                             .map((id) => _getMember(id)?.name ?? id)
                             .join(', ');
                         return Text(
-                          '${c.eventA.title} 与 ${c.eventB.title} 冲突 (${c.overlapText}, $memberNames)',
+                          l.conflictText(c.eventA.title, c.eventB.title, c.localizedOverlapText(l), memberNames),
                           style: const TextStyle(
                             fontSize: 11,
                             color: Color(0xFFF44336),
@@ -390,10 +398,10 @@ class _SharedCalendarState extends State<SharedCalendar> {
           ],
           const SizedBox(height: 12),
           if (dayEvents.isEmpty)
-            const Center(
+            Center(
               child: Padding(
-                padding: EdgeInsets.all(16),
-                child: Text('暂无日程', style: TextStyle(color: Colors.grey)),
+                padding: const EdgeInsets.all(16),
+                child: Text(l.noEvents, style: const TextStyle(color: Colors.grey)),
               ),
             )
           else
@@ -471,7 +479,7 @@ class _SharedCalendarState extends State<SharedCalendar> {
                     Row(
                       children: [
                         Text(
-                          '参与者: ',
+                          l.attendees,
                           style: TextStyle(
                             fontSize: 11,
                             color: Colors.grey.shade500,

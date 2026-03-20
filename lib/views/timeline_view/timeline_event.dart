@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/models/calendar_event.dart';
+import '../../l10n/app_localizations.dart';
 
 /// 时间线视图中的事件条
 class TimelineEvent extends StatelessWidget {
@@ -29,6 +30,7 @@ class TimelineEvent extends StatelessWidget {
     // 确定亮度以自动选择文字颜色
     final luminance = event.color.computeLuminance();
     final textColor = luminance > 0.5 ? Colors.black87 : Colors.white;
+    final l = AppLocalizations.of(context);
 
     return GestureDetector(
       onTap: onTap,
@@ -65,7 +67,7 @@ class TimelineEvent extends StatelessWidget {
               ),
               if (width > 80 && event.duration.inDays > 0)
                 Text(
-                  '${event.duration.inDays + 1}天',
+                  l.nDays(event.duration.inDays + 1),
                   style: TextStyle(
                     fontSize: 9,
                     color: textColor.withValues(alpha: 0.7),

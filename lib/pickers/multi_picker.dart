@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../core/utils/date_utils.dart';
+import '../l10n/app_localizations.dart';
 import '../theme/color_schemes.dart';
 
 /// Multi-select date picker dialog.
@@ -104,6 +105,7 @@ class _MultiDatePickerState extends State<MultiDatePicker> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l = AppLocalizations.of(context);
     final now = DateTime.now();
     final gridDays = CalendarDateUtils.daysInMonthGrid(_displayMonth);
 
@@ -127,14 +129,14 @@ class _MultiDatePickerState extends State<MultiDatePicker> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '选择多个日期',
+                    l.selectMultiDates,
                     style: theme.textTheme.labelMedium?.copyWith(
                       color: Colors.white70,
                     ),
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    '已选择 ${_selectedDates.length} 天',
+                    l.selectedCount(_selectedDates.length),
                     style: theme.textTheme.headlineSmall?.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -154,7 +156,7 @@ class _MultiDatePickerState extends State<MultiDatePicker> {
                     onPressed: _previousMonth,
                   ),
                   Text(
-                    '${_displayMonth.year}年 ${CalendarDateUtils.monthName(_displayMonth.month)}',
+                    l.yearMonth(_displayMonth.year, _displayMonth.month),
                     style: theme.textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
@@ -175,7 +177,7 @@ class _MultiDatePickerState extends State<MultiDatePicker> {
                   return Expanded(
                     child: Center(
                       child: Text(
-                        CalendarDateUtils.weekdayName(i + 1),
+                        l.weekdayShort(i + 1),
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: isWeekend ? CalendarColors.weekend : null,
                           fontWeight: FontWeight.w600,
@@ -254,19 +256,19 @@ class _MultiDatePickerState extends State<MultiDatePicker> {
                 children: [
                   TextButton(
                     onPressed: () => setState(() => _selectedDates.clear()),
-                    child: const Text('清空'),
+                    child: Text(l.clear),
                   ),
                   const Spacer(),
                   TextButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('取消'),
+                    child: Text(l.cancel),
                   ),
                   const SizedBox(width: 8),
                   FilledButton(
                     onPressed: _selectedDates.isNotEmpty
                         ? () => Navigator.of(context).pop(_selectedDates)
                         : null,
-                    child: const Text('确定'),
+                    child: Text(l.confirm),
                   ),
                 ],
               ),

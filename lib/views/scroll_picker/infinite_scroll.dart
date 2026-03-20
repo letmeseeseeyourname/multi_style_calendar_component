@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/models/calendar_date.dart';
 import '../../core/utils/date_utils.dart';
+import '../../l10n/app_localizations.dart';
 import '../../theme/color_schemes.dart';
 
 /// 无限滚动日期列表
@@ -131,7 +132,7 @@ class _InfiniteScrollDateListState extends State<InfiniteScrollDateList> {
         child: TextButton.icon(
           onPressed: _scrollToToday,
           icon: const Icon(Icons.today, size: 16),
-          label: const Text('今天'),
+          label: Text(AppLocalizations.of(context).today),
           style: TextButton.styleFrom(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
             textStyle: theme.textTheme.labelMedium,
@@ -175,7 +176,7 @@ class _InfiniteScrollDateListState extends State<InfiniteScrollDateList> {
             width: double.infinity,
             padding: const EdgeInsets.only(left: 16, top: 4),
             child: Text(
-              '${date.year}年${date.month}月',
+              AppLocalizations.of(context).yearMonth(date.year, date.month),
               style: theme.textTheme.labelSmall?.copyWith(
                 color: CalendarColors.primary,
                 fontWeight: FontWeight.w600,
@@ -259,8 +260,8 @@ class _InfiniteScrollDateListState extends State<InfiniteScrollDateList> {
                           color: CalendarColors.today,
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: const Text(
-                          '今天',
+                        child: Text(
+                          AppLocalizations.of(context).today,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 11,

@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import '../../core/models/calendar_event.dart';
+import '../../l10n/app_localizations.dart';
 import '../../theme/color_schemes.dart';
 
 /// Clock-style day view: 12/24 hour positions around a circle
@@ -47,6 +48,7 @@ class _ClockDayViewState extends State<ClockDayView>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l = AppLocalizations.of(context);
     final totalHours = widget.use24Hour ? 24 : 12;
 
     return Column(
@@ -56,7 +58,7 @@ class _ClockDayViewState extends State<ClockDayView>
         Padding(
           padding: const EdgeInsets.only(bottom: 16),
           child: Text(
-            '${widget.date.year}年${widget.date.month}月${widget.date.day}日',
+            l.yearMonthDay(widget.date.year, widget.date.month, widget.date.day),
             style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.w600,
             ),
@@ -86,7 +88,7 @@ class _ClockDayViewState extends State<ClockDayView>
                   alignment: Alignment.center,
                   children: [
                     // Center info
-                    _buildCenterInfo(theme),
+                    _buildCenterInfo(context, theme),
                     // Hour labels
                     ...List.generate(totalHours, (i) {
                       final hour = widget.use24Hour ? i : (i == 0 ? 12 : i);
@@ -122,7 +124,8 @@ class _ClockDayViewState extends State<ClockDayView>
     );
   }
 
-  Widget _buildCenterInfo(ThemeData theme) {
+  Widget _buildCenterInfo(BuildContext context, ThemeData theme) {
+    final l = AppLocalizations.of(context);
     final now = DateTime.now();
     final isToday = widget.date.year == now.year &&
         widget.date.month == now.month &&
@@ -144,7 +147,7 @@ class _ClockDayViewState extends State<ClockDayView>
             style: theme.textTheme.bodySmall?.copyWith(color: Colors.grey),
           ),
         Text(
-          '${widget.events.length} 事件',
+          l.nEvents(widget.events.length),
           style: theme.textTheme.bodySmall?.copyWith(
             color: Colors.grey,
           ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/models/calendar_config.dart';
 import '../../core/models/calendar_event.dart';
 import '../../core/utils/date_utils.dart';
+import '../../l10n/app_localizations.dart';
 import '../../theme/color_schemes.dart';
 import 'event_card.dart';
 import 'hour_row.dart';
@@ -190,6 +191,7 @@ class _DayHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l = AppLocalizations.of(context);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -218,7 +220,7 @@ class _DayHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                CalendarDateUtils.weekdayName(date.weekday, short: false),
+                l.weekdayLong(date.weekday),
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: isToday
                       ? CalendarColors.today
@@ -227,7 +229,7 @@ class _DayHeader extends StatelessWidget {
                 ),
               ),
               Text(
-                '${date.year}年${date.month}月${date.day}日',
+                l.yearMonthDay(date.year, date.month, date.day),
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                 ),
@@ -242,9 +244,9 @@ class _DayHeader extends StatelessWidget {
                 color: CalendarColors.today.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Text(
-                '今天',
-                style: TextStyle(
+              child: Text(
+                l.today,
+                style: const TextStyle(
                   color: CalendarColors.today,
                   fontSize: 12,
                   fontWeight: FontWeight.w600,

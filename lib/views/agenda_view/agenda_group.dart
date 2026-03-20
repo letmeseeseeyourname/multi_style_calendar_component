@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/utils/date_utils.dart';
+import '../../l10n/app_localizations.dart';
 import '../../theme/color_schemes.dart';
 
 /// 日程列表中的日期分组头
@@ -24,6 +25,7 @@ class AgendaGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l = AppLocalizations.of(context);
     final now = DateTime.now();
     final today = CalendarDateUtils.dateOnly(now);
     final dateOnly = CalendarDateUtils.dateOnly(date);
@@ -75,7 +77,7 @@ class AgendaGroup extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        _getRelativeLabel(isToday, isTomorrow, isYesterday),
+                        _getRelativeLabel(l, isToday, isTomorrow, isYesterday),
                         style: theme.textTheme.bodyMedium?.copyWith(
                           fontWeight: FontWeight.w600,
                           color: isToday ? CalendarColors.today : null,
@@ -83,7 +85,7 @@ class AgendaGroup extends StatelessWidget {
                       ),
                       const SizedBox(width: 6),
                       Text(
-                        '${CalendarDateUtils.weekdayName(date.weekday, short: false)}',
+                        l.weekdayLong(date.weekday),
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: theme.hintColor,
                         ),
@@ -91,7 +93,7 @@ class AgendaGroup extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    '${date.year}年${date.month}月${date.day}日',
+                    l.yearMonthDay(date.year, date.month, date.day),
                     style: theme.textTheme.labelSmall?.copyWith(
                       color: theme.hintColor,
                     ),
@@ -110,7 +112,7 @@ class AgendaGroup extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Text(
-                  '$eventCount 项',
+                  l.nItems(eventCount),
                   style: theme.textTheme.labelSmall?.copyWith(
                     color: isToday ? CalendarColors.today : theme.hintColor,
                     fontWeight: FontWeight.w500,
@@ -123,10 +125,10 @@ class AgendaGroup extends StatelessWidget {
     );
   }
 
-  String _getRelativeLabel(bool isToday, bool isTomorrow, bool isYesterday) {
-    if (isToday) return '今天';
-    if (isTomorrow) return '明天';
-    if (isYesterday) return '昨天';
-    return '${date.month}月${date.day}日';
+  String _getRelativeLabel(AppLocalizations l, bool isToday, bool isTomorrow, bool isYesterday) {
+    if (isToday) return l.today;
+    if (isTomorrow) return l.tomorrow;
+    if (isYesterday) return l.yesterday;
+    return l.monthDay(date.month, date.day);
   }
 }

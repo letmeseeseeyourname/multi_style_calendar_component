@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
+import '../l10n/app_localizations.dart';
 
 import '../core/models/calendar_event.dart';
 
@@ -141,8 +142,9 @@ class _EventFormState extends State<EventForm> {
         : _combineDateAndTime(_endDate, _endTime);
 
     if (endDateTime.isBefore(startDateTime)) {
+      final l = AppLocalizations.of(context);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('结束时间不能早于开始时间')),
+        SnackBar(content: Text(l.endBeforeStart)),
       );
       return;
     }
@@ -169,6 +171,7 @@ class _EventFormState extends State<EventForm> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final l = AppLocalizations.of(context);
     final dateFormat = DateFormat('yyyy-MM-dd');
 
     return Form(
@@ -180,7 +183,7 @@ class _EventFormState extends State<EventForm> {
           children: [
             // Header
             Text(
-              _isEditing ? '编辑事件' : '新建事件',
+              _isEditing ? l.editEvent : l.newEvent,
               style: theme.textTheme.headlineSmall?.copyWith(
                 fontWeight: FontWeight.w600,
               ),
@@ -190,15 +193,15 @@ class _EventFormState extends State<EventForm> {
             // Title
             TextFormField(
               controller: _titleController,
-              decoration: const InputDecoration(
-                labelText: '标题',
-                hintText: '输入事件标题',
-                prefixIcon: Icon(Icons.title),
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: l.title_,
+                hintText: l.enterTitle,
+                prefixIcon: const Icon(Icons.title),
+                border: const OutlineInputBorder(),
               ),
               validator: (value) {
                 if (value == null || value.trim().isEmpty) {
-                  return '请输入事件标题';
+                  return l.titleRequired;
                 }
                 return null;
               },
@@ -208,7 +211,7 @@ class _EventFormState extends State<EventForm> {
 
             // All-day toggle
             SwitchListTile(
-              title: const Text('全天事件'),
+              title: Text(l.allDayEvent),
               value: _isAllDay,
               onChanged: (value) => setState(() => _isAllDay = value),
               secondary: const Icon(Icons.wb_sunny_outlined),
@@ -217,7 +220,7 @@ class _EventFormState extends State<EventForm> {
             const SizedBox(height: 8),
 
             // Start date/time
-            Text('开始', style: theme.textTheme.labelLarge),
+            Text(l.start, style: theme.textTheme.labelLarge),
             const SizedBox(height: 8),
             Row(
               children: [
@@ -243,7 +246,7 @@ class _EventFormState extends State<EventForm> {
             const SizedBox(height: 16),
 
             // End date/time
-            Text('结束', style: theme.textTheme.labelLarge),
+            Text(l.end, style: theme.textTheme.labelLarge),
             const SizedBox(height: 8),
             Row(
               children: [
@@ -271,11 +274,11 @@ class _EventFormState extends State<EventForm> {
             // Location
             TextFormField(
               controller: _locationController,
-              decoration: const InputDecoration(
-                labelText: '地点',
-                hintText: '输入地点（可选）',
-                prefixIcon: Icon(Icons.location_on_outlined),
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: l.location,
+                hintText: l.enterLocation,
+                prefixIcon: const Icon(Icons.location_on_outlined),
+                border: const OutlineInputBorder(),
               ),
               textInputAction: TextInputAction.next,
             ),
@@ -284,11 +287,11 @@ class _EventFormState extends State<EventForm> {
             // Description
             TextFormField(
               controller: _descriptionController,
-              decoration: const InputDecoration(
-                labelText: '描述',
-                hintText: '输入事件描述（可选）',
-                prefixIcon: Icon(Icons.notes),
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: l.description,
+                hintText: l.enterDescription,
+                prefixIcon: const Icon(Icons.notes),
+                border: const OutlineInputBorder(),
                 alignLabelWithHint: true,
               ),
               maxLines: 3,
@@ -297,7 +300,7 @@ class _EventFormState extends State<EventForm> {
             const SizedBox(height: 20),
 
             // Color picker
-            Text('颜色', style: theme.textTheme.labelLarge),
+            Text(l.color, style: theme.textTheme.labelLarge),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -344,7 +347,7 @@ class _EventFormState extends State<EventForm> {
                 Expanded(
                   child: OutlinedButton(
                     onPressed: widget.onCancel ?? () => Navigator.of(context).pop(),
-                    child: const Text('取消'),
+                    child: Text(l.cancel),
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -352,7 +355,7 @@ class _EventFormState extends State<EventForm> {
                   flex: 2,
                   child: FilledButton(
                     onPressed: _save,
-                    child: Text(_isEditing ? '保存修改' : '创建事件'),
+                    child: Text(_isEditing ? l.saveChanges : l.createEvent),
                   ),
                 ),
               ],

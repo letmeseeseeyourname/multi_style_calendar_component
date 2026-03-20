@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 import '../core/models/calendar_config.dart';
 import '../core/models/calendar_date.dart';
 import '../core/utils/date_utils.dart';
@@ -31,10 +32,11 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('自由配置'),
+        title: Text(l.playground),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
@@ -50,9 +52,9 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
             color: theme.colorScheme.surfaceContainerHighest,
             child: Row(
               children: [
-                Chip(label: Text('农历: ${_showLunar ? "开" : "关"}')),
+                Chip(label: Text('${l.lunarLabel}: ${_showLunar ? l.on_ : l.off_}')),
                 const SizedBox(width: 8),
-                Chip(label: Text('起始: 周${_firstDayOfWeek == 1 ? "一" : "日"}')),
+                Chip(label: Text('${l.startLabel}: ${_firstDayOfWeek == 1 ? l.monday : l.sunday}')),
                 const SizedBox(width: 8),
                 Chip(label: Text(_selectionMode.name)),
               ],
@@ -80,7 +82,7 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
                     setState(() => _currentMonth = DateTime.now());
                   },
                   child: Text(
-                    '${_currentMonth.year}年${_currentMonth.month}月',
+                    l.yearMonth(_currentMonth.year, _currentMonth.month),
                     style: theme.textTheme.titleLarge,
                   ),
                 ),
@@ -276,15 +278,16 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
   }
 
   String _getSelectionText() {
+    final l = AppLocalizations.of(context);
     switch (_selectionMode) {
       case SelectionMode.single:
         if (_selectedDate == null) return '';
-        return '已选: ${_selectedDate!.month}/${_selectedDate!.day}';
+        return l.selectedLabel('${_selectedDate!.month}/${_selectedDate!.day}');
       case SelectionMode.multiple:
-        return '已选 ${_multiSelected.length} 个日期';
+        return l.nSelected(_multiSelected.length);
       case SelectionMode.range:
         if (_rangeStart == null) return '';
-        if (_rangeEnd == null) return '起始: ${_rangeStart!.month}/${_rangeStart!.day}';
+        if (_rangeEnd == null) return l.startingFrom('${_rangeStart!.month}/${_rangeStart!.day}');
         return '${_rangeStart!.month}/${_rangeStart!.day} ~ ${_rangeEnd!.month}/${_rangeEnd!.day}';
       case SelectionMode.none:
         return '';
@@ -297,16 +300,17 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
       builder: (context) {
         return StatefulBuilder(
           builder: (context, setSheetState) {
+            final l = AppLocalizations.of(context);
             return Padding(
               padding: const EdgeInsets.all(24),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('配置', style: Theme.of(context).textTheme.titleLarge),
+                  Text(l.configuration, style: Theme.of(context).textTheme.titleLarge),
                   const SizedBox(height: 16),
                   SwitchListTile(
-                    title: const Text('显示农历'),
+                    title: Text(l.showLunar),
                     value: _showLunar,
                     onChanged: (v) {
                       setSheetState(() => _showLunar = v);
@@ -314,7 +318,7 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
                     },
                   ),
                   SwitchListTile(
-                    title: const Text('周末标红'),
+                    title: Text(l.highlightWeekend),
                     value: _showWeekend,
                     onChanged: (v) {
                       setSheetState(() => _showWeekend = v);
@@ -322,11 +326,11 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
                     },
                   ),
                   ListTile(
-                    title: const Text('周起始日'),
+                    title: Text(l.weekStartDay),
                     trailing: SegmentedButton<int>(
-                      segments: const [
-                        ButtonSegment(value: 1, label: Text('周一')),
-                        ButtonSegment(value: 7, label: Text('周日')),
+                      segments: [
+                        ButtonSegment(value: 1, label: Text(l.monday)),
+                        ButtonSegment(value: 7, label: Text(l.sunday)),
                       ],
                       selected: {_firstDayOfWeek},
                       onSelectionChanged: (v) {
@@ -336,7 +340,7 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
                     ),
                   ),
                   ListTile(
-                    title: const Text('选择模式'),
+                    title: Text(l.selectionMode),
                     trailing: DropdownButton<SelectionMode>(
                       value: _selectionMode,
                       items: SelectionMode.values.map((m) {

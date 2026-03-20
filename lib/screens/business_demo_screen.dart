@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 import '../business/attendance/attendance_calendar.dart';
 import '../business/habit_tracker/habit_calendar.dart';
 import '../business/booking/booking_calendar.dart';
@@ -14,22 +15,24 @@ class BusinessDemoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+
     return DefaultTabController(
       length: 8,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('业务场景'),
-          bottom: const TabBar(
+          title: Text(l.businessScenarios),
+          bottom: TabBar(
             isScrollable: true,
             tabs: [
-              Tab(text: '考勤'),
-              Tab(text: '习惯追踪'),
-              Tab(text: '预约'),
-              Tab(text: '酒店价格'),
-              Tab(text: '农历'),
-              Tab(text: '倒计时'),
-              Tab(text: '共享日历'),
-              Tab(text: '经期追踪'),
+              Tab(text: l.attendance),
+              Tab(text: l.habitTracker),
+              Tab(text: l.booking),
+              Tab(text: l.hotelPricing),
+              Tab(text: l.lunarCalendar),
+              Tab(text: l.countdown),
+              Tab(text: l.sharedCalendar),
+              Tab(text: l.periodTracker),
             ],
           ),
         ),

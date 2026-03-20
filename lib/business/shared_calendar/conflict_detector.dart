@@ -1,3 +1,4 @@
+import '../../../l10n/app_localizations.dart';
 import 'member_colors.dart';
 
 /// 时间冲突信息
@@ -30,6 +31,10 @@ class ConflictInfo {
       return remaining > 0 ? '$hours小时${remaining}分钟' : '$hours小时';
     }
     return '$minutes分钟';
+  }
+
+  String localizedOverlapText(AppLocalizations l) {
+    return l.durationText(overlapDuration.inMinutes);
   }
 }
 

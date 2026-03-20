@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 import '../theme/color_schemes.dart';
 
 /// Year picker dialog.
@@ -70,6 +71,7 @@ class _YearPickerState extends State<YearPicker> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l = AppLocalizations.of(context);
     final currentYear = DateTime.now().year;
 
     return Dialog(
@@ -92,14 +94,14 @@ class _YearPickerState extends State<YearPicker> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '选择年份',
+                    l.selectYear,
                     style: theme.textTheme.labelMedium?.copyWith(
                       color: Colors.white70,
                     ),
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    '$_selectedYear年',
+                    '$_selectedYear${l.yearSuffix}',
                     style: theme.textTheme.headlineSmall?.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -200,13 +202,13 @@ class _YearPickerState extends State<YearPicker> {
                 children: [
                   TextButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('取消'),
+                    child: Text(l.cancel),
                   ),
                   const SizedBox(width: 8),
                   FilledButton(
                     onPressed: () => Navigator.of(context)
                         .pop(DateTime(_selectedYear)),
-                    child: const Text('确定'),
+                    child: Text(l.confirm),
                   ),
                 ],
               ),

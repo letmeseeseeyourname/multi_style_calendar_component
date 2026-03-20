@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 
 /// 症状类型
 enum SymptomType {
@@ -15,7 +16,33 @@ enum SymptomType {
 }
 
 extension SymptomTypeExtension on SymptomType {
-  String get label {
+  String get label => localizedLabel(null);
+
+  String localizedLabel(AppLocalizations? l) {
+    if (l != null) {
+      switch (this) {
+        case SymptomType.cramps:
+          return l.cramps;
+        case SymptomType.headache:
+          return l.headache;
+        case SymptomType.bloating:
+          return l.bloating;
+        case SymptomType.fatigue:
+          return l.fatigue;
+        case SymptomType.moodSwings:
+          return l.moodSwings;
+        case SymptomType.backPain:
+          return l.backPain;
+        case SymptomType.nausea:
+          return l.nausea;
+        case SymptomType.acne:
+          return l.acne;
+        case SymptomType.insomnia:
+          return l.insomnia;
+        case SymptomType.appetite:
+          return l.appetiteChange;
+      }
+    }
     switch (this) {
       case SymptomType.cramps:
         return '痛经';
@@ -70,7 +97,19 @@ extension SymptomTypeExtension on SymptomType {
 enum SymptomSeverity { mild, moderate, severe }
 
 extension SymptomSeverityExtension on SymptomSeverity {
-  String get label {
+  String get label => localizedLabel(null);
+
+  String localizedLabel(AppLocalizations? l) {
+    if (l != null) {
+      switch (this) {
+        case SymptomSeverity.mild:
+          return l.mild;
+        case SymptomSeverity.moderate:
+          return l.moderate;
+        case SymptomSeverity.severe:
+          return l.severe;
+      }
+    }
     switch (this) {
       case SymptomSeverity.mild:
         return '轻微';
@@ -158,6 +197,7 @@ class _SymptomLoggerState extends State<SymptomLogger> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -175,7 +215,7 @@ class _SymptomLoggerState extends State<SymptomLogger> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '${widget.date.month}月${widget.date.day}日 症状记录',
+            l.symptomTitle(widget.date.month, widget.date.day),
             style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -217,7 +257,7 @@ class _SymptomLoggerState extends State<SymptomLogger> {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        type.label,
+                        type.localizedLabel(l),
                         style: TextStyle(
                           fontSize: 13,
                           color: isSelected ? Colors.black87 : Colors.grey,
@@ -234,9 +274,9 @@ class _SymptomLoggerState extends State<SymptomLogger> {
             const SizedBox(height: 16),
             const Divider(),
             const SizedBox(height: 8),
-            const Text(
-              '调整严重程度',
-              style: TextStyle(fontSize: 13, color: Colors.grey),
+            Text(
+              l.adjustSeverity,
+              style: const TextStyle(fontSize: 13, color: Colors.grey),
             ),
             const SizedBox(height: 8),
             ..._selectedSymptoms.entries.map((entry) {
@@ -247,7 +287,7 @@ class _SymptomLoggerState extends State<SymptomLogger> {
                     SizedBox(
                       width: 80,
                       child: Text(
-                        entry.key.label,
+                        entry.key.localizedLabel(l),
                         style: const TextStyle(fontSize: 13),
                       ),
                     ),
@@ -274,7 +314,7 @@ class _SymptomLoggerState extends State<SymptomLogger> {
                               ),
                             ),
                             child: Text(
-                              severity.label,
+                              severity.localizedLabel(l),
                               style: TextStyle(
                                 fontSize: 12,
                                 color: isActive ? severity.color : Colors.grey,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../core/utils/date_utils.dart';
+import '../../l10n/app_localizations.dart';
 import '../../theme/color_schemes.dart';
 
 /// Activity heatmap variant with customizable colors and date range.
@@ -70,6 +71,7 @@ class ActivityHeatmap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l = AppLocalizations.of(context);
 
     // Align start to Monday
     final gridStart = startDate.subtract(
@@ -104,7 +106,7 @@ class ActivityHeatmap extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
-                    '$dayCount 天',
+                    l.nDays(dayCount),
                     style: TextStyle(
                       fontSize: 12,
                       color: CalendarColors.primary,
@@ -116,17 +118,17 @@ class ActivityHeatmap extends StatelessWidget {
             ),
           ),
         // Statistics summary
-        _buildStats(theme),
+        _buildStats(context, theme),
         const SizedBox(height: 12),
         // Month labels
-        if (showMonthLabels) _buildMonthLabels(theme, gridStart, totalWeeks),
+        if (showMonthLabels) _buildMonthLabels(context, theme, gridStart, totalWeeks),
         const SizedBox(height: 4),
         // Grid
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (showWeekdayLabels) ...[
-              _buildWeekdayLabels(theme),
+              _buildWeekdayLabels(context, theme),
               const SizedBox(width: 4),
             ],
             Expanded(child: _buildGrid(gridStart, totalWeeks)),
@@ -134,12 +136,12 @@ class ActivityHeatmap extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         // Legend
-        _buildLegend(theme),
+        _buildLegend(context, theme),
       ],
     );
   }
 
-  Widget _buildStats(ThemeData theme) {
+  Widget _buildStats(BuildContext context, ThemeData theme) {
     int totalValue = 0;
     int activeDays = 0;
     int maxStreak = 0;
@@ -165,18 +167,19 @@ class ActivityHeatmap extends StatelessWidget {
       d = d.subtract(const Duration(days: 1));
     }
 
+    final l = AppLocalizations.of(context);
     return Row(
       children: [
-        _StatChip(label: '总计', value: '$totalValue', color: _colors.last),
+        _StatChip(label: l.total, value: '$totalValue', color: _colors.last),
         const SizedBox(width: 12),
-        _StatChip(label: '活跃天', value: '$activeDays', color: _colors[_colors.length ~/ 2]),
+        _StatChip(label: l.activeDays, value: '$activeDays', color: _colors[_colors.length ~/ 2]),
         const SizedBox(width: 12),
-        _StatChip(label: '最长连续', value: '$maxStreak天', color: CalendarColors.primary),
+        _StatChip(label: l.longestStreak, value: l.nDays(maxStreak), color: CalendarColors.primary),
       ],
     );
   }
 
-  Widget _buildMonthLabels(ThemeData theme, DateTime gridStart, int totalWeeks) {
+  Widget _buildMonthLabels(BuildContext context, ThemeData theme, DateTime gridStart, int totalWeeks) {
     final labels = <Widget>[];
     if (showWeekdayLabels) {
       labels.add(const SizedBox(width: 28));
@@ -194,7 +197,7 @@ class ActivityHeatmap extends StatelessWidget {
           SizedBox(
             width: cellTotal,
             child: Text(
-              CalendarDateUtils.monthName(weekStart.month),
+              AppLocalizations.of(context).monthNamesShort[weekStart.month],
               style: TextStyle(fontSize: 9, color: Colors.grey[600]),
               overflow: TextOverflow.visible,
             ),
@@ -211,7 +214,8 @@ class ActivityHeatmap extends StatelessWidget {
     );
   }
 
-  Widget _buildWeekdayLabels(ThemeData theme) {
+  Widget _buildWeekdayLabels(BuildContext context, ThemeData theme) {
+    final l = AppLocalizations.of(context);
     return Column(
       children: List.generate(7, (i) {
         final wd = i + 1;
@@ -221,7 +225,7 @@ class ActivityHeatmap extends StatelessWidget {
           child: Align(
             alignment: Alignment.centerRight,
             child: Text(
-              CalendarDateUtils.weekdayName(wd),
+              l.weekdayShort(wd),
               style: TextStyle(fontSize: 9, color: Colors.grey[600]),
             ),
           ),
@@ -268,11 +272,12 @@ class ActivityHeatmap extends StatelessWidget {
     );
   }
 
-  Widget _buildLegend(ThemeData theme) {
+  Widget _buildLegend(BuildContext context, ThemeData theme) {
+    final l = AppLocalizations.of(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Text('少', style: TextStyle(fontSize: 10, color: Colors.grey[600])),
+        Text(l.less, style: TextStyle(fontSize: 10, color: Colors.grey[600])),
         const SizedBox(width: 4),
         ..._colors.map((color) {
           return Container(
@@ -286,7 +291,7 @@ class ActivityHeatmap extends StatelessWidget {
           );
         }),
         const SizedBox(width: 4),
-        Text('多', style: TextStyle(fontSize: 10, color: Colors.grey[600])),
+        Text(l.more_, style: TextStyle(fontSize: 10, color: Colors.grey[600])),
       ],
     );
   }

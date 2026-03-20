@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 
 /// 节日信息展示组件
 class FestivalDisplay extends StatelessWidget {
@@ -21,6 +22,8 @@ class FestivalDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (!hasFestival) return const SizedBox.shrink();
+
+    final l = AppLocalizations.of(context);
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -49,9 +52,9 @@ class FestivalDisplay extends StatelessWidget {
                 size: 20,
               ),
               const SizedBox(width: 8),
-              const Text(
-                '节日/节气',
-                style: TextStyle(
+              Text(
+                l.festivalAndSolarTerm,
+                style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFFD32F2F),
@@ -63,21 +66,21 @@ class FestivalDisplay extends StatelessWidget {
           if (lunarFestival != null)
             _FestivalItem(
               icon: Icons.auto_awesome,
-              label: '农历节日',
+              label: l.lunarFestival,
               value: lunarFestival!,
               color: const Color(0xFFD32F2F),
             ),
           if (solarTerm != null)
             _FestivalItem(
               icon: Icons.eco,
-              label: '节气',
+              label: l.solarTerm,
               value: solarTerm!,
               color: const Color(0xFF4CAF50),
             ),
           if (gregorianHoliday != null)
             _FestivalItem(
               icon: Icons.flag,
-              label: '公历节日',
+              label: l.gregorianHoliday,
               value: gregorianHoliday!,
               color: const Color(0xFF2196F3),
             ),

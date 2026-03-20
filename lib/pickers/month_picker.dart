@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../core/utils/date_utils.dart';
+import '../l10n/app_localizations.dart';
 import '../theme/color_schemes.dart';
 
 /// Month picker dialog.
@@ -67,6 +67,7 @@ class _MonthPickerState extends State<MonthPicker> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l = AppLocalizations.of(context);
     final now = DateTime.now();
 
     return Dialog(
@@ -89,7 +90,7 @@ class _MonthPickerState extends State<MonthPicker> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '选择月份',
+                    l.selectMonth,
                     style: theme.textTheme.labelMedium?.copyWith(
                       color: Colors.white70,
                     ),
@@ -97,8 +98,8 @@ class _MonthPickerState extends State<MonthPicker> {
                   const SizedBox(height: 4),
                   Text(
                     (_selectedYear != null && _selectedMonth != null)
-                        ? '$_selectedYear年 ${CalendarDateUtils.monthName(_selectedMonth!)}'
-                        : '未选择',
+                        ? l.yearMonth(_selectedYear!, _selectedMonth!)
+                        : l.notSelected,
                     style: theme.textTheme.headlineSmall?.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -119,7 +120,7 @@ class _MonthPickerState extends State<MonthPicker> {
                         setState(() => _displayYear--),
                   ),
                   Text(
-                    '$_displayYear年',
+                    '$_displayYear${l.yearSuffix}',
                     style: theme.textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
@@ -173,7 +174,7 @@ class _MonthPickerState extends State<MonthPicker> {
                                   height: 48,
                                   alignment: Alignment.center,
                                   child: Text(
-                                    CalendarDateUtils.monthName(month),
+                                    l.monthName(month),
                                     style: theme.textTheme.bodyMedium?.copyWith(
                                       color: disabled
                                           ? CalendarColors.disabled
@@ -205,7 +206,7 @@ class _MonthPickerState extends State<MonthPicker> {
                 children: [
                   TextButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('取消'),
+                    child: Text(l.cancel),
                   ),
                   const SizedBox(width: 8),
                   FilledButton(
@@ -213,7 +214,7 @@ class _MonthPickerState extends State<MonthPicker> {
                         ? () => Navigator.of(context)
                             .pop(DateTime(_selectedYear!, _selectedMonth!))
                         : null,
-                    child: const Text('确定'),
+                    child: Text(l.confirm),
                   ),
                 ],
               ),

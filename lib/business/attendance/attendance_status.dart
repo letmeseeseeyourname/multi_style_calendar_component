@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../l10n/app_localizations.dart';
 
 /// 考勤状态枚举
 enum AttendanceStatus {
@@ -28,6 +29,25 @@ extension AttendanceStatusExtension on AttendanceStatus {
         return '节假日';
       case AttendanceStatus.rest:
         return '休息日';
+    }
+  }
+
+  String localizedLabel(AppLocalizations l) {
+    switch (this) {
+      case AttendanceStatus.normal:
+        return l.normal;
+      case AttendanceStatus.late:
+        return l.late_;
+      case AttendanceStatus.leaveEarly:
+        return l.leaveEarly;
+      case AttendanceStatus.absent:
+        return l.absent;
+      case AttendanceStatus.leave:
+        return l.onLeave;
+      case AttendanceStatus.holiday:
+        return l.holiday;
+      case AttendanceStatus.rest:
+        return l.restDay;
     }
   }
 

@@ -1,61 +1,61 @@
-# 📅 Flutter 多样式日历组件库
+# Flutter Multi-Style Calendar Component Library
 
-## 项目概述
+## Project Overview
 
-一个全面展示多种日历样式与功能的 Flutter 组件库演示应用。涵盖不同历法体系、视图模式、交互形式、视觉风格和业务场景，为开发者提供丰富的日历解决方案参考。
+A comprehensive Flutter component library demo application showcasing various calendar styles and features. It covers different calendar systems, view modes, interaction patterns, visual styles, and business scenarios, providing developers with a rich reference for calendar solutions.
 
-## 功能矩阵
+## Feature Matrix
 
-### 历法支持
+### Calendar System Support
 
-| 历法 | 支持 | 说明 |
+| Calendar System | Support | Description |
 |------|:----:|------|
-| 公历（格里高利历） | ✅ | 国际通用标准 |
-| 中国农历 | ✅ | 节气、生肖、宜忌 |
-| 伊斯兰历 | ✅ | 回历月份 |
-| 希伯来历 | ⚪ | 可扩展 |
-| 佛历 | ⚪ | 可扩展 |
+| Gregorian Calendar | ✅ | International standard |
+| Chinese Lunar Calendar | ✅ | Solar terms, zodiac, auspicious/inauspicious |
+| Islamic Calendar | ✅ | Hijri months |
+| Hebrew Calendar | ⚪ | Extensible |
+| Buddhist Calendar | ⚪ | Extensible |
 
-### 视图模式
+### View Modes
 
-| 视图 | 描述 | 适用场景 |
+| View | Description | Use Cases |
 |------|------|----------|
-| 年视图 | 12 个月缩略图 | 年度规划、热力图 |
-| 月视图 | 经典 7×6 网格 | 通用日程管理 |
-| 周视图 | 横向 7 天 | 近期安排 |
-| 日视图 | 24 小时时间轴 | 密集日程 |
-| 日程列表 | 垂直事件列表 | 待办清单 |
-| 时间线 | 横向甘特图 | 项目管理 |
-| 滚动选择 | 无限滚动 | 日期选择器 |
+| Year View | 12-month thumbnail | Annual planning, heatmap |
+| Month View | Classic 7x6 grid | General schedule management |
+| Week View | Horizontal 7 days | Near-term arrangements |
+| Day View | 24-hour timeline | Dense schedules |
+| Agenda List | Vertical event list | To-do list |
+| Timeline | Horizontal Gantt chart | Project management |
+| Scroll Picker | Infinite scrolling | Date picker |
 
-### 交互能力
+### Interaction Capabilities
 
-| 功能 | 支持 |
+| Feature | Support |
 |------|:----:|
-| 单选日期 | ✅ |
-| 多选日期 | ✅ |
-| 范围选择 | ✅ |
-| 事件增删改 | ✅ |
-| 拖拽移动事件 | ✅ |
-| 拖拽调整时长 | ✅ |
-| 手势缩放 | ✅ |
-| 滑动切换 | ✅ |
+| Single Date Selection | ✅ |
+| Multi Date Selection | ✅ |
+| Range Selection | ✅ |
+| Event CRUD | ✅ |
+| Drag to Move Events | ✅ |
+| Drag to Resize Duration | ✅ |
+| Pinch to Zoom | ✅ |
+| Swipe to Switch | ✅ |
 
-## 技术栈
+## Tech Stack
 
-| 类别 | 选型 |
+| Category | Choice |
 |------|------|
-| 框架 | Flutter 3.x |
-| 语言 | Dart 3.x |
-| 状态管理 | Riverpod 2.x |
-| 本地存储 | Hive / Isar |
-| 农历算法 | `lunar` 包 + 自定义 |
-| 日期处理 | `intl` + `jiffy` |
-| 动画 | `flutter_animate` |
-| 拖拽 | 自定义手势 |
-| 图表 | `fl_chart` (热力图) |
+| Framework | Flutter 3.x |
+| Language | Dart 3.x |
+| State Management | Riverpod 2.x |
+| Local Storage | Hive / Isar |
+| Lunar Algorithm | `lunar` package + custom |
+| Date Handling | `intl` + `jiffy` |
+| Animation | `flutter_animate` |
+| Drag & Drop | Custom gestures |
+| Charts | `fl_chart` (heatmap) |
 
-## 项目结构
+## Project Structure
 
 ```
 lib/
@@ -63,160 +63,160 @@ lib/
 ├── app.dart
 │
 ├── core/
-│   ├── calendar_system/              # 历法系统
-│   │   ├── gregorian_calendar.dart   # 公历
-│   │   ├── lunar_calendar.dart       # 农历
-│   │   ├── islamic_calendar.dart     # 伊斯兰历
-│   │   └── calendar_converter.dart   # 历法转换
+│   ├── calendar_system/              # Calendar systems
+│   │   ├── gregorian_calendar.dart   # Gregorian calendar
+│   │   ├── lunar_calendar.dart       # Chinese Lunar calendar
+│   │   ├── islamic_calendar.dart     # Islamic calendar
+│   │   └── calendar_converter.dart   # Calendar conversion
 │   │
 │   ├── models/
-│   │   ├── calendar_date.dart        # 日期模型
-│   │   ├── calendar_event.dart       # 事件模型
-│   │   ├── date_range.dart           # 日期范围
-│   │   ├── time_slot.dart            # 时间段
-│   │   └── calendar_config.dart      # 日历配置
+│   │   ├── calendar_date.dart        # Date model
+│   │   ├── calendar_event.dart       # Event model
+│   │   ├── date_range.dart           # Date range
+│   │   ├── time_slot.dart            # Time slot
+│   │   └── calendar_config.dart      # Calendar configuration
 │   │
 │   ├── controllers/
-│   │   ├── calendar_controller.dart  # 核心控制器
-│   │   ├── selection_controller.dart # 选择控制
-│   │   ├── event_controller.dart     # 事件管理
-│   │   └── drag_controller.dart      # 拖拽控制
+│   │   ├── calendar_controller.dart  # Core controller
+│   │   ├── selection_controller.dart # Selection control
+│   │   ├── event_controller.dart     # Event management
+│   │   └── drag_controller.dart      # Drag control
 │   │
 │   └── utils/
-│       ├── date_utils.dart           # 日期工具
-│       ├── lunar_utils.dart          # 农历工具
-│       ├── solar_terms.dart          # 二十四节气
-│       └── holidays.dart             # 节假日数据
+│       ├── date_utils.dart           # Date utilities
+│       ├── lunar_utils.dart          # Lunar calendar utilities
+│       ├── solar_terms.dart          # 24 Solar Terms
+│       └── holidays.dart             # Holiday data
 │
-├── views/                            # 视图模式
+├── views/                            # View modes
 │   ├── year_view/
-│   │   ├── year_view.dart            # 年视图
-│   │   ├── year_month_cell.dart      # 月份单元格
-│   │   └── year_heatmap.dart         # 年度热力图
+│   │   ├── year_view.dart            # Year view
+│   │   ├── year_month_cell.dart      # Month cell
+│   │   └── year_heatmap.dart         # Year heatmap
 │   │
 │   ├── month_view/
-│   │   ├── month_view.dart           # 月视图
-│   │   ├── month_grid.dart           # 月网格
-│   │   ├── day_cell.dart             # 日期单元格
-│   │   └── week_header.dart          # 周标题
+│   │   ├── month_view.dart           # Month view
+│   │   ├── month_grid.dart           # Month grid
+│   │   ├── day_cell.dart             # Day cell
+│   │   └── week_header.dart          # Week header
 │   │
 │   ├── week_view/
-│   │   ├── week_view.dart            # 周视图
-│   │   ├── week_timeline.dart        # 周时间线
-│   │   └── week_day_column.dart      # 日列
+│   │   ├── week_view.dart            # Week view
+│   │   ├── week_timeline.dart        # Week timeline
+│   │   └── week_day_column.dart      # Day column
 │   │
 │   ├── day_view/
-│   │   ├── day_view.dart             # 日视图
-│   │   ├── hour_row.dart             # 小时行
-│   │   ├── time_indicator.dart       # 当前时间指示
-│   │   └── event_card.dart           # 事件卡片
+│   │   ├── day_view.dart             # Day view
+│   │   ├── hour_row.dart             # Hour row
+│   │   ├── time_indicator.dart       # Current time indicator
+│   │   └── event_card.dart           # Event card
 │   │
 │   ├── agenda_view/
-│   │   ├── agenda_view.dart          # 日程列表
-│   │   ├── agenda_item.dart          # 日程项
-│   │   └── agenda_group.dart         # 日期分组
+│   │   ├── agenda_view.dart          # Agenda list
+│   │   ├── agenda_item.dart          # Agenda item
+│   │   └── agenda_group.dart         # Date group
 │   │
 │   ├── timeline_view/
-│   │   ├── timeline_view.dart        # 时间线/甘特图
-│   │   ├── timeline_track.dart       # 时间轨道
-│   │   └── timeline_event.dart       # 时间线事件
+│   │   ├── timeline_view.dart        # Timeline / Gantt chart
+│   │   ├── timeline_track.dart       # Timeline track
+│   │   └── timeline_event.dart       # Timeline event
 │   │
 │   └── scroll_picker/
-│       ├── scroll_date_picker.dart   # 滚动选择器
-│       ├── wheel_picker.dart         # 滚轮选择
-│       └── infinite_scroll.dart      # 无限滚动
+│       ├── scroll_date_picker.dart   # Scroll date picker
+│       ├── wheel_picker.dart         # Wheel picker
+│       └── infinite_scroll.dart      # Infinite scroll
 │
-├── styles/                           # 视觉风格
-│   ├── classic_grid/                 # 传统网格
+├── styles/                           # Visual styles
+│   ├── classic_grid/                 # Classic grid
 │   │   └── classic_grid_style.dart
 │   │
-│   ├── card_style/                   # 卡片式
+│   ├── card_style/                   # Card style
 │   │   └── card_calendar.dart
 │   │
-│   ├── circular/                     # 圆形/环形
-│   │   ├── circular_week.dart        # 圆形周视图
-│   │   ├── ring_month.dart           # 环形月视图
-│   │   └── clock_day.dart            # 时钟式日视图
+│   ├── circular/                     # Circular / Ring
+│   │   ├── circular_week.dart        # Circular week view
+│   │   ├── ring_month.dart           # Ring month view
+│   │   └── clock_day.dart            # Clock-style day view
 │   │
-│   ├── heatmap/                      # 热力图
-│   │   ├── github_heatmap.dart       # GitHub 风格
-│   │   └── activity_heatmap.dart     # 活动热力图
+│   ├── heatmap/                      # Heatmap
+│   │   ├── github_heatmap.dart       # GitHub style
+│   │   └── activity_heatmap.dart     # Activity heatmap
 │   │
-│   ├── flip_calendar/                # 3D 翻页
+│   ├── flip_calendar/                # 3D Flip
 │   │   ├── flip_calendar.dart
 │   │   └── flip_animation.dart
 │   │
-│   ├── minimal/                      # 极简风格
+│   ├── minimal/                      # Minimal style
 │   │   └── minimal_calendar.dart
 │   │
-│   └── glassmorphism/                # 毛玻璃风格
+│   └── glassmorphism/                # Glassmorphism style
 │       └── glass_calendar.dart
 │
-├── pickers/                          # 日期选择器
-│   ├── single_picker.dart            # 单选
-│   ├── multi_picker.dart             # 多选
-│   ├── range_picker.dart             # 范围选择
-│   ├── month_picker.dart             # 月份选择
-│   ├── year_picker.dart              # 年份选择
-│   └── datetime_picker.dart          # 日期时间选择
+├── pickers/                          # Date pickers
+│   ├── single_picker.dart            # Single selection
+│   ├── multi_picker.dart             # Multi selection
+│   ├── range_picker.dart             # Range selection
+│   ├── month_picker.dart             # Month picker
+│   ├── year_picker.dart              # Year picker
+│   └── datetime_picker.dart          # DateTime picker
 │
-├── business/                         # 业务场景
-│   ├── attendance/                   # 考勤日历
+├── business/                         # Business scenarios
+│   ├── attendance/                   # Attendance calendar
 │   │   ├── attendance_calendar.dart
 │   │   ├── attendance_status.dart
 │   │   └── attendance_stats.dart
 │   │
-│   ├── period_tracker/               # 经期日历
+│   ├── period_tracker/               # Period tracker calendar
 │   │   ├── period_calendar.dart
 │   │   ├── cycle_predictor.dart
 │   │   └── symptom_logger.dart
 │   │
-│   ├── habit_tracker/                # 习惯追踪
+│   ├── habit_tracker/                # Habit tracker
 │   │   ├── habit_calendar.dart
 │   │   ├── streak_counter.dart
 │   │   └── habit_stats.dart
 │   │
-│   ├── booking/                      # 预约日历
+│   ├── booking/                      # Booking calendar
 │   │   ├── booking_calendar.dart
 │   │   ├── time_slot_picker.dart
 │   │   └── availability_grid.dart
 │   │
-│   ├── hotel_pricing/                # 酒店价格日历
+│   ├── hotel_pricing/                # Hotel pricing calendar
 │   │   ├── price_calendar.dart
 │   │   └── room_availability.dart
 │   │
-│   ├── lunar_calendar/               # 农历日历
+│   ├── lunar_calendar/               # Chinese Lunar calendar
 │   │   ├── chinese_calendar.dart
 │   │   ├── festival_display.dart
 │   │   └── fortune_display.dart
 │   │
-│   ├── countdown/                    # 倒计时日历
+│   ├── countdown/                    # Countdown calendar
 │   │   ├── countdown_calendar.dart
 │   │   └── milestone_tracker.dart
 │   │
-│   └── shared_calendar/              # 共享日历
+│   └── shared_calendar/              # Shared calendar
 │       ├── shared_calendar.dart
 │       ├── member_colors.dart
 │       └── conflict_detector.dart
 │
-├── widgets/                          # 通用组件
-│   ├── calendar_header.dart          # 日历头部
-│   ├── navigation_buttons.dart       # 导航按钮
-│   ├── view_switcher.dart            # 视图切换
-│   ├── event_popup.dart              # 事件弹窗
-│   ├── event_form.dart               # 事件表单
-│   ├── draggable_event.dart          # 可拖拽事件
-│   ├── resizable_event.dart          # 可调整大小
-│   ├── time_ruler.dart               # 时间刻度尺
-│   └── lunar_info_badge.dart         # 农历信息标签
+├── widgets/                          # Common widgets
+│   ├── calendar_header.dart          # Calendar header
+│   ├── navigation_buttons.dart       # Navigation buttons
+│   ├── view_switcher.dart            # View switcher
+│   ├── event_popup.dart              # Event popup
+│   ├── event_form.dart               # Event form
+│   ├── draggable_event.dart          # Draggable event
+│   ├── resizable_event.dart          # Resizable event
+│   ├── time_ruler.dart               # Time ruler
+│   └── lunar_info_badge.dart         # Lunar info badge
 │
-├── screens/                          # 演示页面
-│   ├── home_screen.dart              # 首页导航
-│   ├── view_demo_screen.dart         # 视图演示
-│   ├── style_demo_screen.dart        # 风格演示
-│   ├── picker_demo_screen.dart       # 选择器演示
-│   ├── business_demo_screen.dart     # 业务场景演示
-│   └── playground_screen.dart        # 自由配置
+├── screens/                          # Demo pages
+│   ├── home_screen.dart              # Home navigation
+│   ├── view_demo_screen.dart         # View demo
+│   ├── style_demo_screen.dart        # Style demo
+│   ├── picker_demo_screen.dart       # Picker demo
+│   ├── business_demo_screen.dart     # Business scenario demo
+│   └── playground_screen.dart        # Free configuration
 │
 ├── providers/
 │   ├── calendar_provider.dart
@@ -234,38 +234,38 @@ assets/
 ├── fonts/
 ├── icons/
 └── data/
-    ├── holidays_cn.json              # 中国节假日
-    ├── holidays_us.json              # 美国节假日
-    └── solar_terms.json              # 节气数据
+    ├── holidays_cn.json              # Chinese holidays
+    ├── holidays_us.json              # US holidays
+    └── solar_terms.json              # Solar terms data
 ```
 
-## 核心数据模型
+## Core Data Models
 
-### 日期模型
+### Date Model
 
 ```dart
-/// 通用日历日期，支持多历法
+/// Universal calendar date with multi-calendar system support
 class CalendarDate {
-  final DateTime gregorian;           // 公历日期
-  final LunarDate? lunar;             // 农历日期
-  final IslamicDate? islamic;         // 伊斯兰历
-  
+  final DateTime gregorian;           // Gregorian date
+  final LunarDate? lunar;             // Chinese Lunar date
+  final IslamicDate? islamic;         // Islamic date
+
   final bool isToday;
   final bool isWeekend;
   final bool isHoliday;
   final String? holidayName;
-  
-  // 农历相关
-  final String? solarTerm;            // 节气
-  final String? lunarFestival;        // 农历节日
-  final String? zodiac;               // 生肖
-  
+
+  // Lunar calendar related
+  final String? solarTerm;            // Solar term
+  final String? lunarFestival;        // Lunar festival
+  final String? zodiac;               // Zodiac animal
+
   CalendarDate({
     required this.gregorian,
     this.lunar,
     this.islamic,
   });
-  
+
   factory CalendarDate.fromDateTime(DateTime date) {
     return CalendarDate(
       gregorian: date,
@@ -274,30 +274,30 @@ class CalendarDate {
   }
 }
 
-/// 农历日期
+/// Chinese Lunar date
 class LunarDate {
-  final int year;                     // 农历年
-  final int month;                    // 农历月
-  final int day;                      // 农历日
-  final bool isLeapMonth;             // 是否闰月
-  
-  final String yearGanZhi;            // 年干支 (甲子)
-  final String monthGanZhi;           // 月干支
-  final String dayGanZhi;             // 日干支
-  
-  final String zodiac;                // 生肖
-  final String yearChinese;           // 中文年 (二零二四)
-  final String monthChinese;          // 中文月 (正月)
-  final String dayChinese;            // 中文日 (初一)
-  
+  final int year;                     // Lunar year
+  final int month;                    // Lunar month
+  final int day;                      // Lunar day
+  final bool isLeapMonth;             // Whether it is a leap month
+
+  final String yearGanZhi;            // Year Heavenly Stems & Earthly Branches (e.g., Jiazi)
+  final String monthGanZhi;           // Month Heavenly Stems & Earthly Branches
+  final String dayGanZhi;             // Day Heavenly Stems & Earthly Branches
+
+  final String zodiac;                // Zodiac animal
+  final String yearChinese;           // Chinese year (e.g., 2024 in Chinese characters)
+  final String monthChinese;          // Chinese month (e.g., First Month)
+  final String dayChinese;            // Chinese day (e.g., First Day)
+
   String get fullChinese => '$monthChinese$dayChinese';
 }
 ```
 
-### 事件模型
+### Event Model
 
 ```dart
-/// 日历事件
+/// Calendar event
 class CalendarEvent {
   final String id;
   final String title;
@@ -305,21 +305,21 @@ class CalendarEvent {
   final DateTime startTime;
   final DateTime endTime;
   final bool isAllDay;
-  
+
   final Color color;
   final String? icon;
-  final EventRepeat? repeat;          // 重复规则
-  final EventReminder? reminder;      // 提醒设置
-  
+  final EventRepeat? repeat;          // Repeat rule
+  final EventReminder? reminder;      // Reminder settings
+
   final String? location;
-  final List<String>? attendees;      // 参与者
-  final String? createdBy;            // 创建者
-  
-  final Map<String, dynamic>? extra;  // 扩展数据
-  
+  final List<String>? attendees;      // Attendees
+  final String? createdBy;            // Creator
+
+  final Map<String, dynamic>? extra;  // Extended data
+
   Duration get duration => endTime.difference(startTime);
   bool get isMultiDay => !startTime.isSameDay(endTime);
-  
+
   bool occursOn(DateTime date) {
     if (isAllDay) {
       return date.isAfterOrEqual(startTime.dateOnly) &&
@@ -329,46 +329,46 @@ class CalendarEvent {
   }
 }
 
-/// 重复规则
+/// Repeat rule
 class EventRepeat {
   final RepeatType type;              // daily/weekly/monthly/yearly
-  final int interval;                 // 间隔
-  final List<int>? weekdays;          // 周几 (weekly)
-  final int? dayOfMonth;              // 几号 (monthly)
-  final DateTime? endDate;            // 结束日期
-  final int? occurrences;             // 重复次数
+  final int interval;                 // Interval
+  final List<int>? weekdays;          // Day of week (weekly)
+  final int? dayOfMonth;              // Day of month (monthly)
+  final DateTime? endDate;            // End date
+  final int? occurrences;             // Repeat count
 }
 ```
 
-### 日历配置
+### Calendar Configuration
 
 ```dart
-/// 日历配置
+/// Calendar configuration
 class CalendarConfig {
-  // 基础配置
-  final CalendarSystem system;        // 历法系统
-  final int firstDayOfWeek;           // 周起始日 (1=周一, 7=周日)
-  final Locale locale;                // 语言区域
-  
-  // 视图配置
-  final CalendarViewType viewType;    // 当前视图
-  final bool showWeekNumber;          // 显示周数
-  final bool showLunar;               // 显示农历
-  final bool showHolidays;            // 显示节假日
-  final bool showSolarTerms;          // 显示节气
-  
-  // 时间配置
-  final int dayStartHour;             // 日视图起始时间
-  final int dayEndHour;               // 日视图结束时间
-  final int timeSlotMinutes;          // 时间槽分钟数
-  
-  // 交互配置
-  final SelectionMode selectionMode;  // 选择模式
-  final bool enableDrag;              // 允许拖拽
-  final bool enableResize;            // 允许调整大小
-  final bool enableCreate;            // 允许创建事件
-  
-  // 显示范围
+  // Basic configuration
+  final CalendarSystem system;        // Calendar system
+  final int firstDayOfWeek;           // First day of week (1=Monday, 7=Sunday)
+  final Locale locale;                // Locale
+
+  // View configuration
+  final CalendarViewType viewType;    // Current view
+  final bool showWeekNumber;          // Show week number
+  final bool showLunar;               // Show lunar calendar
+  final bool showHolidays;            // Show holidays
+  final bool showSolarTerms;          // Show solar terms
+
+  // Time configuration
+  final int dayStartHour;             // Day view start hour
+  final int dayEndHour;               // Day view end hour
+  final int timeSlotMinutes;          // Time slot in minutes
+
+  // Interaction configuration
+  final SelectionMode selectionMode;  // Selection mode
+  final bool enableDrag;              // Enable drag
+  final bool enableResize;            // Enable resize
+  final bool enableCreate;            // Enable event creation
+
+  // Display range
   final DateTime? minDate;
   final DateTime? maxDate;
   final Set<DateTime>? disabledDates;
@@ -379,9 +379,9 @@ enum CalendarViewType { year, month, week, day, agenda, timeline }
 enum SelectionMode { none, single, multiple, range }
 ```
 
-## 视图实现规范
+## View Implementation Specifications
 
-### 月视图 (MonthView)
+### Month View (MonthView)
 
 ```dart
 class MonthView extends StatelessWidget {
@@ -390,17 +390,17 @@ class MonthView extends StatelessWidget {
   final List<CalendarEvent> events;
   final ValueChanged<DateTime>? onDateTap;
   final ValueChanged<DateRange>? onRangeSelected;
-  
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // 周标题行
+        // Week header row
         WeekHeader(
           firstDayOfWeek: config.firstDayOfWeek,
           locale: config.locale,
         ),
-        // 日期网格
+        // Date grid
         Expanded(
           child: MonthGrid(
             month: month,
@@ -414,32 +414,32 @@ class MonthView extends StatelessWidget {
   }
 }
 
-/// 日期单元格
+/// Day cell
 class DayCell extends StatelessWidget {
   final CalendarDate date;
   final List<CalendarEvent> events;
   final bool isSelected;
   final bool isInRange;
   final bool isDisabled;
-  
+
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: _buildDecoration(),
       child: Column(
         children: [
-          // 公历日期
+          // Gregorian date
           Text(
             '${date.gregorian.day}',
             style: _getDateTextStyle(),
           ),
-          // 农历日期 (可选)
+          // Lunar date (optional)
           if (config.showLunar && date.lunar != null)
             Text(
               date.solarTerm ?? date.lunar!.dayChinese,
               style: _getLunarTextStyle(),
             ),
-          // 事件指示器
+          // Event indicators
           if (events.isNotEmpty)
             EventDots(events: events, maxDots: 3),
         ],
@@ -449,41 +449,41 @@ class DayCell extends StatelessWidget {
 }
 ```
 
-### 日视图 (DayView)
+### Day View (DayView)
 
 ```dart
 class DayView extends StatefulWidget {
   final DateTime date;
   final CalendarConfig config;
   final List<CalendarEvent> events;
-  
+
   @override
   State<DayView> createState() => _DayViewState();
 }
 
 class _DayViewState extends State<DayView> {
   final ScrollController _scrollController = ScrollController();
-  
+
   @override
   Widget build(BuildContext context) {
     final hourHeight = 60.0;
     final totalHours = widget.config.dayEndHour - widget.config.dayStartHour;
-    
+
     return Stack(
       children: [
-        // 时间网格背景
+        // Time grid background
         SingleChildScrollView(
           controller: _scrollController,
           child: SizedBox(
             height: hourHeight * totalHours,
             child: Stack(
               children: [
-                // 小时分隔线
+                // Hour divider lines
                 ...List.generate(totalHours, (i) => HourRow(
                   hour: widget.config.dayStartHour + i,
                   top: i * hourHeight,
                 )),
-                // 事件卡片
+                // Event cards
                 ...widget.events.map((e) => Positioned(
                   top: _calculateTop(e.startTime),
                   left: 60,
@@ -491,7 +491,7 @@ class _DayViewState extends State<DayView> {
                   height: _calculateHeight(e),
                   child: DraggableEventCard(event: e),
                 )),
-                // 当前时间指示线
+                // Current time indicator line
                 if (widget.date.isToday)
                   CurrentTimeIndicator(
                     top: _calculateCurrentTimeTop(),
@@ -503,7 +503,7 @@ class _DayViewState extends State<DayView> {
       ],
     );
   }
-  
+
   double _calculateTop(DateTime time) {
     final minutes = time.hour * 60 + time.minute;
     final startMinutes = widget.config.dayStartHour * 60;
@@ -512,24 +512,24 @@ class _DayViewState extends State<DayView> {
 }
 ```
 
-### 周视图 (WeekView)
+### Week View (WeekView)
 
 ```dart
 class WeekView extends StatelessWidget {
   final DateTime weekStart;
   final CalendarConfig config;
   final List<CalendarEvent> events;
-  
+
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        // 时间刻度列
+        // Time ruler column
         TimeRuler(
           startHour: config.dayStartHour,
           endHour: config.dayEndHour,
         ),
-        // 7 天列
+        // 7-day columns
         ...List.generate(7, (i) {
           final date = weekStart.add(Duration(days: i));
           final dayEvents = events.where((e) => e.occursOn(date)).toList();
@@ -547,28 +547,28 @@ class WeekView extends StatelessWidget {
 }
 ```
 
-### 年度热力图 (YearHeatmap)
+### Year Heatmap (YearHeatmap)
 
 ```dart
 class YearHeatmap extends StatelessWidget {
   final int year;
-  final Map<DateTime, int> data;      // 日期 -> 强度值
+  final Map<DateTime, int> data;      // Date -> intensity value
   final Color baseColor;
   final int maxValue;
-  
+
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // 月份标签
+        // Month labels
         MonthLabels(year: year),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // 周几标签
+            // Weekday labels
             WeekdayLabels(),
-            // 热力图网格
+            // Heatmap grid
             Expanded(
               child: Wrap(
                 direction: Axis.vertical,
@@ -579,7 +579,7 @@ class YearHeatmap extends StatelessWidget {
             ),
           ],
         ),
-        // 图例
+        // Legend
         HeatmapLegend(
           baseColor: baseColor,
           levels: 5,
@@ -587,18 +587,18 @@ class YearHeatmap extends StatelessWidget {
       ],
     );
   }
-  
+
   List<Widget> _buildDayCells() {
     final firstDay = DateTime(year, 1, 1);
     final lastDay = DateTime(year, 12, 31);
-    
+
     return List.generate(
       lastDay.difference(firstDay).inDays + 1,
       (i) {
         final date = firstDay.add(Duration(days: i));
         final value = data[date.dateOnly] ?? 0;
         final intensity = (value / maxValue).clamp(0.0, 1.0);
-        
+
         return HeatmapCell(
           date: date,
           color: _getColorForIntensity(intensity),
@@ -610,31 +610,31 @@ class YearHeatmap extends StatelessWidget {
 }
 ```
 
-## 交互功能实现
+## Interaction Feature Implementation
 
-### 范围选择
+### Range Selection
 
 ```dart
 class RangeSelectionController extends ChangeNotifier {
   DateTime? _startDate;
   DateTime? _endDate;
   bool _isSelecting = false;
-  
+
   DateRange? get selectedRange {
     if (_startDate != null && _endDate != null) {
       return DateRange(_startDate!, _endDate!);
     }
     return null;
   }
-  
+
   void onDateTap(DateTime date) {
     if (!_isSelecting) {
-      // 开始选择
+      // Start selection
       _startDate = date;
       _endDate = null;
       _isSelecting = true;
     } else {
-      // 结束选择
+      // End selection
       if (date.isBefore(_startDate!)) {
         _endDate = _startDate;
         _startDate = date;
@@ -645,29 +645,29 @@ class RangeSelectionController extends ChangeNotifier {
     }
     notifyListeners();
   }
-  
+
   bool isInRange(DateTime date) {
     if (_startDate == null) return false;
     if (_endDate == null) return date.isSameDay(_startDate!);
-    return date.isAfterOrEqual(_startDate!) && 
+    return date.isAfterOrEqual(_startDate!) &&
            date.isBeforeOrEqual(_endDate!);
   }
-  
-  bool isRangeStart(DateTime date) => 
+
+  bool isRangeStart(DateTime date) =>
     _startDate != null && date.isSameDay(_startDate!);
-    
-  bool isRangeEnd(DateTime date) => 
+
+  bool isRangeEnd(DateTime date) =>
     _endDate != null && date.isSameDay(_endDate!);
 }
 ```
 
-### 拖拽事件
+### Drag Events
 
 ```dart
 class DraggableEventCard extends StatefulWidget {
   final CalendarEvent event;
   final ValueChanged<DateTime> onDragEnd;
-  
+
   @override
   State<DraggableEventCard> createState() => _DraggableEventCardState();
 }
@@ -675,7 +675,7 @@ class DraggableEventCard extends StatefulWidget {
 class _DraggableEventCardState extends State<DraggableEventCard> {
   Offset _dragOffset = Offset.zero;
   bool _isDragging = false;
-  
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -704,21 +704,21 @@ class _DraggableEventCardState extends State<DraggableEventCard> {
       ),
     );
   }
-  
+
   void _onDragStart(LongPressStartDetails details) {
     setState(() => _isDragging = true);
     HapticFeedback.mediumImpact();
   }
-  
+
   void _onDragUpdate(LongPressMoveUpdateDetails details) {
     setState(() => _dragOffset += details.offsetFromOrigin);
   }
-  
+
   void _onDragEnd(LongPressEndDetails details) {
-    // 计算新的时间位置
+    // Calculate new time position
     final newDateTime = _calculateNewDateTime(_dragOffset);
     widget.onDragEnd(newDateTime);
-    
+
     setState(() {
       _isDragging = false;
       _dragOffset = Offset.zero;
@@ -727,25 +727,25 @@ class _DraggableEventCardState extends State<DraggableEventCard> {
 }
 ```
 
-### 可调整大小
+### Resizable Events
 
 ```dart
 class ResizableEventCard extends StatefulWidget {
   final CalendarEvent event;
   final ValueChanged<Duration> onResize;
-  
+
   @override
   State<ResizableEventCard> createState() => _ResizableEventCardState();
 }
 
 class _ResizableEventCardState extends State<ResizableEventCard> {
   double _extraHeight = 0;
-  
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        // 事件卡片主体
+        // Event card body
         Container(
           height: _baseHeight + _extraHeight,
           decoration: BoxDecoration(
@@ -754,7 +754,7 @@ class _ResizableEventCardState extends State<ResizableEventCard> {
           ),
           child: EventCardContent(event: widget.event),
         ),
-        // 底部调整手柄
+        // Bottom resize handle
         Positioned(
           left: 0,
           right: 0,
@@ -790,32 +790,32 @@ class _ResizableEventCardState extends State<ResizableEventCard> {
 }
 ```
 
-## 业务场景实现
+## Business Scenario Implementation
 
-### 考勤日历
+### Attendance Calendar
 
 ```dart
-/// 考勤状态
+/// Attendance status
 enum AttendanceStatus {
-  normal,       // 正常
-  late,         // 迟到
-  leaveEarly,   // 早退
-  absent,       // 缺勤
-  leave,        // 请假
-  holiday,      // 节假日
-  rest,         // 休息日
+  normal,       // Normal
+  late,         // Late
+  leaveEarly,   // Left early
+  absent,       // Absent
+  leave,        // On leave
+  holiday,      // Holiday
+  rest,         // Rest day
 }
 
 class AttendanceCalendar extends StatelessWidget {
   final Map<DateTime, AttendanceRecord> records;
-  
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // 本月统计
+        // Monthly statistics
         AttendanceStats(records: _currentMonthRecords),
-        // 日历视图
+        // Calendar view
         MonthView(
           month: _currentMonth,
           cellBuilder: (date) => AttendanceDayCell(
@@ -823,7 +823,7 @@ class AttendanceCalendar extends StatelessWidget {
             record: records[date.dateOnly],
           ),
         ),
-        // 图例
+        // Legend
         AttendanceLegend(),
       ],
     );
@@ -833,7 +833,7 @@ class AttendanceCalendar extends StatelessWidget {
 class AttendanceDayCell extends StatelessWidget {
   final CalendarDate date;
   final AttendanceRecord? record;
-  
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -859,34 +859,34 @@ class AttendanceDayCell extends StatelessWidget {
 }
 ```
 
-### 习惯追踪日历
+### Habit Tracker Calendar
 
 ```dart
 class HabitCalendar extends StatelessWidget {
   final String habitId;
   final Map<DateTime, bool> completions;
-  
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // 连续天数
+        // Streak count
         StreakDisplay(
           currentStreak: _calculateCurrentStreak(),
           longestStreak: _calculateLongestStreak(),
         ),
-        // 本月完成率
+        // Monthly completion rate
         CompletionRate(
           completed: _monthCompletedDays,
           total: _monthTotalDays,
         ),
-        // 热力图日历
+        // Heatmap calendar
         YearHeatmap(
           year: DateTime.now().year,
           data: completions.map((k, v) => MapEntry(k, v ? 1 : 0)),
           baseColor: Colors.green,
         ),
-        // 月视图（可切换）
+        // Month view (switchable)
         MonthView(
           cellBuilder: (date) => HabitDayCell(
             date: date,
@@ -897,7 +897,7 @@ class HabitCalendar extends StatelessWidget {
       ],
     );
   }
-  
+
   int _calculateCurrentStreak() {
     int streak = 0;
     var date = DateTime.now();
@@ -910,14 +910,14 @@ class HabitCalendar extends StatelessWidget {
 }
 ```
 
-### 酒店价格日历
+### Hotel Pricing Calendar
 
 ```dart
 class HotelPriceCalendar extends StatelessWidget {
   final Map<DateTime, PriceInfo> prices;
   final DateRange? selectedRange;
   final ValueChanged<DateRange> onRangeSelected;
-  
+
   @override
   Widget build(BuildContext context) {
     return MonthView(
@@ -945,11 +945,11 @@ class HotelPriceCalendar extends StatelessWidget {
 class PriceDayCell extends StatelessWidget {
   final CalendarDate date;
   final PriceInfo? priceInfo;
-  
+
   @override
   Widget build(BuildContext context) {
     final isAvailable = priceInfo?.isAvailable ?? true;
-    
+
     return Opacity(
       opacity: isAvailable ? 1.0 : 0.4,
       child: Container(
@@ -969,7 +969,7 @@ class PriceDayCell extends StatelessWidget {
               ),
             if (priceInfo?.roomsLeft != null && priceInfo!.roomsLeft! < 5)
               Text(
-                '剩${priceInfo!.roomsLeft}间',
+                '${priceInfo!.roomsLeft} rooms left',
                 style: TextStyle(fontSize: 8, color: Colors.red),
               ),
           ],
@@ -980,13 +980,13 @@ class PriceDayCell extends StatelessWidget {
 }
 ```
 
-### 农历日历
+### Chinese Lunar Calendar
 
 ```dart
 class ChineseCalendar extends StatelessWidget {
   final DateTime month;
   final bool showFortune;
-  
+
   @override
   Widget build(BuildContext context) {
     return MonthView(
@@ -1004,7 +1004,7 @@ class ChineseCalendar extends StatelessWidget {
       onDateTap: showFortune ? _showDayFortune : null,
     );
   }
-  
+
   void _showDayFortune(DateTime date) {
     final lunar = LunarCalendar.fromGregorian(date);
     showModalBottomSheet(
@@ -1012,9 +1012,9 @@ class ChineseCalendar extends StatelessWidget {
       builder: (_) => FortuneSheet(
         date: date,
         lunar: lunar,
-        suitable: lunar.suitable,   // 宜
-        avoid: lunar.avoid,         // 忌
-        conflictZodiac: lunar.conflictZodiac,  // 冲
+        suitable: lunar.suitable,   // Auspicious
+        avoid: lunar.avoid,         // Inauspicious
+        conflictZodiac: lunar.conflictZodiac,  // Zodiac conflict
       ),
     );
   }
@@ -1022,7 +1022,7 @@ class ChineseCalendar extends StatelessWidget {
 
 class ChineseDayCell extends StatelessWidget {
   final CalendarDate date;
-  
+
   @override
   Widget build(BuildContext context) {
     final lunar = date.lunar!;
@@ -1030,11 +1030,11 @@ class ChineseDayCell extends StatelessWidget {
                         date.lunarFestival ??
                         date.holidayName ??
                         lunar.dayChinese;
-    
+
     final isSpecial = date.solarTerm != null ||
                       date.lunarFestival != null ||
                       date.holidayName != null;
-    
+
     return Container(
       decoration: BoxDecoration(
         color: date.isToday ? primaryColor : null,
@@ -1064,37 +1064,37 @@ class ChineseDayCell extends StatelessWidget {
 }
 ```
 
-## 设计规范
+## Design Specifications
 
-### 配色系统
+### Color System
 
 ```dart
 class CalendarColors {
-  // 主题色
+  // Theme colors
   static const Color primary = Color(0xFF2196F3);
   static const Color secondary = Color(0xFF03DAC6);
-  
-  // 日期颜色
+
+  // Date colors
   static const Color today = Color(0xFF2196F3);
   static const Color selected = Color(0xFF1976D2);
   static const Color inRange = Color(0xFFBBDEFB);
   static const Color weekend = Color(0xFFEF5350);
   static const Color disabled = Color(0xFFBDBDBD);
   static const Color holiday = Color(0xFFE91E63);
-  
-  // 事件颜色预设
+
+  // Event color presets
   static const List<Color> eventColors = [
-    Color(0xFF4CAF50),  // 绿
-    Color(0xFF2196F3),  // 蓝
-    Color(0xFFFF9800),  // 橙
-    Color(0xFF9C27B0),  // 紫
-    Color(0xFFE91E63),  // 粉
-    Color(0xFF00BCD4),  // 青
-    Color(0xFF795548),  // 棕
-    Color(0xFF607D8B),  // 灰蓝
+    Color(0xFF4CAF50),  // Green
+    Color(0xFF2196F3),  // Blue
+    Color(0xFFFF9800),  // Orange
+    Color(0xFF9C27B0),  // Purple
+    Color(0xFFE91E63),  // Pink
+    Color(0xFF00BCD4),  // Cyan
+    Color(0xFF795548),  // Brown
+    Color(0xFF607D8B),  // Blue-grey
   ];
-  
-  // 热力图颜色
+
+  // Heatmap colors
   static Color heatmapColor(double intensity, Color base) {
     return Color.lerp(
       base.withOpacity(0.1),
@@ -1105,66 +1105,66 @@ class CalendarColors {
 }
 ```
 
-### 尺寸规范
+### Dimension Specifications
 
 ```dart
 class CalendarDimens {
-  // 单元格
+  // Cell
   static const double cellMinHeight = 40;
   static const double cellPadding = 4;
   static const double cellRadius = 8;
-  
-  // 事件
+
+  // Event
   static const double eventHeight = 20;
   static const double eventSpacing = 2;
   static const double eventRadius = 4;
-  
-  // 时间视图
+
+  // Time view
   static const double hourHeight = 60;
   static const double timeColumnWidth = 56;
   static const double timeIndicatorHeight = 2;
-  
-  // 头部
+
+  // Header
   static const double headerHeight = 48;
   static const double weekHeaderHeight = 32;
-  
-  // 间距
+
+  // Spacing
   static const double viewPadding = 16;
   static const double sectionSpacing = 24;
 }
 ```
 
-### 动画规范
+### Animation Specifications
 
 ```dart
 class CalendarAnimations {
-  // 页面切换
+  // Page switching
   static const Duration pageSwitch = Duration(milliseconds: 300);
   static const Curve pageCurve = Curves.easeOutCubic;
-  
-  // 选择反馈
+
+  // Selection feedback
   static const Duration selection = Duration(milliseconds: 200);
   static const Curve selectionCurve = Curves.easeOut;
-  
-  // 拖拽
+
+  // Drag
   static const Duration dragStart = Duration(milliseconds: 150);
   static const Duration dragEnd = Duration(milliseconds: 200);
-  
-  // 展开/折叠
+
+  // Expand / Collapse
   static const Duration expand = Duration(milliseconds: 250);
   static const Curve expandCurve = Curves.easeInOut;
-  
-  // 翻页日历
+
+  // Flip calendar
   static const Duration flip = Duration(milliseconds: 500);
   static const Curve flipCurve = Curves.easeInOutBack;
 }
 ```
 
-## 依赖项
+## Dependencies
 
 ```yaml
 name: flutter_calendar_collection
-description: 多样式日历组件库演示
+description: Multi-style calendar component library demo
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -1172,32 +1172,32 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  
-  # 状态管理
+
+  # State management
   flutter_riverpod: ^2.4.9
-  
-  # 日期处理
+
+  # Date handling
   intl: ^0.18.1
   jiffy: ^6.2.1
-  
-  # 农历算法
+
+  # Lunar calendar algorithm
   lunar: ^1.3.8
-  
-  # 本地存储
+
+  # Local storage
   hive: ^2.2.3
   hive_flutter: ^1.1.0
-  
-  # 动画
+
+  # Animation
   flutter_animate: ^4.5.0
-  
-  # 图表 (热力图)
+
+  # Charts (heatmap)
   fl_chart: ^0.66.0
-  
-  # UI 组件
+
+  # UI components
   google_fonts: ^6.1.0
   flutter_slidable: ^3.0.1
-  
-  # 工具
+
+  # Utilities
   collection: ^1.18.0
   equatable: ^2.0.5
   uuid: ^4.2.1
@@ -1210,69 +1210,69 @@ dev_dependencies:
   build_runner: ^2.4.7
 ```
 
-## 实现优先级
+## Implementation Priority
 
-### P0 - 核心基础
+### P0 - Core Foundation
 
-1. ✅ 项目结构
-2. ✅ 核心数据模型
-3. ✅ 公历日历系统
-4. ✅ 月视图基础实现
-5. ✅ 单选日期功能
-6. ✅ 首页演示导航
+1. ✅ Project structure
+2. ✅ Core data models
+3. ✅ Gregorian calendar system
+4. ✅ Month view basic implementation
+5. ✅ Single date selection feature
+6. ✅ Home demo navigation
 
-### P1 - 视图完善
+### P1 - View Completion
 
-7. 周视图实现
-8. 日视图实现
-9. 年视图实现
-10. 范围选择
-11. 事件显示与管理
-12. 农历支持
+7. Week view implementation
+8. Day view implementation
+9. Year view implementation
+10. Range selection
+11. Event display and management
+12. Chinese Lunar calendar support
 
-### P2 - 风格与交互
+### P2 - Styles & Interaction
 
-13. 热力图风格
-14. 卡片风格
-15. 圆形/环形风格
-16. 翻页日历
-17. 拖拽事件
-18. 调整事件时长
+13. Heatmap style
+14. Card style
+15. Circular / Ring style
+16. Flip calendar
+17. Drag events
+18. Resize event duration
 
-### P3 - 业务场景
+### P3 - Business Scenarios
 
-19. 考勤日历
-20. 习惯追踪
-21. 预约日历
-22. 价格日历
-23. 共享日历
+19. Attendance calendar
+20. Habit tracker
+21. Booking calendar
+22. Pricing calendar
+23. Shared calendar
 
-### P4 - 增强功能
+### P4 - Enhanced Features
 
-24. 伊斯兰历支持
-25. 动画优化
-26. 主题切换
-27. 国际化
-28. 性能优化
+24. Islamic calendar support
+25. Animation optimization
+26. Theme switching
+27. Internationalization
+28. Performance optimization
 
-## 启动命令
+## Startup Commands
 
 ```bash
-# 获取依赖
+# Install dependencies
 flutter pub get
 
-# 运行
+# Run
 flutter run
 
-# 构建
+# Build
 flutter build apk --release
 ```
 
-## 注意事项
+## Notes
 
-1. **农历算法**: `lunar` 包支持 1900-2100 年范围
-2. **节假日数据**: 需定期更新，建议从服务器获取
-3. **性能**: 年视图热力图数据量大，需虚拟化渲染
-4. **时区**: 跨时区事件需特殊处理
-5. **无障碍**: 为日期单元格添加语义标签
-6. **测试**: 注意闰年、月末、跨年等边界情况
+1. **Lunar Algorithm**: The `lunar` package supports the year range 1900-2100
+2. **Holiday Data**: Needs periodic updates; recommended to fetch from a server
+3. **Performance**: Year view heatmap involves large data volumes; virtualized rendering is needed
+4. **Time Zones**: Cross-timezone events require special handling
+5. **Accessibility**: Add semantic labels to date cells
+6. **Testing**: Pay attention to edge cases such as leap years, end of month, and year transitions

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/models/calendar_event.dart';
 import '../../core/utils/date_utils.dart';
+import '../../l10n/app_localizations.dart';
 import 'agenda_group.dart';
 import 'agenda_item.dart';
 
@@ -114,7 +115,7 @@ class AgendaView extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            '暂无日程安排',
+            AppLocalizations.of(context).noSchedule,
             style: theme.textTheme.bodyLarge?.copyWith(
               color: theme.hintColor,
             ),
@@ -129,7 +130,7 @@ class AgendaView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 52, top: 4, bottom: 4),
       child: Text(
-        '无日程',
+        AppLocalizations.of(context).noEventsShort,
         style: theme.textTheme.bodySmall?.copyWith(
           color: theme.hintColor,
           fontStyle: FontStyle.italic,

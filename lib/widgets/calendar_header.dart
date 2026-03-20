@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import '../l10n/app_localizations.dart';
 
 /// Calendar header with month/year title, navigation arrows, and today button.
 class CalendarHeader extends StatelessWidget {
@@ -22,9 +22,10 @@ class CalendarHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final l = AppLocalizations.of(context);
 
     final displayTitle =
-        title ?? DateFormat.yMMMM('zh_CN').format(currentDate);
+        title ?? l.yearMonth(currentDate.year, currentDate.month);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -34,7 +35,7 @@ class CalendarHeader extends StatelessWidget {
           IconButton(
             onPressed: onPrevious,
             icon: const Icon(Icons.chevron_left),
-            tooltip: '上一页',
+            tooltip: l.previous,
             style: IconButton.styleFrom(
               foregroundColor: colorScheme.onSurfaceVariant,
             ),
@@ -59,7 +60,7 @@ class CalendarHeader extends StatelessWidget {
           IconButton(
             onPressed: onNext,
             icon: const Icon(Icons.chevron_right),
-            tooltip: '下一页',
+            tooltip: l.next,
             style: IconButton.styleFrom(
               foregroundColor: colorScheme.onSurfaceVariant,
             ),
@@ -75,7 +76,7 @@ class CalendarHeader extends StatelessWidget {
               minimumSize: Size.zero,
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             ),
-            child: const Text('今天'),
+            child: Text(l.today),
           ),
         ],
       ),

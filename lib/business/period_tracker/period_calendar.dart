@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/utils/date_utils.dart';
+import '../../../l10n/app_localizations.dart';
 import 'cycle_predictor.dart';
 import 'symptom_logger.dart';
 
@@ -37,16 +38,17 @@ class _PeriodCalendarState extends State<PeriodCalendar> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
     final gridDays = CalendarDateUtils.daysInMonthGrid(_currentMonth);
 
     return SingleChildScrollView(
       child: Column(
       children: [
         // Cycle info card
-        _buildCycleInfo(),
+        _buildCycleInfo(l),
         const SizedBox(height: 16),
         // Month header
-        _buildMonthHeader(),
+        _buildMonthHeader(l),
         const SizedBox(height: 8),
         // Weekday header
         _buildWeekdayHeader(),
@@ -55,7 +57,7 @@ class _PeriodCalendarState extends State<PeriodCalendar> {
         _buildCalendarGrid(gridDays),
         const SizedBox(height: 12),
         // Legend
-        _buildLegend(),
+        _buildLegend(l),
         // Symptom logger for selected date
         if (_selectedDate != null) ...[
           const SizedBox(height: 16),
@@ -72,7 +74,7 @@ class _PeriodCalendarState extends State<PeriodCalendar> {
     );
   }
 
-  Widget _buildCycleInfo() {
+  Widget _buildCycleInfo(AppLocalizations l) {
     final avgCycle = _predictor.averageCycleLength;
     final nextPeriod = _predictor.nextPeriodStart;
     final daysUntil = nextPeriod != null
@@ -95,9 +97,9 @@ class _PeriodCalendarState extends State<PeriodCalendar> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  '经期追踪',
-                  style: TextStyle(
+                Text(
+                  l.periodTracker,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -106,10 +108,10 @@ class _PeriodCalendarState extends State<PeriodCalendar> {
                 const SizedBox(height: 8),
                 Text(
                   daysUntil != null && daysUntil > 0
-                      ? '距下次经期还有 $daysUntil 天'
+                      ? l.daysUntilPeriod(daysUntil)
                       : daysUntil == 0
-                          ? '预计今天开始'
-                          : '经期进行中',
+                          ? l.expectedToday
+                          : l.periodOngoing,
                   style: const TextStyle(color: Colors.white70, fontSize: 14),
                 ),
               ],
@@ -123,12 +125,12 @@ class _PeriodCalendarState extends State<PeriodCalendar> {
             ),
             child: Column(
               children: [
-                const Text(
-                  '平均周期',
-                  style: TextStyle(color: Colors.white70, fontSize: 11),
+                Text(
+                  l.averageCycle,
+                  style: const TextStyle(color: Colors.white70, fontSize: 11),
                 ),
                 Text(
-                  '$avgCycle天',
+                  l.nDays(avgCycle),
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -143,7 +145,7 @@ class _PeriodCalendarState extends State<PeriodCalendar> {
     );
   }
 
-  Widget _buildMonthHeader() {
+  Widget _buildMonthHeader(AppLocalizations l) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -152,7 +154,7 @@ class _PeriodCalendarState extends State<PeriodCalendar> {
           icon: const Icon(Icons.chevron_left),
         ),
         Text(
-          '${_currentMonth.year}年${_currentMonth.month}月',
+          l.yearMonth(_currentMonth.year, _currentMonth.month),
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         IconButton(
@@ -217,17 +219,17 @@ class _PeriodCalendarState extends State<PeriodCalendar> {
     return Column(children: rows);
   }
 
-  Widget _buildLegend() {
+  Widget _buildLegend(AppLocalizations l) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _legendItem(const Color(0xFFE91E63), '经期'),
+        _legendItem(const Color(0xFFE91E63), l.period),
         const SizedBox(width: 16),
-        _legendItem(const Color(0xFFFF8A80), '预测经期'),
+        _legendItem(const Color(0xFFFF8A80), l.predictedPeriod),
         const SizedBox(width: 16),
-        _legendItem(const Color(0xFF81C784), '易孕期'),
+        _legendItem(const Color(0xFF81C784), l.fertileWindow),
         const SizedBox(width: 16),
-        _legendItem(const Color(0xFF4CAF50), '排卵日'),
+        _legendItem(const Color(0xFF4CAF50), l.ovulationDay),
       ],
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../core/utils/date_utils.dart';
+import '../../l10n/app_localizations.dart';
 import '../../theme/color_schemes.dart';
 
 /// GitHub contribution graph style heatmap calendar.
@@ -57,6 +58,7 @@ class GitHubHeatmap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l = AppLocalizations.of(context);
     final firstDay = DateTime(year, 1, 1);
     final lastDay = DateTime(year, 12, 31);
     final totalDays = lastDay.difference(firstDay).inDays + 1;
@@ -80,7 +82,7 @@ class GitHubHeatmap extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                '$totalDays 天活动数据',
+                l.dayData(totalDays),
                 style: theme.textTheme.bodySmall?.copyWith(color: Colors.grey),
               ),
               const Spacer(),
@@ -94,14 +96,14 @@ class GitHubHeatmap extends StatelessWidget {
           ),
         ),
         // Month labels
-        _buildMonthLabels(theme, firstMonday, totalWeeks),
+        _buildMonthLabels(context, theme, firstMonday, totalWeeks),
         const SizedBox(height: 4),
         // Grid with weekday labels
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Weekday labels (Mon, Wed, Fri)
-            _buildWeekdayLabels(theme),
+            _buildWeekdayLabels(context, theme),
             const SizedBox(width: 4),
             // Heatmap grid
             Expanded(child: _buildGrid(firstMonday, totalWeeks)),
@@ -109,12 +111,12 @@ class GitHubHeatmap extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         // Legend
-        _buildLegend(theme),
+        _buildLegend(context, theme),
       ],
     );
   }
 
-  Widget _buildMonthLabels(ThemeData theme, DateTime firstMonday, int totalWeeks) {
+  Widget _buildMonthLabels(BuildContext context, ThemeData theme, DateTime firstMonday, int totalWeeks) {
     // Determine which week each month starts in
     final labels = <Widget>[];
     // Offset for weekday label column
@@ -127,7 +129,7 @@ class GitHubHeatmap extends StatelessWidget {
       final weekStart = firstMonday.add(Duration(days: w * 7));
       if (weekStart.year == year && weekStart.month != lastMonth) {
         lastMonth = weekStart.month;
-        final label = CalendarDateUtils.monthName(weekStart.month);
+        final label = AppLocalizations.of(context).monthNamesShort[weekStart.month];
         labels.add(
           SizedBox(
             width: cellTotal,
@@ -148,7 +150,8 @@ class GitHubHeatmap extends StatelessWidget {
     );
   }
 
-  Widget _buildWeekdayLabels(ThemeData theme) {
+  Widget _buildWeekdayLabels(BuildContext context, ThemeData theme) {
+    final l = AppLocalizations.of(context);
     const displayDays = [1, 3, 5]; // Mon, Wed, Fri
     return Column(
       children: List.generate(7, (i) {
@@ -160,7 +163,7 @@ class GitHubHeatmap extends StatelessWidget {
               ? Align(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    CalendarDateUtils.weekdayName(wd),
+                    l.weekdayShort(wd),
                     style: TextStyle(fontSize: 9, color: Colors.grey[600]),
                   ),
                 )
@@ -213,11 +216,12 @@ class GitHubHeatmap extends StatelessWidget {
     );
   }
 
-  Widget _buildLegend(ThemeData theme) {
+  Widget _buildLegend(BuildContext context, ThemeData theme) {
+    final l = AppLocalizations.of(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Text('Less', style: TextStyle(fontSize: 10, color: Colors.grey[600])),
+        Text(l.less, style: TextStyle(fontSize: 10, color: Colors.grey[600])),
         const SizedBox(width: 4),
         ...List.generate(levels, (i) {
           final color = i == 0
@@ -238,7 +242,7 @@ class GitHubHeatmap extends StatelessWidget {
           );
         }),
         const SizedBox(width: 4),
-        Text('More', style: TextStyle(fontSize: 10, color: Colors.grey[600])),
+        Text(l.more_, style: TextStyle(fontSize: 10, color: Colors.grey[600])),
       ],
     );
   }
