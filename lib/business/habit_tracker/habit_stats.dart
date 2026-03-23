@@ -18,10 +18,11 @@ class HabitStats extends StatelessWidget {
     final l = AppLocalizations.of(context);
     final currentStreak = streakCounter.currentStreak;
     final longestStreak = streakCounter.longestStreak;
-    final monthCompleted =
-        streakCounter.completedInMonth(month.year, month.month);
-    final monthTotal =
-        streakCounter.totalDaysInMonth(month.year, month.month);
+    final monthCompleted = streakCounter.completedInMonth(
+      month.year,
+      month.month,
+    );
+    final monthTotal = streakCounter.totalDaysInMonth(month.year, month.month);
     final rate = streakCounter.completionRateInMonth(month.year, month.month);
 
     return Container(
@@ -93,8 +94,8 @@ class HabitStats extends StatelessWidget {
                 rate >= 0.8
                     ? const Color(0xFF4CAF50)
                     : rate >= 0.5
-                        ? const Color(0xFFFF9800)
-                        : const Color(0xFFF44336),
+                    ? const Color(0xFFFF9800)
+                    : const Color(0xFFF44336),
               ),
             ),
           ),
@@ -136,10 +137,7 @@ class HabitStats extends StatelessWidget {
             const SizedBox(height: 4),
             Text(
               label,
-              style: TextStyle(
-                fontSize: 10,
-                color: Colors.grey.shade600,
-              ),
+              style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
             ),
           ],
         );

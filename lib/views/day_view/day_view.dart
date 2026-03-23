@@ -66,7 +66,10 @@ class _DayViewState extends State<DayView> {
 
   double _initialScrollOffset() {
     final now = DateTime.now();
-    final targetHour = (_isToday ? now.hour - 1 : 8).clamp(_startHour, _endHour - 1);
+    final targetHour = (_isToday ? now.hour - 1 : 8).clamp(
+      _startHour,
+      _endHour - 1,
+    );
     return (targetHour - _startHour) * _hourHeight;
   }
 
@@ -92,16 +95,18 @@ class _DayViewState extends State<DayView> {
                 if (widget.onTimeTap != null) {
                   final minutes =
                       (details.localPosition.dy / _hourHeight * 60).round() +
-                          _startHour * 60;
+                      _startHour * 60;
                   final hour = (minutes ~/ 60).clamp(0, 23);
                   final minute = minutes % 60;
-                  widget.onTimeTap!(DateTime(
-                    widget.date.year,
-                    widget.date.month,
-                    widget.date.day,
-                    hour,
-                    minute,
-                  ));
+                  widget.onTimeTap!(
+                    DateTime(
+                      widget.date.year,
+                      widget.date.month,
+                      widget.date.day,
+                      hour,
+                      minute,
+                    ),
+                  );
                 }
               },
               child: SizedBox(
@@ -163,10 +168,7 @@ class _DayViewState extends State<DayView> {
   Widget _buildTimeIndicator() {
     final now = DateTime.now();
     final top = _topForTime(now);
-    return TimeIndicator(
-      top: top,
-      timeColumnWidth: _timeColumnWidth,
-    );
+    return TimeIndicator(top: top, timeColumnWidth: _timeColumnWidth);
   }
 
   double _topForTime(DateTime time) {

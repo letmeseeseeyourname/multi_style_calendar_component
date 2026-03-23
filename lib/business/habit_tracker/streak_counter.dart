@@ -4,9 +4,9 @@ class StreakCounter {
   final Set<DateTime> completedDates;
 
   StreakCounter({required Iterable<DateTime> completedDates})
-      : completedDates = completedDates
-            .map((d) => DateTime(d.year, d.month, d.day))
-            .toSet();
+    : completedDates = completedDates
+          .map((d) => DateTime(d.year, d.month, d.day))
+          .toSet();
 
   /// 当前连续天数（从今天往回数）
   int get currentStreak {
@@ -102,7 +102,12 @@ class StreakCounter {
     for (int i = 0; i < 5; i++) {
       final date = now.subtract(Duration(days: i));
       final dateOnly = DateTime(date.year, date.month, date.day);
-      if (!dates.any((d) => d.year == dateOnly.year && d.month == dateOnly.month && d.day == dateOnly.day)) {
+      if (!dates.any(
+        (d) =>
+            d.year == dateOnly.year &&
+            d.month == dateOnly.month &&
+            d.day == dateOnly.day,
+      )) {
         dates.add(dateOnly);
       }
     }

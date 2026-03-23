@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../core/controllers/event_controller.dart';
 import '../core/models/calendar_event.dart';
 
-final eventControllerProvider =
-    ChangeNotifierProvider<EventController>((ref) {
+final eventControllerProvider = ChangeNotifierProvider<EventController>((ref) {
   final controller = EventController();
   // 添加示例事件
   controller.addAll(_sampleEvents());

@@ -116,19 +116,16 @@ class RoomAvailabilityWidget extends StatelessWidget {
         children: [
           Text(
             l.roomTypeTitle(date.month, date.day),
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 12),
-          ...rooms.map((room) => _RoomCard(
-                room: room,
-                l: l,
-                onTap: room.isAvailable
-                    ? () => onRoomSelected?.call(room)
-                    : null,
-              )),
+          ...rooms.map(
+            (room) => _RoomCard(
+              room: room,
+              l: l,
+              onTap: room.isAvailable ? () => onRoomSelected?.call(room) : null,
+            ),
+          ),
         ],
       ),
     );
@@ -150,9 +147,7 @@ class _RoomCard extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 8),
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: room.isAvailable
-              ? Colors.white
-              : Colors.grey.shade50,
+          color: room.isAvailable ? Colors.white : Colors.grey.shade50,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
             color: room.isAvailable
@@ -173,9 +168,7 @@ class _RoomCard extends StatelessWidget {
               ),
               child: Icon(
                 Icons.hotel,
-                color: room.isAvailable
-                    ? const Color(0xFF2196F3)
-                    : Colors.grey,
+                color: room.isAvailable ? const Color(0xFF2196F3) : Colors.grey,
               ),
             ),
             const SizedBox(width: 12),
@@ -194,10 +187,7 @@ class _RoomCard extends StatelessWidget {
                   const SizedBox(height: 2),
                   Text(
                     room.description,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey.shade600,
-                    ),
+                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
                   ),
                   if (room.isAvailable)
                     Text(

@@ -63,11 +63,13 @@ class ConflictDetector {
           final commonMembers = membersA.intersection(membersB).toList();
 
           if (commonMembers.isNotEmpty) {
-            conflicts.add(ConflictInfo(
-              eventA: sorted[i],
-              eventB: sorted[j],
-              conflictingMemberIds: commonMembers,
-            ));
+            conflicts.add(
+              ConflictInfo(
+                eventA: sorted[i],
+                eventB: sorted[j],
+                conflictingMemberIds: commonMembers,
+              ),
+            );
           }
         } else {
           // Events are sorted, no need to check further
@@ -81,8 +83,9 @@ class ConflictDetector {
 
   /// 检测某个事件是否与其他事件冲突
   static bool hasConflict(SharedEvent event, List<SharedEvent> others) {
-    return others.any((other) =>
-        other.id != event.id && _eventsOverlap(event, other));
+    return others.any(
+      (other) => other.id != event.id && _eventsOverlap(event, other),
+    );
   }
 
   /// 获取某个成员在指定日期的所有冲突
@@ -92,8 +95,7 @@ class ConflictDetector {
     DateTime date,
   ) {
     final memberEvents = events
-        .where((e) =>
-            e.allMemberIds.contains(memberId) && e.occursOn(date))
+        .where((e) => e.allMemberIds.contains(memberId) && e.occursOn(date))
         .toList();
     return findConflicts(memberEvents);
   }

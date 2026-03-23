@@ -181,7 +181,8 @@ class _MinimalCalendarState extends State<MinimalCalendar> {
     final isCurrentMonth = CalendarDateUtils.isSameMonth(date, _currentMonth);
     final isToday = CalendarDateUtils.isSameDay(date, DateTime.now());
     final isSelected =
-        _selectedDate != null && CalendarDateUtils.isSameDay(date, _selectedDate!);
+        _selectedDate != null &&
+        CalendarDateUtils.isSameDay(date, _selectedDate!);
 
     Color textColor;
     if (!isCurrentMonth) {
@@ -206,19 +207,16 @@ class _MinimalCalendarState extends State<MinimalCalendar> {
             height: 36,
             alignment: Alignment.center,
             decoration: isSelected
+                ? BoxDecoration(shape: BoxShape.circle, color: Colors.grey[800])
+                : isToday
                 ? BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.grey[800],
+                    border: Border.all(
+                      color: CalendarColors.primary.withValues(alpha: 0.4),
+                      width: 1,
+                    ),
                   )
-                : isToday
-                    ? BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: CalendarColors.primary.withValues(alpha: 0.4),
-                          width: 1,
-                        ),
-                      )
-                    : null,
+                : null,
             child: Text(
               '${date.day}',
               style: TextStyle(

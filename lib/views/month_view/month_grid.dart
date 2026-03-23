@@ -42,7 +42,8 @@ class MonthGrid extends StatelessWidget {
         final date = days[index];
         final calendarDate = CalendarDate.fromDateTime(date);
         final isCurrentMonth = CalendarDateUtils.isSameMonth(date, month);
-        final isSelected = selectedDate != null &&
+        final isSelected =
+            selectedDate != null &&
             CalendarDateUtils.isSameDay(date, selectedDate!);
 
         // 获取当天事件

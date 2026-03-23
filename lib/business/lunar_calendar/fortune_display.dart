@@ -6,10 +6,7 @@ import '../../../l10n/app_localizations.dart';
 class FortuneDisplay extends StatelessWidget {
   final DateTime date;
 
-  const FortuneDisplay({
-    super.key,
-    required this.date,
-  });
+  const FortuneDisplay({super.key, required this.date});
 
   @override
   Widget build(BuildContext context) {
@@ -86,28 +83,32 @@ class FortuneDisplay extends StatelessWidget {
                 child: Wrap(
                   spacing: 6,
                   runSpacing: 6,
-                  children: (suitable.isNotEmpty
-                          ? suitable.take(8).toList()
-                          : [l.noData])
-                      .map((item) => Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 4,
-                            ),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF4CAF50)
-                                  .withValues(alpha: 0.1),
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Text(
-                              item,
-                              style: const TextStyle(
-                                fontSize: 13,
-                                color: Color(0xFF2E7D32),
+                  children:
+                      (suitable.isNotEmpty
+                              ? suitable.take(8).toList()
+                              : [l.noData])
+                          .map(
+                            (item) => Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 4,
+                              ),
+                              decoration: BoxDecoration(
+                                color: const Color(
+                                  0xFF4CAF50,
+                                ).withValues(alpha: 0.1),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Text(
+                                item,
+                                style: const TextStyle(
+                                  fontSize: 13,
+                                  color: Color(0xFF2E7D32),
+                                ),
                               ),
                             ),
-                          ))
-                      .toList(),
+                          )
+                          .toList(),
                 ),
               ),
             ],
@@ -142,28 +143,30 @@ class FortuneDisplay extends StatelessWidget {
                 child: Wrap(
                   spacing: 6,
                   runSpacing: 6,
-                  children: (avoid.isNotEmpty
-                          ? avoid.take(8).toList()
-                          : [l.noData])
-                      .map((item) => Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 4,
-                            ),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFF44336)
-                                  .withValues(alpha: 0.1),
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Text(
-                              item,
-                              style: const TextStyle(
-                                fontSize: 13,
-                                color: Color(0xFFC62828),
+                  children:
+                      (avoid.isNotEmpty ? avoid.take(8).toList() : [l.noData])
+                          .map(
+                            (item) => Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 4,
+                              ),
+                              decoration: BoxDecoration(
+                                color: const Color(
+                                  0xFFF44336,
+                                ).withValues(alpha: 0.1),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Text(
+                                item,
+                                style: const TextStyle(
+                                  fontSize: 13,
+                                  color: Color(0xFFC62828),
+                                ),
                               ),
                             ),
-                          ))
-                      .toList(),
+                          )
+                          .toList(),
                 ),
               ),
             ],

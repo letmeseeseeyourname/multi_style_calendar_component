@@ -26,8 +26,11 @@ class _ChineseCalendarState extends State<ChineseCalendar> {
 
   void _changeMonth(int delta) {
     setState(() {
-      _currentMonth =
-          DateTime(_currentMonth.year, _currentMonth.month + delta, 1);
+      _currentMonth = DateTime(
+        _currentMonth.year,
+        _currentMonth.month + delta,
+        1,
+      );
       _selectedDate = null;
     });
   }
@@ -40,34 +43,35 @@ class _ChineseCalendarState extends State<ChineseCalendar> {
 
     return SingleChildScrollView(
       child: Column(
-      children: [
-        // Lunar month header
-        _buildLunarHeader(lunarMonthInfo, l),
-        const SizedBox(height: 12),
-        // Month navigation
-        _buildMonthHeader(l),
-        const SizedBox(height: 8),
-        // Weekday header
-        _buildWeekdayHeader(),
-        const SizedBox(height: 4),
-        // Calendar grid
-        _buildCalendarGrid(gridDays),
-        // Selected date details
-        if (_selectedDate != null) ...[
-          const SizedBox(height: 16),
-          _buildSelectedDateInfo(l),
+        children: [
+          // Lunar month header
+          _buildLunarHeader(lunarMonthInfo, l),
           const SizedBox(height: 12),
-          FestivalDisplay(
-            date: _selectedDate!,
-            solarTerm: CalendarDate.fromDateTime(_selectedDate!).solarTerm,
-            lunarFestival:
-                CalendarDate.fromDateTime(_selectedDate!).lunarFestival,
-          ),
-          const SizedBox(height: 12),
-          FortuneDisplay(date: _selectedDate!),
+          // Month navigation
+          _buildMonthHeader(l),
+          const SizedBox(height: 8),
+          // Weekday header
+          _buildWeekdayHeader(),
+          const SizedBox(height: 4),
+          // Calendar grid
+          _buildCalendarGrid(gridDays),
+          // Selected date details
+          if (_selectedDate != null) ...[
+            const SizedBox(height: 16),
+            _buildSelectedDateInfo(l),
+            const SizedBox(height: 12),
+            FestivalDisplay(
+              date: _selectedDate!,
+              solarTerm: CalendarDate.fromDateTime(_selectedDate!).solarTerm,
+              lunarFestival: CalendarDate.fromDateTime(
+                _selectedDate!,
+              ).lunarFestival,
+            ),
+            const SizedBox(height: 12),
+            FortuneDisplay(date: _selectedDate!),
+          ],
         ],
-      ],
-    ),
+      ),
     );
   }
 
@@ -100,10 +104,7 @@ class _ChineseCalendarState extends State<ChineseCalendar> {
                 if (info.lunar != null)
                   Text(
                     '${info.lunar!.yearGanZhi}年 (${info.lunar!.zodiac}年)',
-                    style: const TextStyle(
-                      color: Colors.white70,
-                      fontSize: 14,
-                    ),
+                    style: const TextStyle(color: Colors.white70, fontSize: 14),
                   ),
               ],
             ),
@@ -119,17 +120,11 @@ class _ChineseCalendarState extends State<ChineseCalendar> {
                 children: [
                   Text(
                     info.lunar!.zodiac,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 28,
-                    ),
+                    style: const TextStyle(color: Colors.white, fontSize: 28),
                   ),
                   Text(
                     info.lunar!.yearGanZhi,
-                    style: const TextStyle(
-                      color: Colors.white70,
-                      fontSize: 12,
-                    ),
+                    style: const TextStyle(color: Colors.white70, fontSize: 12),
                   ),
                 ],
               ),
@@ -191,7 +186,8 @@ class _ChineseCalendarState extends State<ChineseCalendar> {
             final date = gridDays[i + j];
             final isCurrentMonth = date.month == _currentMonth.month;
             final isToday = CalendarDateUtils.isSameDay(date, now);
-            final isSelected = _selectedDate != null &&
+            final isSelected =
+                _selectedDate != null &&
                 CalendarDateUtils.isSameDay(date, _selectedDate!);
             final calendarDate = CalendarDate.fromDateTime(date);
 
@@ -233,7 +229,11 @@ class _ChineseCalendarState extends State<ChineseCalendar> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                l.yearMonthDay(_selectedDate!.year, _selectedDate!.month, _selectedDate!.day),
+                l.yearMonthDay(
+                  _selectedDate!.year,
+                  _selectedDate!.month,
+                  _selectedDate!.day,
+                ),
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -246,7 +246,10 @@ class _ChineseCalendarState extends State<ChineseCalendar> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               _infoChip(l.lunarLabel2, lunar.fullChinese),
-              _infoChip(l.ganZhi, '${lunar.yearGanZhi}${l.yearSuffix} ${lunar.monthGanZhi}${l.monthSuffix} ${lunar.dayGanZhi}${l.daySuffix}'),
+              _infoChip(
+                l.ganZhi,
+                '${lunar.yearGanZhi}${l.yearSuffix} ${lunar.monthGanZhi}${l.monthSuffix} ${lunar.dayGanZhi}${l.daySuffix}',
+              ),
             ],
           ),
           const SizedBox(height: 4),
@@ -310,8 +313,8 @@ class _ChineseDayCell extends StatelessWidget {
   Widget build(BuildContext context) {
     final lunar = calendarDate.lunar;
     final lunarText = LunarUtils.getLunarDayText(calendarDate.gregorian);
-    final isSpecial = calendarDate.solarTerm != null ||
-        calendarDate.lunarFestival != null;
+    final isSpecial =
+        calendarDate.solarTerm != null || calendarDate.lunarFestival != null;
 
     return Container(
       height: 56,
@@ -320,14 +323,14 @@ class _ChineseDayCell extends StatelessWidget {
         color: isSelected
             ? const Color(0xFFD32F2F).withValues(alpha: 0.12)
             : isToday
-                ? const Color(0xFFD32F2F).withValues(alpha: 0.06)
-                : null,
+            ? const Color(0xFFD32F2F).withValues(alpha: 0.06)
+            : null,
         borderRadius: BorderRadius.circular(6),
         border: isToday
             ? Border.all(color: const Color(0xFFD32F2F), width: 1.5)
             : isSelected
-                ? Border.all(color: const Color(0xFFD32F2F), width: 1)
-                : null,
+            ? Border.all(color: const Color(0xFFD32F2F), width: 1)
+            : null,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -339,10 +342,10 @@ class _ChineseDayCell extends StatelessWidget {
               fontWeight: isToday ? FontWeight.bold : FontWeight.normal,
               color: isCurrentMonth
                   ? (isToday
-                      ? const Color(0xFFD32F2F)
-                      : calendarDate.isWeekend
-                          ? Colors.red.shade300
-                          : Colors.black87)
+                        ? const Color(0xFFD32F2F)
+                        : calendarDate.isWeekend
+                        ? Colors.red.shade300
+                        : Colors.black87)
                   : Colors.grey.shade300,
             ),
           ),

@@ -9,12 +9,7 @@ class MonthPicker extends StatefulWidget {
   final DateTime? minDate;
   final DateTime? maxDate;
 
-  const MonthPicker({
-    super.key,
-    this.initialDate,
-    this.minDate,
-    this.maxDate,
-  });
+  const MonthPicker({super.key, this.initialDate, this.minDate, this.maxDate});
 
   /// Shows the month picker dialog.
   static Future<DateTime?> show(
@@ -83,8 +78,9 @@ class _MonthPickerState extends State<MonthPicker> {
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 color: CalendarColors.primary,
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(16)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(16),
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,8 +112,7 @@ class _MonthPickerState extends State<MonthPicker> {
                 children: [
                   IconButton(
                     icon: const Icon(Icons.chevron_left),
-                    onPressed: () =>
-                        setState(() => _displayYear--),
+                    onPressed: () => setState(() => _displayYear--),
                   ),
                   Text(
                     '$_displayYear${l.yearSuffix}',
@@ -127,8 +122,7 @@ class _MonthPickerState extends State<MonthPicker> {
                   ),
                   IconButton(
                     icon: const Icon(Icons.chevron_right),
-                    onPressed: () =>
-                        setState(() => _displayYear++),
+                    onPressed: () => setState(() => _displayYear++),
                   ),
                 ],
               ),
@@ -143,10 +137,11 @@ class _MonthPickerState extends State<MonthPicker> {
                     child: Row(
                       children: List.generate(3, (col) {
                         final month = row * 3 + col + 1;
-                        final isSelected = _selectedYear == _displayYear &&
+                        final isSelected =
+                            _selectedYear == _displayYear &&
                             _selectedMonth == month;
-                        final isCurrent = now.year == _displayYear &&
-                            now.month == month;
+                        final isCurrent =
+                            now.year == _displayYear && now.month == month;
                         final disabled = _isDisabled(month);
 
                         return Expanded(
@@ -156,9 +151,8 @@ class _MonthPickerState extends State<MonthPicker> {
                               color: isSelected
                                   ? CalendarColors.selected
                                   : isCurrent
-                                      ? CalendarColors.today
-                                          .withValues(alpha: 0.1)
-                                      : Colors.transparent,
+                                  ? CalendarColors.today.withValues(alpha: 0.1)
+                                  : Colors.transparent,
                               borderRadius: BorderRadius.circular(12),
                               child: InkWell(
                                 borderRadius: BorderRadius.circular(12),
@@ -179,8 +173,8 @@ class _MonthPickerState extends State<MonthPicker> {
                                       color: disabled
                                           ? CalendarColors.disabled
                                           : isSelected
-                                              ? Colors.white
-                                              : null,
+                                          ? Colors.white
+                                          : null,
                                       fontWeight: (isCurrent || isSelected)
                                           ? FontWeight.bold
                                           : null,
@@ -211,8 +205,9 @@ class _MonthPickerState extends State<MonthPicker> {
                   const SizedBox(width: 8),
                   FilledButton(
                     onPressed: (_selectedYear != null && _selectedMonth != null)
-                        ? () => Navigator.of(context)
-                            .pop(DateTime(_selectedYear!, _selectedMonth!))
+                        ? () => Navigator.of(
+                            context,
+                          ).pop(DateTime(_selectedYear!, _selectedMonth!))
                         : null,
                     child: Text(l.confirm),
                   ),

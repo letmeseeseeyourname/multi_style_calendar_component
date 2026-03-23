@@ -1,7 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../../core/utils/date_utils.dart';
-import '../../theme/color_schemes.dart';
 
 /// Frosted glass effect calendar using BackdropFilter and
 /// semi-transparent containers. Designed to be placed over
@@ -58,9 +57,7 @@ class _GlassCalendarState extends State<GlassCalendar> {
     return Stack(
       children: [
         // Background
-        Positioned.fill(
-          child: widget.background ?? _defaultBackground(),
-        ),
+        Positioned.fill(child: widget.background ?? _defaultBackground()),
         // Glass calendar overlay
         Padding(
           padding: const EdgeInsets.all(16),
@@ -89,11 +86,7 @@ class _GlassCalendarState extends State<GlassCalendar> {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            Color(0xFF667eea),
-            Color(0xFF764ba2),
-            Color(0xFFf093fb),
-          ],
+          colors: [Color(0xFF667eea), Color(0xFF764ba2), Color(0xFFf093fb)],
         ),
       ),
     );
@@ -106,10 +99,7 @@ class _GlassCalendarState extends State<GlassCalendar> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _GlassIconButton(
-            icon: Icons.chevron_left,
-            onTap: _previousMonth,
-          ),
+          _GlassIconButton(icon: Icons.chevron_left, onTap: _previousMonth),
           Column(
             children: [
               Text(
@@ -130,10 +120,7 @@ class _GlassCalendarState extends State<GlassCalendar> {
               ),
             ],
           ),
-          _GlassIconButton(
-            icon: Icons.chevron_right,
-            onTap: _nextMonth,
-          ),
+          _GlassIconButton(icon: Icons.chevron_right, onTap: _nextMonth),
         ],
       ),
     );
@@ -182,8 +169,10 @@ class _GlassCalendarState extends State<GlassCalendar> {
     final isCurrentMonth = CalendarDateUtils.isSameMonth(date, _currentMonth);
     final isToday = CalendarDateUtils.isSameDay(date, DateTime.now());
     final isSelected =
-        _selectedDate != null && CalendarDateUtils.isSameDay(date, _selectedDate!);
-    final isWeekend = date.weekday == DateTime.saturday || date.weekday == DateTime.sunday;
+        _selectedDate != null &&
+        CalendarDateUtils.isSameDay(date, _selectedDate!);
+    final isWeekend =
+        date.weekday == DateTime.saturday || date.weekday == DateTime.sunday;
 
     Color textColor;
     if (!isCurrentMonth) {
@@ -212,8 +201,8 @@ class _GlassCalendarState extends State<GlassCalendar> {
               color: isSelected
                   ? Colors.white.withValues(alpha: 0.35)
                   : isToday
-                      ? Colors.white.withValues(alpha: 0.2)
-                      : null,
+                  ? Colors.white.withValues(alpha: 0.2)
+                  : null,
               border: isToday && !isSelected
                   ? Border.all(
                       color: Colors.white.withValues(alpha: 0.6),
@@ -233,8 +222,9 @@ class _GlassCalendarState extends State<GlassCalendar> {
               '${date.day}',
               style: TextStyle(
                 fontSize: 14,
-                fontWeight:
-                    (isToday || isSelected) ? FontWeight.w600 : FontWeight.w400,
+                fontWeight: (isToday || isSelected)
+                    ? FontWeight.w600
+                    : FontWeight.w400,
                 color: textColor,
               ),
             ),
@@ -286,10 +276,7 @@ class _GlassIconButton extends StatelessWidget {
   final IconData icon;
   final VoidCallback onTap;
 
-  const _GlassIconButton({
-    required this.icon,
-    required this.onTap,
-  });
+  const _GlassIconButton({required this.icon, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -305,9 +292,7 @@ class _GlassIconButton extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: Colors.white.withValues(alpha: 0.2),
-              ),
+              border: Border.all(color: Colors.white.withValues(alpha: 0.2)),
             ),
             child: Icon(
               icon,

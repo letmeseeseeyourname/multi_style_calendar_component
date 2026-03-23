@@ -28,11 +28,8 @@ class EventPopup extends StatelessWidget {
       context: context,
       isScrollControlled: true,
       showDragHandle: true,
-      builder: (_) => EventPopup(
-        event: event,
-        onEdit: onEdit,
-        onDelete: onDelete,
-      ),
+      builder: (_) =>
+          EventPopup(event: event, onEdit: onEdit, onDelete: onDelete),
     );
   }
 
@@ -86,10 +83,10 @@ class EventPopup extends StatelessWidget {
               event.isAllDay
                   ? '${l.allDay}  ${dateFormat.format(event.startTime)}'
                   : event.isMultiDay
-                      ? '${dateFormat.format(event.startTime)} ${timeFormat.format(event.startTime)}'
-                          ' - ${dateFormat.format(event.endTime)} ${timeFormat.format(event.endTime)}'
-                      : '${dateFormat.format(event.startTime)}  '
-                          '${timeFormat.format(event.startTime)} - ${timeFormat.format(event.endTime)}',
+                  ? '${dateFormat.format(event.startTime)} ${timeFormat.format(event.startTime)}'
+                        ' - ${dateFormat.format(event.endTime)} ${timeFormat.format(event.endTime)}'
+                  : '${dateFormat.format(event.startTime)}  '
+                        '${timeFormat.format(event.startTime)} - ${timeFormat.format(event.endTime)}',
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: colorScheme.onSurfaceVariant,
               ),
@@ -111,8 +108,7 @@ class EventPopup extends StatelessWidget {
           ],
 
           // Description
-          if (event.description != null &&
-              event.description!.isNotEmpty) ...[
+          if (event.description != null && event.description!.isNotEmpty) ...[
             const SizedBox(height: 12),
             _DetailRow(
               icon: Icons.notes,

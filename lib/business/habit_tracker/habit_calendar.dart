@@ -32,14 +32,18 @@ class _HabitCalendarState extends State<HabitCalendar> {
   void _toggleDate(DateTime date) {
     setState(() {
       final dateOnly = DateTime(date.year, date.month, date.day);
-      if (_completedDates.any((d) =>
-          d.year == dateOnly.year &&
-          d.month == dateOnly.month &&
-          d.day == dateOnly.day)) {
-        _completedDates.removeWhere((d) =>
+      if (_completedDates.any(
+        (d) =>
             d.year == dateOnly.year &&
             d.month == dateOnly.month &&
-            d.day == dateOnly.day);
+            d.day == dateOnly.day,
+      )) {
+        _completedDates.removeWhere(
+          (d) =>
+              d.year == dateOnly.year &&
+              d.month == dateOnly.month &&
+              d.day == dateOnly.day,
+        );
       } else {
         _completedDates.add(dateOnly);
       }
@@ -49,8 +53,11 @@ class _HabitCalendarState extends State<HabitCalendar> {
 
   void _changeMonth(int delta) {
     setState(() {
-      _currentMonth =
-          DateTime(_currentMonth.year, _currentMonth.month + delta, 1);
+      _currentMonth = DateTime(
+        _currentMonth.year,
+        _currentMonth.month + delta,
+        1,
+      );
     });
   }
 
@@ -60,23 +67,20 @@ class _HabitCalendarState extends State<HabitCalendar> {
 
     return SingleChildScrollView(
       child: Column(
-      children: [
-        // Stats
-        HabitStats(
-          streakCounter: _streakCounter,
-          month: _currentMonth,
-        ),
-        const SizedBox(height: 16),
-        // Month header
-        _buildMonthHeader(),
-        const SizedBox(height: 8),
-        // Weekday header
-        _buildWeekdayHeader(),
-        const SizedBox(height: 4),
-        // Calendar grid
-        _buildCalendarGrid(gridDays),
-      ],
-    ),
+        children: [
+          // Stats
+          HabitStats(streakCounter: _streakCounter, month: _currentMonth),
+          const SizedBox(height: 16),
+          // Month header
+          _buildMonthHeader(),
+          const SizedBox(height: 8),
+          // Weekday header
+          _buildWeekdayHeader(),
+          const SizedBox(height: 4),
+          // Calendar grid
+          _buildCalendarGrid(gridDays),
+        ],
+      ),
     );
   }
 
@@ -89,7 +93,9 @@ class _HabitCalendarState extends State<HabitCalendar> {
           icon: const Icon(Icons.chevron_left),
         ),
         Text(
-          AppLocalizations.of(context).yearMonth(_currentMonth.year, _currentMonth.month),
+          AppLocalizations.of(
+            context,
+          ).yearMonth(_currentMonth.year, _currentMonth.month),
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         IconButton(
@@ -199,10 +205,10 @@ class _HabitDayCell extends StatelessWidget {
                   color: !isCurrentMonth
                       ? Colors.grey.shade300
                       : isFuture
-                          ? Colors.grey.shade400
-                          : isCompleted
-                              ? const Color(0xFF2E7D32)
-                              : Colors.black87,
+                      ? Colors.grey.shade400
+                      : isCompleted
+                      ? const Color(0xFF2E7D32)
+                      : Colors.black87,
                 ),
               ),
             ],

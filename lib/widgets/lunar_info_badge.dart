@@ -42,7 +42,8 @@ class LunarInfoBadge extends StatelessWidget {
     final festivals = lunar.getFestivals();
     final isSpecial = jieQi != null || festivals.isNotEmpty;
 
-    final effectiveTextStyle = textStyle ??
+    final effectiveTextStyle =
+        textStyle ??
         theme.textTheme.labelSmall?.copyWith(
           fontSize: 10,
           color: isSpecial ? colorScheme.error : colorScheme.onSurfaceVariant,
@@ -66,14 +67,16 @@ class LunarInfoBadge extends StatelessWidget {
     }
 
     // Chip-style badge with background
-    final effectiveBackground = backgroundColor ??
+    final effectiveBackground =
+        backgroundColor ??
         (isSpecial
             ? colorScheme.errorContainer
             : colorScheme.surfaceContainerHighest);
 
     return Container(
-      constraints:
-          maxWidth != null ? BoxConstraints(maxWidth: maxWidth!) : null,
+      constraints: maxWidth != null
+          ? BoxConstraints(maxWidth: maxWidth!)
+          : null,
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
       decoration: BoxDecoration(
         color: effectiveBackground,
@@ -88,19 +91,13 @@ class LunarInfoBadge extends StatelessWidget {
 class LunarInfoDetailBadge extends StatelessWidget {
   final DateTime date;
 
-  const LunarInfoDetailBadge({
-    super.key,
-    required this.date,
-  });
+  const LunarInfoDetailBadge({super.key, required this.date});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => _showLunarDetail(context),
-      child: LunarInfoBadge(
-        date: date,
-        showBackground: true,
-      ),
+      child: LunarInfoBadge(date: date, showBackground: true),
     );
   }
 
@@ -162,12 +159,15 @@ class LunarInfoDetailBadge extends StatelessWidget {
               Wrap(
                 spacing: 8,
                 children: festivals
-                    .map((f) => Chip(
-                          label: Text(f),
-                          backgroundColor: colorScheme.errorContainer,
-                          labelStyle:
-                              TextStyle(color: colorScheme.onErrorContainer),
-                        ))
+                    .map(
+                      (f) => Chip(
+                        label: Text(f),
+                        backgroundColor: colorScheme.errorContainer,
+                        labelStyle: TextStyle(
+                          color: colorScheme.onErrorContainer,
+                        ),
+                      ),
+                    )
                     .toList(),
               ),
             ],
@@ -179,15 +179,21 @@ class LunarInfoDetailBadge extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.green.shade100,
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: Text(l.suitable,
-                        style: const TextStyle(
-                            color: Colors.green, fontWeight: FontWeight.bold)),
+                    child: Text(
+                      l.suitable,
+                      style: const TextStyle(
+                        color: Colors.green,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                   const SizedBox(width: 8),
                   Expanded(
@@ -196,9 +202,14 @@ class LunarInfoDetailBadge extends StatelessWidget {
                       runSpacing: 4,
                       children: suitable
                           .take(8)
-                          .map((s) => Text(s,
+                          .map(
+                            (s) => Text(
+                              s,
                               style: theme.textTheme.bodySmall?.copyWith(
-                                  color: colorScheme.onSurfaceVariant)))
+                                color: colorScheme.onSurfaceVariant,
+                              ),
+                            ),
+                          )
                           .toList(),
                     ),
                   ),
@@ -211,15 +222,21 @@ class LunarInfoDetailBadge extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.red.shade100,
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: Text(l.avoid,
-                        style: const TextStyle(
-                            color: Colors.red, fontWeight: FontWeight.bold)),
+                    child: Text(
+                      l.avoid,
+                      style: const TextStyle(
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                   const SizedBox(width: 8),
                   Expanded(
@@ -228,9 +245,14 @@ class LunarInfoDetailBadge extends StatelessWidget {
                       runSpacing: 4,
                       children: avoid
                           .take(8)
-                          .map((s) => Text(s,
+                          .map(
+                            (s) => Text(
+                              s,
                               style: theme.textTheme.bodySmall?.copyWith(
-                                  color: colorScheme.onSurfaceVariant)))
+                                color: colorScheme.onSurfaceVariant,
+                              ),
+                            ),
+                          )
                           .toList(),
                     ),
                   ),

@@ -27,8 +27,11 @@ class _PeriodCalendarState extends State<PeriodCalendar> {
 
   void _changeMonth(int delta) {
     setState(() {
-      _currentMonth =
-          DateTime(_currentMonth.year, _currentMonth.month + delta, 1);
+      _currentMonth = DateTime(
+        _currentMonth.year,
+        _currentMonth.month + delta,
+        1,
+      );
       _selectedDate = null;
     });
   }
@@ -43,34 +46,34 @@ class _PeriodCalendarState extends State<PeriodCalendar> {
 
     return SingleChildScrollView(
       child: Column(
-      children: [
-        // Cycle info card
-        _buildCycleInfo(l),
-        const SizedBox(height: 16),
-        // Month header
-        _buildMonthHeader(l),
-        const SizedBox(height: 8),
-        // Weekday header
-        _buildWeekdayHeader(),
-        const SizedBox(height: 4),
-        // Calendar grid
-        _buildCalendarGrid(gridDays),
-        const SizedBox(height: 12),
-        // Legend
-        _buildLegend(l),
-        // Symptom logger for selected date
-        if (_selectedDate != null) ...[
+        children: [
+          // Cycle info card
+          _buildCycleInfo(l),
           const SizedBox(height: 16),
-          SymptomLogger(
-            date: _selectedDate!,
-            initialSymptoms: _symptomLogs[_dateKey(_selectedDate!)] ?? [],
-            onSymptomsChanged: (symptoms) {
-              _symptomLogs[_dateKey(_selectedDate!)] = symptoms;
-            },
-          ),
+          // Month header
+          _buildMonthHeader(l),
+          const SizedBox(height: 8),
+          // Weekday header
+          _buildWeekdayHeader(),
+          const SizedBox(height: 4),
+          // Calendar grid
+          _buildCalendarGrid(gridDays),
+          const SizedBox(height: 12),
+          // Legend
+          _buildLegend(l),
+          // Symptom logger for selected date
+          if (_selectedDate != null) ...[
+            const SizedBox(height: 16),
+            SymptomLogger(
+              date: _selectedDate!,
+              initialSymptoms: _symptomLogs[_dateKey(_selectedDate!)] ?? [],
+              onSymptomsChanged: (symptoms) {
+                _symptomLogs[_dateKey(_selectedDate!)] = symptoms;
+              },
+            ),
+          ],
         ],
-      ],
-    ),
+      ),
     );
   }
 
@@ -110,8 +113,8 @@ class _PeriodCalendarState extends State<PeriodCalendar> {
                   daysUntil != null && daysUntil > 0
                       ? l.daysUntilPeriod(daysUntil)
                       : daysUntil == 0
-                          ? l.expectedToday
-                          : l.periodOngoing,
+                      ? l.expectedToday
+                      : l.periodOngoing,
                   style: const TextStyle(color: Colors.white70, fontSize: 14),
                 ),
               ],
@@ -193,7 +196,8 @@ class _PeriodCalendarState extends State<PeriodCalendar> {
           children: List.generate(7, (j) {
             final date = gridDays[i + j];
             final isCurrentMonth = date.month == _currentMonth.month;
-            final isSelected = _selectedDate != null &&
+            final isSelected =
+                _selectedDate != null &&
                 CalendarDateUtils.isSameDay(date, _selectedDate!);
 
             return Expanded(
@@ -299,8 +303,8 @@ class _PeriodDayCell extends StatelessWidget {
         border: isToday
             ? Border.all(color: const Color(0xFFE91E63), width: 1.5)
             : isSelected
-                ? Border.all(color: const Color(0xFFE91E63), width: 1)
-                : null,
+            ? Border.all(color: const Color(0xFFE91E63), width: 1)
+            : null,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -312,10 +316,10 @@ class _PeriodDayCell extends StatelessWidget {
               fontWeight: isToday ? FontWeight.bold : FontWeight.normal,
               color: isCurrentMonth
                   ? (isPeriod
-                      ? const Color(0xFFE91E63)
-                      : isToday
-                          ? const Color(0xFFE91E63)
-                          : Colors.black87)
+                        ? const Color(0xFFE91E63)
+                        : isToday
+                        ? const Color(0xFFE91E63)
+                        : Colors.black87)
                   : Colors.grey.shade300,
             ),
           ),

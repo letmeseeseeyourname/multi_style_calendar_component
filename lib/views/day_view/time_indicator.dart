@@ -37,18 +37,10 @@ class TimeIndicator extends StatelessWidget {
           Container(
             width: 10,
             height: 10,
-            decoration: BoxDecoration(
-              color: color,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           ),
           // Horizontal line
-          Expanded(
-            child: Container(
-              height: 2,
-              color: color,
-            ),
-          ),
+          Expanded(child: Container(height: 2, color: color)),
         ],
       ),
     );

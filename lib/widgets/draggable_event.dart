@@ -46,9 +46,10 @@ class _DraggableEventState extends State<DraggableEvent>
       vsync: this,
       duration: const Duration(milliseconds: 150),
     );
-    _scaleAnimation = Tween<double>(begin: 1.0, end: 1.05).animate(
-      CurvedAnimation(parent: _scaleController, curve: Curves.easeOut),
-    );
+    _scaleAnimation = Tween<double>(
+      begin: 1.0,
+      end: 1.05,
+    ).animate(CurvedAnimation(parent: _scaleController, curve: Curves.easeOut));
   }
 
   @override
@@ -127,16 +128,10 @@ class _DraggableEventState extends State<DraggableEvent>
         color: Colors.transparent,
         child: SizedBox(
           width: MediaQuery.of(context).size.width * 0.4,
-          child: Opacity(
-            opacity: 0.9,
-            child: _buildCard(isFeedback: true),
-          ),
+          child: Opacity(opacity: 0.9, child: _buildCard(isFeedback: true)),
         ),
       ),
-      childWhenDragging: Opacity(
-        opacity: 0.3,
-        child: _buildCard(),
-      ),
+      childWhenDragging: Opacity(opacity: 0.3, child: _buildCard()),
       onDragStarted: () {
         setState(() => _isDragging = true);
         _scaleController.forward();
@@ -150,10 +145,7 @@ class _DraggableEventState extends State<DraggableEvent>
       },
       child: GestureDetector(
         onTap: widget.onTap,
-        child: ScaleTransition(
-          scale: _scaleAnimation,
-          child: _buildCard(),
-        ),
+        child: ScaleTransition(scale: _scaleAnimation, child: _buildCard()),
       ),
     );
   }

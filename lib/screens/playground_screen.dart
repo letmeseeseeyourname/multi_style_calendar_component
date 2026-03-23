@@ -52,9 +52,17 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
             color: theme.colorScheme.surfaceContainerHighest,
             child: Row(
               children: [
-                Chip(label: Text('${l.lunarLabel}: ${_showLunar ? l.on_ : l.off_}')),
+                Chip(
+                  label: Text(
+                    '${l.lunarLabel}: ${_showLunar ? l.on_ : l.off_}',
+                  ),
+                ),
                 const SizedBox(width: 8),
-                Chip(label: Text('${l.startLabel}: ${_firstDayOfWeek == 1 ? l.monday : l.sunday}')),
+                Chip(
+                  label: Text(
+                    '${l.startLabel}: ${_firstDayOfWeek == 1 ? l.monday : l.sunday}',
+                  ),
+                ),
                 const SizedBox(width: 8),
                 Chip(label: Text(_selectionMode.name)),
               ],
@@ -126,16 +134,19 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
           ),
           const SizedBox(height: 8),
           // 日期网格
-          Expanded(
-            child: _buildGrid(),
-          ),
+          Expanded(child: _buildGrid()),
           // 选择结果
-          if (_selectedDate != null || _rangeStart != null || _multiSelected.isNotEmpty)
+          if (_selectedDate != null ||
+              _rangeStart != null ||
+              _multiSelected.isNotEmpty)
             Container(
               padding: const EdgeInsets.all(16),
               color: theme.colorScheme.surfaceContainerHighest,
               width: double.infinity,
-              child: Text(_getSelectionText(), style: theme.textTheme.bodyMedium),
+              child: Text(
+                _getSelectionText(),
+                style: theme.textTheme.bodyMedium,
+              ),
             ),
         ],
       ),
@@ -170,10 +181,10 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
               color: isSelected
                   ? CalendarColors.selected
                   : isInRange
-                      ? CalendarColors.inRange
-                      : calDate.isToday
-                          ? CalendarColors.today.withValues(alpha: 0.15)
-                          : null,
+                  ? CalendarColors.inRange
+                  : calDate.isToday
+                  ? CalendarColors.today.withValues(alpha: 0.15)
+                  : null,
               borderRadius: BorderRadius.circular(8),
               border: calDate.isToday
                   ? Border.all(color: CalendarColors.today, width: 2)
@@ -190,10 +201,10 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
                     color: isSelected
                         ? Colors.white
                         : !isCurrentMonth
-                            ? Colors.grey.shade400
-                            : calDate.isWeekend && _showWeekend
-                                ? CalendarColors.weekend
-                                : null,
+                        ? Colors.grey.shade400
+                        : calDate.isWeekend && _showWeekend
+                        ? CalendarColors.weekend
+                        : null,
                   ),
                 ),
                 if (_showLunar && calDate.lunar != null)
@@ -206,10 +217,10 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
                       color: isSelected
                           ? Colors.white70
                           : calDate.solarTerm != null
-                              ? Colors.red
-                              : !isCurrentMonth
-                                  ? Colors.grey.shade300
-                                  : Colors.grey,
+                          ? Colors.red
+                          : !isCurrentMonth
+                          ? Colors.grey.shade300
+                          : Colors.grey,
                     ),
                   ),
               ],
@@ -224,11 +235,13 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
     final d = CalendarDateUtils.dateOnly(date);
     switch (_selectionMode) {
       case SelectionMode.single:
-        return _selectedDate != null && CalendarDateUtils.isSameDay(_selectedDate!, d);
+        return _selectedDate != null &&
+            CalendarDateUtils.isSameDay(_selectedDate!, d);
       case SelectionMode.multiple:
         return _multiSelected.any((s) => CalendarDateUtils.isSameDay(s, d));
       case SelectionMode.range:
-        return (_rangeStart != null && CalendarDateUtils.isSameDay(_rangeStart!, d)) ||
+        return (_rangeStart != null &&
+                CalendarDateUtils.isSameDay(_rangeStart!, d)) ||
             (_rangeEnd != null && CalendarDateUtils.isSameDay(_rangeEnd!, d));
       case SelectionMode.none:
         return false;
@@ -251,7 +264,9 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
           break;
         case SelectionMode.multiple:
           if (_multiSelected.any((s) => CalendarDateUtils.isSameDay(s, d))) {
-            _multiSelected.removeWhere((s) => CalendarDateUtils.isSameDay(s, d));
+            _multiSelected.removeWhere(
+              (s) => CalendarDateUtils.isSameDay(s, d),
+            );
           } else {
             _multiSelected.add(d);
           }
@@ -287,7 +302,8 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
         return l.nSelected(_multiSelected.length);
       case SelectionMode.range:
         if (_rangeStart == null) return '';
-        if (_rangeEnd == null) return l.startingFrom('${_rangeStart!.month}/${_rangeStart!.day}');
+        if (_rangeEnd == null)
+          return l.startingFrom('${_rangeStart!.month}/${_rangeStart!.day}');
         return '${_rangeStart!.month}/${_rangeStart!.day} ~ ${_rangeEnd!.month}/${_rangeEnd!.day}';
       case SelectionMode.none:
         return '';
@@ -307,7 +323,10 @@ class _PlaygroundScreenState extends State<PlaygroundScreen> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(l.configuration, style: Theme.of(context).textTheme.titleLarge),
+                  Text(
+                    l.configuration,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
                   const SizedBox(height: 16),
                   SwitchListTile(
                     title: Text(l.showLunar),

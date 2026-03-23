@@ -78,16 +78,12 @@ class _WeekViewState extends State<WeekView> {
       widget.weekStart,
       firstDay: widget.config.firstDayOfWeek,
     );
-    final days =
-        List.generate(7, (i) => adjustedStart.add(Duration(days: i)));
+    final days = List.generate(7, (i) => adjustedStart.add(Duration(days: i)));
 
     return Column(
       children: [
         // Day header row
-        _WeekDayHeader(
-          days: days,
-          timeColumnWidth: _timeColumnWidth,
-        ),
+        _WeekDayHeader(days: days, timeColumnWidth: _timeColumnWidth),
         const Divider(height: 1),
         // Scrollable time grid
         Expanded(
@@ -110,11 +106,9 @@ class _WeekViewState extends State<WeekView> {
                   ),
                   // 7 day columns
                   ...days.map((day) {
-                    final dayEvents = widget.events
-                        .where((e) => e.occursOn(day))
-                        .toList()
-                      ..sort((a, b) =>
-                          a.startTime.compareTo(b.startTime));
+                    final dayEvents =
+                        widget.events.where((e) => e.occursOn(day)).toList()
+                          ..sort((a, b) => a.startTime.compareTo(b.startTime));
                     return Expanded(
                       child: WeekDayColumn(
                         date: day,
@@ -142,10 +136,7 @@ class _WeekDayHeader extends StatelessWidget {
   final List<DateTime> days;
   final double timeColumnWidth;
 
-  const _WeekDayHeader({
-    required this.days,
-    required this.timeColumnWidth,
-  });
+  const _WeekDayHeader({required this.days, required this.timeColumnWidth});
 
   @override
   Widget build(BuildContext context) {
@@ -169,8 +160,8 @@ class _WeekDayHeader extends StatelessWidget {
                       color: isToday
                           ? CalendarColors.today
                           : day.weekday >= 6
-                              ? CalendarColors.weekend
-                              : theme.colorScheme.onSurfaceVariant,
+                          ? CalendarColors.weekend
+                          : theme.colorScheme.onSurfaceVariant,
                       fontWeight: isToday ? FontWeight.bold : null,
                     ),
                   ),
@@ -191,8 +182,7 @@ class _WeekDayHeader extends StatelessWidget {
                         color: isToday
                             ? Colors.white
                             : theme.colorScheme.onSurface,
-                        fontWeight:
-                            isToday ? FontWeight.bold : FontWeight.w500,
+                        fontWeight: isToday ? FontWeight.bold : FontWeight.w500,
                       ),
                     ),
                   ),

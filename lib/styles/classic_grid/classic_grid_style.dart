@@ -36,21 +36,13 @@ class _ClassicGridCalendarState extends State<ClassicGridCalendar> {
 
   void _previousMonth() {
     setState(() {
-      _currentMonth = DateTime(
-        _currentMonth.year,
-        _currentMonth.month - 1,
-        1,
-      );
+      _currentMonth = DateTime(_currentMonth.year, _currentMonth.month - 1, 1);
     });
   }
 
   void _nextMonth() {
     setState(() {
-      _currentMonth = DateTime(
-        _currentMonth.year,
-        _currentMonth.month + 1,
-        1,
-      );
+      _currentMonth = DateTime(_currentMonth.year, _currentMonth.month + 1, 1);
     });
   }
 
@@ -151,11 +143,17 @@ class _ClassicGridCalendarState extends State<ClassicGridCalendar> {
   Widget _buildWeekRow(List<DateTime> weekDays, ThemeData theme) {
     return Row(
       children: weekDays.map((date) {
-        final isCurrentMonth = CalendarDateUtils.isSameMonth(date, _currentMonth);
+        final isCurrentMonth = CalendarDateUtils.isSameMonth(
+          date,
+          _currentMonth,
+        );
         final isToday = CalendarDateUtils.isSameDay(date, DateTime.now());
         final isSelected =
-            _selectedDate != null && CalendarDateUtils.isSameDay(date, _selectedDate!);
-        final isWeekend = date.weekday == DateTime.saturday || date.weekday == DateTime.sunday;
+            _selectedDate != null &&
+            CalendarDateUtils.isSameDay(date, _selectedDate!);
+        final isWeekend =
+            date.weekday == DateTime.saturday ||
+            date.weekday == DateTime.sunday;
         final eventCount = _eventCount(date);
 
         return Expanded(
@@ -194,10 +192,10 @@ class _ClassicGridCalendarState extends State<ClassicGridCalendar> {
                         color: isToday
                             ? Colors.white
                             : !isCurrentMonth
-                                ? CalendarColors.disabled
-                                : isWeekend
-                                    ? CalendarColors.weekend
-                                    : null,
+                            ? CalendarColors.disabled
+                            : isWeekend
+                            ? CalendarColors.weekend
+                            : null,
                         fontWeight: isToday ? FontWeight.bold : null,
                       ),
                     ),
@@ -215,8 +213,9 @@ class _ClassicGridCalendarState extends State<ClassicGridCalendar> {
                             margin: const EdgeInsets.symmetric(horizontal: 1),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: CalendarColors.eventColors[
-                                  i % CalendarColors.eventColors.length],
+                              color:
+                                  CalendarColors.eventColors[i %
+                                      CalendarColors.eventColors.length],
                             ),
                           ),
                         ),

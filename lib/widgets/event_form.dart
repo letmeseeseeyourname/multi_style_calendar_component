@@ -64,8 +64,9 @@ class _EventFormState extends State<EventForm> {
     final now = widget.initialDate ?? DateTime.now();
 
     _titleController = TextEditingController(text: event?.title ?? '');
-    _descriptionController =
-        TextEditingController(text: event?.description ?? '');
+    _descriptionController = TextEditingController(
+      text: event?.description ?? '',
+    );
     _locationController = TextEditingController(text: event?.location ?? '');
 
     _startDate = event?.startTime ?? now;
@@ -116,10 +117,7 @@ class _EventFormState extends State<EventForm> {
 
   Future<void> _pickTime(bool isStart) async {
     final initial = isStart ? _startTime : _endTime;
-    final picked = await showTimePicker(
-      context: context,
-      initialTime: initial,
-    );
+    final picked = await showTimePicker(context: context, initialTime: initial);
     if (picked != null) {
       setState(() {
         if (isStart) {
@@ -143,9 +141,9 @@ class _EventFormState extends State<EventForm> {
 
     if (endDateTime.isBefore(startDateTime)) {
       final l = AppLocalizations.of(context);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(l.endBeforeStart)),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(l.endBeforeStart)));
       return;
     }
 
@@ -306,7 +304,8 @@ class _EventFormState extends State<EventForm> {
               spacing: 8,
               runSpacing: 8,
               children: _colorOptions.map((color) {
-                final isSelected = _selectedColor.value == color.value;
+                final isSelected =
+                    _selectedColor.toARGB32() == color.toARGB32();
                 return GestureDetector(
                   onTap: () => setState(() => _selectedColor = color),
                   child: AnimatedContainer(
@@ -317,10 +316,7 @@ class _EventFormState extends State<EventForm> {
                       color: color,
                       shape: BoxShape.circle,
                       border: isSelected
-                          ? Border.all(
-                              color: colorScheme.outline,
-                              width: 3,
-                            )
+                          ? Border.all(color: colorScheme.outline, width: 3)
                           : null,
                       boxShadow: isSelected
                           ? [
@@ -346,7 +342,8 @@ class _EventFormState extends State<EventForm> {
               children: [
                 Expanded(
                   child: OutlinedButton(
-                    onPressed: widget.onCancel ?? () => Navigator.of(context).pop(),
+                    onPressed:
+                        widget.onCancel ?? () => Navigator.of(context).pop(),
                     child: Text(l.cancel),
                   ),
                 ),

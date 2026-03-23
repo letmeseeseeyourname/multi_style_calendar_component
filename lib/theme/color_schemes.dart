@@ -26,10 +26,6 @@ class CalendarColors {
   ];
 
   static Color heatmapColor(double intensity, Color base) {
-    return Color.lerp(
-      base.withValues(alpha: 0.1),
-      base,
-      intensity,
-    )!;
+    return Color.lerp(base.withValues(alpha: 0.1), base, intensity)!;
   }
 }

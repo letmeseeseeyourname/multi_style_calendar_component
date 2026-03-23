@@ -1,0 +1,15 @@
+android/
+ios/
+web/
+linux/
+macos/
+windows/
+build/
+test/
+.claude/
+CLAUDE.md
+CLAUDE.en.md
+claude.md
+.dart_tool/
+.idea/
+*.iml

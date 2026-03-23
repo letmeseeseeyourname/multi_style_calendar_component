@@ -57,9 +57,7 @@ class TimelineTrack extends StatelessWidget {
             ? theme.colorScheme.surface
             : theme.colorScheme.surfaceContainerLowest,
         border: Border(
-          bottom: BorderSide(
-            color: theme.dividerColor.withValues(alpha: 0.3),
-          ),
+          bottom: BorderSide(color: theme.dividerColor.withValues(alpha: 0.3)),
         ),
       ),
       child: Stack(
@@ -98,7 +96,9 @@ class TimelineTrack extends StatelessWidget {
             final eventEnd = CalendarDateUtils.dateOnly(event.endTime);
 
             // Clamp to visible range
-            final visibleStart = eventStart.isBefore(start) ? start : eventStart;
+            final visibleStart = eventStart.isBefore(start)
+                ? start
+                : eventStart;
             final end = CalendarDateUtils.dateOnly(endDate);
             final visibleEnd = eventEnd.isAfter(end) ? end : eventEnd;
 

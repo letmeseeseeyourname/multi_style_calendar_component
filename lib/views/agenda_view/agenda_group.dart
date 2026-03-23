@@ -63,8 +63,8 @@ class AgendaGroup extends StatelessWidget {
                   color: isToday
                       ? Colors.white
                       : isPast
-                          ? theme.hintColor
-                          : theme.textTheme.titleSmall?.color,
+                      ? theme.hintColor
+                      : theme.textTheme.titleSmall?.color,
                 ),
               ),
             ),
@@ -125,7 +125,12 @@ class AgendaGroup extends StatelessWidget {
     );
   }
 
-  String _getRelativeLabel(AppLocalizations l, bool isToday, bool isTomorrow, bool isYesterday) {
+  String _getRelativeLabel(
+    AppLocalizations l,
+    bool isToday,
+    bool isTomorrow,
+    bool isYesterday,
+  ) {
     if (isToday) return l.today;
     if (isTomorrow) return l.tomorrow;
     if (isYesterday) return l.yesterday;

@@ -49,7 +49,8 @@ class _MultiDatePickerState extends State<MultiDatePicker> {
   @override
   void initState() {
     super.initState();
-    _selectedDates = widget.initialDates
+    _selectedDates =
+        widget.initialDates
             ?.map((d) => CalendarDateUtils.dateOnly(d))
             .toSet() ??
         {};
@@ -122,8 +123,9 @@ class _MultiDatePickerState extends State<MultiDatePicker> {
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 color: CalendarColors.primary,
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(16)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(16),
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -197,13 +199,14 @@ class _MultiDatePickerState extends State<MultiDatePicker> {
                   return Row(
                     children: List.generate(7, (col) {
                       final date = gridDays[row * 7 + col];
-                      final isCurrentMonth =
-                          CalendarDateUtils.isSameMonth(date, _displayMonth);
+                      final isCurrentMonth = CalendarDateUtils.isSameMonth(
+                        date,
+                        _displayMonth,
+                      );
                       final isToday = CalendarDateUtils.isSameDay(date, now);
                       final selected = _isSelected(date);
                       final disabled = _isDisabled(date);
-                      final isWeekend =
-                          date.weekday == 6 || date.weekday == 7;
+                      final isWeekend = date.weekday == 6 || date.weekday == 7;
 
                       return Expanded(
                         child: GestureDetector(
@@ -217,9 +220,8 @@ class _MultiDatePickerState extends State<MultiDatePicker> {
                               color: selected
                                   ? CalendarColors.selected
                                   : isToday
-                                      ? CalendarColors.today
-                                          .withValues(alpha: 0.1)
-                                      : null,
+                                  ? CalendarColors.today.withValues(alpha: 0.1)
+                                  : null,
                               shape: BoxShape.circle,
                             ),
                             alignment: Alignment.center,
@@ -229,14 +231,15 @@ class _MultiDatePickerState extends State<MultiDatePicker> {
                                 color: !isCurrentMonth
                                     ? CalendarColors.disabled
                                     : disabled
-                                        ? CalendarColors.disabled
-                                        : selected
-                                            ? Colors.white
-                                            : isWeekend
-                                                ? CalendarColors.weekend
-                                                : null,
-                                fontWeight:
-                                    (isToday || selected) ? FontWeight.bold : null,
+                                    ? CalendarColors.disabled
+                                    : selected
+                                    ? Colors.white
+                                    : isWeekend
+                                    ? CalendarColors.weekend
+                                    : null,
+                                fontWeight: (isToday || selected)
+                                    ? FontWeight.bold
+                                    : null,
                               ),
                             ),
                           ),

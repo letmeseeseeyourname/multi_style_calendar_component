@@ -31,8 +31,11 @@ class _SharedCalendarState extends State<SharedCalendar> {
 
   void _changeMonth(int delta) {
     setState(() {
-      _currentMonth =
-          DateTime(_currentMonth.year, _currentMonth.month + delta, 1);
+      _currentMonth = DateTime(
+        _currentMonth.year,
+        _currentMonth.month + delta,
+        1,
+      );
       _selectedDate = null;
     });
   }
@@ -66,25 +69,25 @@ class _SharedCalendarState extends State<SharedCalendar> {
 
     return SingleChildScrollView(
       child: Column(
-      children: [
-        // Member filter
-        _buildMemberFilter(l),
-        const SizedBox(height: 12),
-        // Month header
-        _buildMonthHeader(l),
-        const SizedBox(height: 8),
-        // Weekday header
-        _buildWeekdayHeader(),
-        const SizedBox(height: 4),
-        // Calendar grid
-        _buildCalendarGrid(gridDays),
-        // Selected date events
-        if (_selectedDate != null) ...[
-          const SizedBox(height: 16),
-          _buildDayEvents(l),
+        children: [
+          // Member filter
+          _buildMemberFilter(l),
+          const SizedBox(height: 12),
+          // Month header
+          _buildMonthHeader(l),
+          const SizedBox(height: 8),
+          // Weekday header
+          _buildWeekdayHeader(),
+          const SizedBox(height: 4),
+          // Calendar grid
+          _buildCalendarGrid(gridDays),
+          // Selected date events
+          if (_selectedDate != null) ...[
+            const SizedBox(height: 16),
+            _buildDayEvents(l),
+          ],
         ],
-      ],
-    ),
+      ),
     );
   }
 
@@ -135,8 +138,10 @@ class _SharedCalendarState extends State<SharedCalendar> {
                   });
                 },
                 child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     color: isVisible
                         ? member.color.withValues(alpha: 0.15)
@@ -163,8 +168,9 @@ class _SharedCalendarState extends State<SharedCalendar> {
                         style: TextStyle(
                           fontSize: 13,
                           color: isVisible ? Colors.black87 : Colors.grey,
-                          fontWeight:
-                              isVisible ? FontWeight.w500 : FontWeight.normal,
+                          fontWeight: isVisible
+                              ? FontWeight.w500
+                              : FontWeight.normal,
                         ),
                       ),
                     ],
@@ -229,10 +235,14 @@ class _SharedCalendarState extends State<SharedCalendar> {
             final date = gridDays[i + j];
             final isCurrentMonth = date.month == _currentMonth.month;
             final isToday = CalendarDateUtils.isSameDay(date, now);
-            final isSelected = _selectedDate != null &&
+            final isSelected =
+                _selectedDate != null &&
                 CalendarDateUtils.isSameDay(date, _selectedDate!);
-            final dayEvents = isCurrentMonth ? _getEventsOnDate(date) : <SharedEvent>[];
-            final hasConflicts = dayEvents.length > 1 &&
+            final dayEvents = isCurrentMonth
+                ? _getEventsOnDate(date)
+                : <SharedEvent>[];
+            final hasConflicts =
+                dayEvents.length > 1 &&
                 ConflictDetector.findConflictsOnDate(_events, date).isNotEmpty;
 
             // Collect member colors for event dots
@@ -258,11 +268,10 @@ class _SharedCalendarState extends State<SharedCalendar> {
                         : null,
                     borderRadius: BorderRadius.circular(6),
                     border: isToday
-                        ? Border.all(
-                            color: const Color(0xFF2196F3), width: 1.5)
+                        ? Border.all(color: const Color(0xFF2196F3), width: 1.5)
                         : isSelected
-                            ? Border.all(color: const Color(0xFF2196F3))
-                            : null,
+                        ? Border.all(color: const Color(0xFF2196F3))
+                        : null,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -279,8 +288,8 @@ class _SharedCalendarState extends State<SharedCalendar> {
                                   : FontWeight.normal,
                               color: isCurrentMonth
                                   ? (isToday
-                                      ? const Color(0xFF2196F3)
-                                      : Colors.black87)
+                                        ? const Color(0xFF2196F3)
+                                        : Colors.black87)
                                   : Colors.grey.shade300,
                             ),
                           ),
@@ -306,16 +315,19 @@ class _SharedCalendarState extends State<SharedCalendar> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: memberColorSet
                                 .take(4)
-                                .map((color) => Container(
-                                      width: 5,
-                                      height: 5,
-                                      margin: const EdgeInsets.symmetric(
-                                          horizontal: 1),
-                                      decoration: BoxDecoration(
-                                        color: color,
-                                        shape: BoxShape.circle,
-                                      ),
-                                    ))
+                                .map(
+                                  (color) => Container(
+                                    width: 5,
+                                    height: 5,
+                                    margin: const EdgeInsets.symmetric(
+                                      horizontal: 1,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: color,
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                )
                                 .toList(),
                           ),
                         ),
@@ -333,8 +345,10 @@ class _SharedCalendarState extends State<SharedCalendar> {
 
   Widget _buildDayEvents(AppLocalizations l) {
     final dayEvents = _getEventsOnDate(_selectedDate!);
-    final conflicts =
-        ConflictDetector.findConflictsOnDate(_events, _selectedDate!);
+    final conflicts = ConflictDetector.findConflictsOnDate(
+      _events,
+      _selectedDate!,
+    );
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -354,10 +368,7 @@ class _SharedCalendarState extends State<SharedCalendar> {
         children: [
           Text(
             l.daySchedule(_selectedDate!.month, _selectedDate!.day),
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           if (conflicts.isNotEmpty) ...[
             const SizedBox(height: 8),
@@ -372,8 +383,11 @@ class _SharedCalendarState extends State<SharedCalendar> {
               ),
               child: Row(
                 children: [
-                  const Icon(Icons.warning_amber,
-                      color: Color(0xFFF44336), size: 16),
+                  const Icon(
+                    Icons.warning_amber,
+                    color: Color(0xFFF44336),
+                    size: 16,
+                  ),
                   const SizedBox(width: 6),
                   Expanded(
                     child: Column(
@@ -383,7 +397,12 @@ class _SharedCalendarState extends State<SharedCalendar> {
                             .map((id) => _getMember(id)?.name ?? id)
                             .join(', ');
                         return Text(
-                          l.conflictText(c.eventA.title, c.eventB.title, c.localizedOverlapText(l), memberNames),
+                          l.conflictText(
+                            c.eventA.title,
+                            c.eventB.title,
+                            c.localizedOverlapText(l),
+                            memberNames,
+                          ),
                           style: const TextStyle(
                             fontSize: 11,
                             color: Color(0xFFF44336),
@@ -401,21 +420,27 @@ class _SharedCalendarState extends State<SharedCalendar> {
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(16),
-                child: Text(l.noEvents, style: const TextStyle(color: Colors.grey)),
+                child: Text(
+                  l.noEvents,
+                  style: const TextStyle(color: Colors.grey),
+                ),
               ),
             )
           else
             ...dayEvents.map((event) {
               final creator = _getMember(event.creatorId);
-              final isConflicting =
-                  ConflictDetector.hasConflict(event, dayEvents);
+              final isConflicting = ConflictDetector.hasConflict(
+                event,
+                dayEvents,
+              );
 
               return Container(
                 margin: const EdgeInsets.only(bottom: 8),
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color:
-                      (creator?.color ?? Colors.grey).withValues(alpha: 0.08),
+                  color: (creator?.color ?? Colors.grey).withValues(
+                    alpha: 0.08,
+                  ),
                   borderRadius: BorderRadius.circular(8),
                   border: Border(
                     left: BorderSide(
@@ -449,8 +474,11 @@ class _SharedCalendarState extends State<SharedCalendar> {
                     const SizedBox(height: 4),
                     Row(
                       children: [
-                        Icon(Icons.access_time,
-                            size: 13, color: Colors.grey.shade500),
+                        Icon(
+                          Icons.access_time,
+                          size: 13,
+                          color: Colors.grey.shade500,
+                        ),
                         const SizedBox(width: 4),
                         Text(
                           event.timeText,
@@ -461,8 +489,11 @@ class _SharedCalendarState extends State<SharedCalendar> {
                         ),
                         if (event.location != null) ...[
                           const SizedBox(width: 12),
-                          Icon(Icons.location_on,
-                              size: 13, color: Colors.grey.shade500),
+                          Icon(
+                            Icons.location_on,
+                            size: 13,
+                            color: Colors.grey.shade500,
+                          ),
                           const SizedBox(width: 2),
                           Text(
                             event.location!,

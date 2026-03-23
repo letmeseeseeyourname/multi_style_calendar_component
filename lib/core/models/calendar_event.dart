@@ -47,8 +47,7 @@ class CalendarEvent {
 
   bool occursOn(DateTime date) {
     final dateOnly = DateTime(date.year, date.month, date.day);
-    final startOnly =
-        DateTime(startTime.year, startTime.month, startTime.day);
+    final startOnly = DateTime(startTime.year, startTime.month, startTime.day);
     final endOnly = DateTime(endTime.year, endTime.month, endTime.day);
 
     if (isAllDay) {
@@ -111,8 +110,5 @@ class EventReminder {
   final Duration beforeEvent;
   final String? message;
 
-  const EventReminder({
-    required this.beforeEvent,
-    this.message,
-  });
+  const EventReminder({required this.beforeEvent, this.message});
 }

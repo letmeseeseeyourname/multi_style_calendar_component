@@ -36,10 +36,7 @@ class _FlipAnimationWidgetState extends State<FlipAnimationWidget>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: widget.duration,
-    );
+    _controller = AnimationController(vsync: this, duration: widget.duration);
     _animation = Tween<double>(begin: 0, end: math.pi).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeInOutBack),
     );
@@ -145,10 +142,7 @@ class _SplitFlapWidgetState extends State<SplitFlapWidget>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: widget.duration,
-    );
+    _controller = AnimationController(vsync: this, duration: widget.duration);
   }
 
   @override
@@ -201,8 +195,7 @@ class _SplitFlapWidgetState extends State<SplitFlapWidget>
                   alignment: Alignment.topCenter,
                   transform: Matrix4.identity()
                     ..setEntry(3, 2, 0.002)
-                    ..rotateX(
-                        progress > 0.5 ? (1 - progress) * math.pi : 0),
+                    ..rotateX(progress > 0.5 ? (1 - progress) * math.pi : 0),
                   child: progress > 0.5 ? widget.bottomChild : widget.topChild,
                 ),
               ),

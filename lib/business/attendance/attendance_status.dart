@@ -3,13 +3,13 @@ import '../../l10n/app_localizations.dart';
 
 /// 考勤状态枚举
 enum AttendanceStatus {
-  normal,     // 正常
-  late,       // 迟到
+  normal, // 正常
+  late, // 迟到
   leaveEarly, // 早退
-  absent,     // 缺勤
-  leave,      // 请假
-  holiday,    // 节假日
-  rest,       // 休息日
+  absent, // 缺勤
+  leave, // 请假
+  holiday, // 节假日
+  rest, // 休息日
 }
 
 extension AttendanceStatusExtension on AttendanceStatus {
@@ -127,7 +127,8 @@ Map<String, AttendanceRecord> generateMockAttendanceData(DateTime month) {
     final date = DateTime(month.year, month.month, day);
     if (date.isAfter(now)) continue;
 
-    final key = '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
+    final key =
+        '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
     final weekday = date.weekday;
 
     if (weekday == DateTime.saturday || weekday == DateTime.sunday) {

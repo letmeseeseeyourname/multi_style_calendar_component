@@ -63,16 +63,16 @@ class _WheelPickerState extends State<WheelPicker> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final selectedStyle = widget.selectedTextStyle ??
+    final selectedStyle =
+        widget.selectedTextStyle ??
         theme.textTheme.titleMedium?.copyWith(
           fontWeight: FontWeight.w600,
           color: theme.colorScheme.primary,
         );
 
-    final unselectedStyle = widget.unselectedTextStyle ??
-        theme.textTheme.bodyMedium?.copyWith(
-          color: theme.hintColor,
-        );
+    final unselectedStyle =
+        widget.unselectedTextStyle ??
+        theme.textTheme.bodyMedium?.copyWith(color: theme.hintColor);
 
     return Stack(
       children: [
@@ -106,9 +106,7 @@ class _WheelPickerState extends State<WheelPicker> {
                   children: List.generate(widget.itemCount, (index) {
                     return _buildItem(
                       index,
-                      index == _currentIndex
-                          ? selectedStyle
-                          : unselectedStyle,
+                      index == _currentIndex ? selectedStyle : unselectedStyle,
                     );
                   }),
                 )
@@ -117,9 +115,7 @@ class _WheelPickerState extends State<WheelPicker> {
                   builder: (context, index) {
                     return _buildItem(
                       index,
-                      index == _currentIndex
-                          ? selectedStyle
-                          : unselectedStyle,
+                      index == _currentIndex ? selectedStyle : unselectedStyle,
                     );
                   },
                 ),

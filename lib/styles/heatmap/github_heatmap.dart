@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../core/utils/date_utils.dart';
 import '../../l10n/app_localizations.dart';
-import '../../theme/color_schemes.dart';
 
 /// GitHub contribution graph style heatmap calendar.
 /// Takes a Map<DateTime, int> of data and displays colored squares
@@ -116,7 +115,12 @@ class GitHubHeatmap extends StatelessWidget {
     );
   }
 
-  Widget _buildMonthLabels(BuildContext context, ThemeData theme, DateTime firstMonday, int totalWeeks) {
+  Widget _buildMonthLabels(
+    BuildContext context,
+    ThemeData theme,
+    DateTime firstMonday,
+    int totalWeeks,
+  ) {
     // Determine which week each month starts in
     final labels = <Widget>[];
     // Offset for weekday label column
@@ -129,7 +133,9 @@ class GitHubHeatmap extends StatelessWidget {
       final weekStart = firstMonday.add(Duration(days: w * 7));
       if (weekStart.year == year && weekStart.month != lastMonth) {
         lastMonth = weekStart.month;
-        final label = AppLocalizations.of(context).monthNamesShort[weekStart.month];
+        final label = AppLocalizations.of(
+          context,
+        ).monthNamesShort[weekStart.month];
         labels.add(
           SizedBox(
             width: cellTotal,
@@ -184,14 +190,14 @@ class GitHubHeatmap extends StatelessWidget {
               final date = firstMonday.add(Duration(days: w * 7 + d));
               final isInYear = date.year == year;
               final value = isInYear ? _getValue(date) : 0;
-              final color = isInYear ? _colorForValue(value) : Colors.transparent;
+              final color = isInYear
+                  ? _colorForValue(value)
+                  : Colors.transparent;
 
               return GestureDetector(
                 onTap: isInYear ? () => onDayTap?.call(date) : null,
                 child: Tooltip(
-                  message: isInYear
-                      ? '${date.month}/${date.day}: $value'
-                      : '',
+                  message: isInYear ? '${date.month}/${date.day}: $value' : '',
                   child: Container(
                     width: cellSize,
                     height: cellSize,

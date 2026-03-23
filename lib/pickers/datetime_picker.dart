@@ -121,8 +121,9 @@ class _DateTimePickerState extends State<DateTimePicker> {
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 color: CalendarColors.primary,
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(16)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(16),
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -330,10 +331,13 @@ class _DateTimePickerState extends State<DateTimePicker> {
               return Row(
                 children: List.generate(7, (col) {
                   final date = gridDays[row * 7 + col];
-                  final isCurrentMonth =
-                      CalendarDateUtils.isSameMonth(date, _displayMonth);
+                  final isCurrentMonth = CalendarDateUtils.isSameMonth(
+                    date,
+                    _displayMonth,
+                  );
                   final isToday = CalendarDateUtils.isSameDay(date, now);
-                  final isSelected = _selectedDate != null &&
+                  final isSelected =
+                      _selectedDate != null &&
                       CalendarDateUtils.isSameDay(date, _selectedDate!);
                   final disabled = _isDisabled(date);
                   final isWeekend = date.weekday == 6 || date.weekday == 7;
@@ -342,8 +346,11 @@ class _DateTimePickerState extends State<DateTimePicker> {
                     child: GestureDetector(
                       onTap: (disabled || !isCurrentMonth)
                           ? null
-                          : () => setState(() =>
-                              _selectedDate = CalendarDateUtils.dateOnly(date)),
+                          : () => setState(
+                              () => _selectedDate = CalendarDateUtils.dateOnly(
+                                date,
+                              ),
+                            ),
                       child: Container(
                         height: 40,
                         margin: const EdgeInsets.all(1),
@@ -351,9 +358,8 @@ class _DateTimePickerState extends State<DateTimePicker> {
                           color: isSelected
                               ? CalendarColors.selected
                               : isToday
-                                  ? CalendarColors.today
-                                      .withValues(alpha: 0.1)
-                                  : null,
+                              ? CalendarColors.today.withValues(alpha: 0.1)
+                              : null,
                           shape: BoxShape.circle,
                         ),
                         alignment: Alignment.center,
@@ -363,12 +369,12 @@ class _DateTimePickerState extends State<DateTimePicker> {
                             color: !isCurrentMonth
                                 ? CalendarColors.disabled
                                 : disabled
-                                    ? CalendarColors.disabled
-                                    : isSelected
-                                        ? Colors.white
-                                        : isWeekend
-                                            ? CalendarColors.weekend
-                                            : null,
+                                ? CalendarColors.disabled
+                                : isSelected
+                                ? Colors.white
+                                : isWeekend
+                                ? CalendarColors.weekend
+                                : null,
                             fontWeight: isToday ? FontWeight.bold : null,
                           ),
                         ),
@@ -555,8 +561,9 @@ class _TimeScrollWheelState extends State<_TimeScrollWheel> {
                   child: Text(
                     val.toString().padLeft(2, '0'),
                     style: theme.textTheme.headlineSmall?.copyWith(
-                      fontWeight:
-                          isSelected ? FontWeight.bold : FontWeight.normal,
+                      fontWeight: isSelected
+                          ? FontWeight.bold
+                          : FontWeight.normal,
                       color: isSelected ? CalendarColors.primary : Colors.grey,
                     ),
                   ),

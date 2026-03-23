@@ -43,7 +43,10 @@ class _CircularWeekViewState extends State<CircularWeekView>
       vsync: this,
       duration: const Duration(milliseconds: 600),
     );
-    _scaleAnim = CurvedAnimation(parent: _animController, curve: Curves.elasticOut);
+    _scaleAnim = CurvedAnimation(
+      parent: _animController,
+      curve: Curves.elasticOut,
+    );
     _animController.forward();
   }
 
@@ -176,8 +179,10 @@ class _CircularWeekViewState extends State<CircularWeekView>
   Widget _buildDayNode(BuildContext context, DateTime date, ThemeData theme) {
     final isToday = CalendarDateUtils.isSameDay(date, DateTime.now());
     final isSelected =
-        _selectedDate != null && CalendarDateUtils.isSameDay(date, _selectedDate!);
-    final isWeekend = date.weekday == DateTime.saturday || date.weekday == DateTime.sunday;
+        _selectedDate != null &&
+        CalendarDateUtils.isSameDay(date, _selectedDate!);
+    final isWeekend =
+        date.weekday == DateTime.saturday || date.weekday == DateTime.sunday;
     final events = _eventCount(date);
 
     return GestureDetector(
@@ -193,8 +198,8 @@ class _CircularWeekViewState extends State<CircularWeekView>
           color: isSelected
               ? CalendarColors.selected
               : isToday
-                  ? CalendarColors.today.withValues(alpha: 0.15)
-                  : theme.cardColor,
+              ? CalendarColors.today.withValues(alpha: 0.15)
+              : theme.cardColor,
           border: Border.all(
             color: isToday ? CalendarColors.today : Colors.grey[300]!,
             width: isToday ? 2 : 1,
@@ -219,8 +224,8 @@ class _CircularWeekViewState extends State<CircularWeekView>
                 color: isSelected
                     ? Colors.white70
                     : isWeekend
-                        ? CalendarColors.weekend
-                        : Colors.grey,
+                    ? CalendarColors.weekend
+                    : Colors.grey,
               ),
             ),
             Text(
@@ -231,8 +236,8 @@ class _CircularWeekViewState extends State<CircularWeekView>
                 color: isSelected
                     ? Colors.white
                     : isWeekend
-                        ? CalendarColors.weekend
-                        : null,
+                    ? CalendarColors.weekend
+                    : null,
               ),
             ),
             if (events > 0)

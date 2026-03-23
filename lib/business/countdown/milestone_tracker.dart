@@ -81,11 +81,13 @@ class MilestoneTracker extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          ...sorted.map((milestone) => _MilestoneCard(
-                milestone: milestone,
-                l: l,
-                onTap: () => onMilestoneTap?.call(milestone),
-              )),
+          ...sorted.map(
+            (milestone) => _MilestoneCard(
+              milestone: milestone,
+              l: l,
+              onTap: () => onMilestoneTap?.call(milestone),
+            ),
+          ),
         ],
       ),
     );
@@ -97,11 +99,7 @@ class _MilestoneCard extends StatelessWidget {
   final AppLocalizations l;
   final VoidCallback? onTap;
 
-  const _MilestoneCard({
-    required this.milestone,
-    required this.l,
-    this.onTap,
-  });
+  const _MilestoneCard({required this.milestone, required this.l, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -115,9 +113,7 @@ class _MilestoneCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: milestone.color.withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: milestone.color.withValues(alpha: 0.2),
-          ),
+          border: Border.all(color: milestone.color.withValues(alpha: 0.2)),
         ),
         child: Row(
           children: [
@@ -128,11 +124,7 @@ class _MilestoneCard extends StatelessWidget {
                 color: milestone.color.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(
-                milestone.icon,
-                color: milestone.color,
-                size: 22,
-              ),
+              child: Icon(milestone.icon, color: milestone.color, size: 22),
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -148,11 +140,11 @@ class _MilestoneCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    l.monthDay(milestone.targetDate.month, milestone.targetDate.day),
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey.shade600,
+                    l.monthDay(
+                      milestone.targetDate.month,
+                      milestone.targetDate.day,
                     ),
+                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
                   ),
                   if (milestone.description != null)
                     Text(
@@ -169,8 +161,9 @@ class _MilestoneCard extends StatelessWidget {
                       value: milestone.progress,
                       minHeight: 4,
                       backgroundColor: Colors.grey.shade200,
-                      valueColor:
-                          AlwaysStoppedAnimation<Color>(milestone.color),
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        milestone.color,
+                      ),
                     ),
                   ),
                 ],
@@ -183,25 +176,22 @@ class _MilestoneCard extends StatelessWidget {
                   milestone.isPast
                       ? l.passed
                       : milestone.isToday
-                          ? l.today
-                          : '$days',
+                      ? l.today
+                      : '$days',
                   style: TextStyle(
                     fontSize: milestone.isPast || milestone.isToday ? 14 : 22,
                     fontWeight: FontWeight.bold,
                     color: milestone.isPast
                         ? Colors.grey
                         : milestone.isToday
-                            ? const Color(0xFF4CAF50)
-                            : milestone.color,
+                        ? const Color(0xFF4CAF50)
+                        : milestone.color,
                   ),
                 ),
                 if (!milestone.isPast && !milestone.isToday)
                   Text(
                     l.daySuffixUnit,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey.shade600,
-                    ),
+                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
                   ),
               ],
             ),

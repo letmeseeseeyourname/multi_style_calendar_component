@@ -157,12 +157,7 @@ class _CurrentTimeIndicator extends StatelessWidget {
                 shape: BoxShape.circle,
               ),
             ),
-            Expanded(
-              child: Container(
-                height: 2,
-                color: indicatorColor,
-              ),
-            ),
+            Expanded(child: Container(height: 2, color: indicatorColor)),
           ],
         ),
       ),

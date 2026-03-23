@@ -126,7 +126,9 @@ class _CardCalendarState extends State<CardCalendar> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
           child: Row(
-            children: weekDays.map((date) => _buildDayCard(date, theme)).toList(),
+            children: weekDays
+                .map((date) => _buildDayCard(date, theme))
+                .toList(),
           ),
         ),
       );
@@ -138,8 +140,10 @@ class _CardCalendarState extends State<CardCalendar> {
     final isCurrentMonth = CalendarDateUtils.isSameMonth(date, _currentMonth);
     final isToday = CalendarDateUtils.isSameDay(date, DateTime.now());
     final isSelected =
-        _selectedDate != null && CalendarDateUtils.isSameDay(date, _selectedDate!);
-    final isWeekend = date.weekday == DateTime.saturday || date.weekday == DateTime.sunday;
+        _selectedDate != null &&
+        CalendarDateUtils.isSameDay(date, _selectedDate!);
+    final isWeekend =
+        date.weekday == DateTime.saturday || date.weekday == DateTime.sunday;
     final eventCount = _eventCount(date);
 
     return Expanded(
@@ -164,8 +168,8 @@ class _CardCalendarState extends State<CardCalendar> {
             color: isSelected
                 ? CalendarColors.selected
                 : isCurrentMonth
-                    ? theme.cardColor
-                    : Colors.grey[50],
+                ? theme.cardColor
+                : Colors.grey[50],
             child: SizedBox(
               height: 56,
               child: Column(
@@ -177,18 +181,22 @@ class _CardCalendarState extends State<CardCalendar> {
                       color: isSelected
                           ? Colors.white
                           : !isCurrentMonth
-                              ? CalendarColors.disabled
-                              : isWeekend
-                                  ? CalendarColors.weekend
-                                  : null,
-                      fontWeight:
-                          (isToday || isSelected) ? FontWeight.bold : FontWeight.w500,
+                          ? CalendarColors.disabled
+                          : isWeekend
+                          ? CalendarColors.weekend
+                          : null,
+                      fontWeight: (isToday || isSelected)
+                          ? FontWeight.bold
+                          : FontWeight.w500,
                     ),
                   ),
                   if (eventCount > 0) ...[
                     const SizedBox(height: 2),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 1,
+                      ),
                       decoration: BoxDecoration(
                         color: isSelected
                             ? Colors.white.withValues(alpha: 0.3)
@@ -200,7 +208,9 @@ class _CardCalendarState extends State<CardCalendar> {
                         style: TextStyle(
                           fontSize: 9,
                           fontWeight: FontWeight.w600,
-                          color: isSelected ? Colors.white : CalendarColors.primary,
+                          color: isSelected
+                              ? Colors.white
+                              : CalendarColors.primary,
                         ),
                       ),
                     ),

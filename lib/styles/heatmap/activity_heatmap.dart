@@ -100,7 +100,10 @@ class ActivityHeatmap extends StatelessWidget {
                 ),
                 const Spacer(),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: CalendarColors.primary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(12),
@@ -121,7 +124,8 @@ class ActivityHeatmap extends StatelessWidget {
         _buildStats(context, theme),
         const SizedBox(height: 12),
         // Month labels
-        if (showMonthLabels) _buildMonthLabels(context, theme, gridStart, totalWeeks),
+        if (showMonthLabels)
+          _buildMonthLabels(context, theme, gridStart, totalWeeks),
         const SizedBox(height: 4),
         // Grid
         Row(
@@ -172,14 +176,27 @@ class ActivityHeatmap extends StatelessWidget {
       children: [
         _StatChip(label: l.total, value: '$totalValue', color: _colors.last),
         const SizedBox(width: 12),
-        _StatChip(label: l.activeDays, value: '$activeDays', color: _colors[_colors.length ~/ 2]),
+        _StatChip(
+          label: l.activeDays,
+          value: '$activeDays',
+          color: _colors[_colors.length ~/ 2],
+        ),
         const SizedBox(width: 12),
-        _StatChip(label: l.longestStreak, value: l.nDays(maxStreak), color: CalendarColors.primary),
+        _StatChip(
+          label: l.longestStreak,
+          value: l.nDays(maxStreak),
+          color: CalendarColors.primary,
+        ),
       ],
     );
   }
 
-  Widget _buildMonthLabels(BuildContext context, ThemeData theme, DateTime gridStart, int totalWeeks) {
+  Widget _buildMonthLabels(
+    BuildContext context,
+    ThemeData theme,
+    DateTime gridStart,
+    int totalWeeks,
+  ) {
     final labels = <Widget>[];
     if (showWeekdayLabels) {
       labels.add(const SizedBox(width: 28));
@@ -190,7 +207,8 @@ class ActivityHeatmap extends StatelessWidget {
 
     for (int w = 0; w < totalWeeks; w++) {
       final weekStart = gridStart.add(Duration(days: w * 7));
-      final inRange = !weekStart.isBefore(startDate) && !weekStart.isAfter(endDate);
+      final inRange =
+          !weekStart.isBefore(startDate) && !weekStart.isAfter(endDate);
       if (inRange && weekStart.month != lastMonth) {
         lastMonth = weekStart.month;
         labels.add(
@@ -246,7 +264,9 @@ class ActivityHeatmap extends StatelessWidget {
               final inRange =
                   !date.isBefore(startDate) && !date.isAfter(endDate);
               final value = inRange ? _getValue(date) : 0;
-              final color = inRange ? _colorForValue(value) : Colors.transparent;
+              final color = inRange
+                  ? _colorForValue(value)
+                  : Colors.transparent;
 
               return GestureDetector(
                 onTap: inRange ? () => onDayTap?.call(date) : null,
@@ -314,10 +334,7 @@ class _StatChip extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          label,
-          style: TextStyle(fontSize: 10, color: Colors.grey[500]),
-        ),
+        Text(label, style: TextStyle(fontSize: 10, color: Colors.grey[500])),
         Text(
           value,
           style: TextStyle(

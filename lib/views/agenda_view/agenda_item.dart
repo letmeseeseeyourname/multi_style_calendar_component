@@ -36,25 +36,15 @@ class AgendaItem extends StatelessWidget {
           decoration: BoxDecoration(
             color: event.color.withValues(alpha: 0.08),
             borderRadius: BorderRadius.circular(10),
-            border: Border(
-              left: BorderSide(
-                color: event.color,
-                width: 3,
-              ),
-            ),
+            border: Border(left: BorderSide(color: event.color, width: 3)),
           ),
           child: Row(
             children: [
               // 时间列
-              SizedBox(
-                width: 56,
-                child: _buildTimeColumn(context, theme),
-              ),
+              SizedBox(width: 56, child: _buildTimeColumn(context, theme)),
               const SizedBox(width: 12),
               // 内容列
-              Expanded(
-                child: _buildContentColumn(theme),
-              ),
+              Expanded(child: _buildContentColumn(theme)),
               // 右侧箭头
               if (onTap != null)
                 Icon(
@@ -96,9 +86,7 @@ class AgendaItem extends StatelessWidget {
         ),
         Text(
           '$endHour:$endMin',
-          style: theme.textTheme.labelSmall?.copyWith(
-            color: theme.hintColor,
-          ),
+          style: theme.textTheme.labelSmall?.copyWith(color: theme.hintColor),
         ),
       ],
     );
@@ -120,9 +108,7 @@ class AgendaItem extends StatelessWidget {
           const SizedBox(height: 2),
           Text(
             event.description!,
-            style: theme.textTheme.bodySmall?.copyWith(
-              color: theme.hintColor,
-            ),
+            style: theme.textTheme.bodySmall?.copyWith(color: theme.hintColor),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),

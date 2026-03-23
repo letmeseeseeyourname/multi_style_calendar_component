@@ -94,8 +94,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
       mainAxisSize: MainAxisSize.min,
       children: [
         // 标题
-        if (widget.showConfirmButton)
-          _buildHeader(context, theme),
+        if (widget.showConfirmButton) _buildHeader(context, theme),
         // 选中日期预览
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
@@ -119,7 +118,8 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
                     itemCount: _maxYear - _minYear + 1,
                     initialIndex: _selectedYear - _minYear,
                     itemExtent: widget.itemExtent,
-                    labelBuilder: (index) => '${_minYear + index}${l.yearSuffix}',
+                    labelBuilder: (index) =>
+                        '${_minYear + index}${l.yearSuffix}',
                     onSelectedItemChanged: (index) {
                       setState(() {
                         _selectedYear = _minYear + index;
@@ -152,7 +152,10 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
                 child: WheelPicker(
                   key: ValueKey('day_${_selectedYear}_$_selectedMonth'),
                   itemCount: _daysInSelectedMonth,
-                  initialIndex: (_selectedDay - 1).clamp(0, _daysInSelectedMonth - 1),
+                  initialIndex: (_selectedDay - 1).clamp(
+                    0,
+                    _daysInSelectedMonth - 1,
+                  ),
                   itemExtent: widget.itemExtent,
                   labelBuilder: (index) => '${index + 1}${l.daySuffix}',
                   onSelectedItemChanged: (index) {

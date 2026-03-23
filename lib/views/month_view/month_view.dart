@@ -112,7 +112,8 @@ class _MonthViewState extends State<MonthView> {
         animation: _pageController,
         builder: (context, _) {
           // 根据当前页面计算显示月份
-          final page = _pageController.hasClients &&
+          final page =
+              _pageController.hasClients &&
                   _pageController.position.haveDimensions
               ? _pageController.page?.round() ?? _initialPageIndex
               : _initialPageIndex;

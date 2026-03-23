@@ -43,9 +43,15 @@ class AvailabilityGrid extends StatelessWidget {
           const SizedBox(height: 4),
           Row(
             children: [
-              _legendDot(const Color(0xFF4CAF50).withValues(alpha: 0.3), l.available),
+              _legendDot(
+                const Color(0xFF4CAF50).withValues(alpha: 0.3),
+                l.available,
+              ),
               const SizedBox(width: 12),
-              _legendDot(const Color(0xFFF44336).withValues(alpha: 0.3), l.booked),
+              _legendDot(
+                const Color(0xFFF44336).withValues(alpha: 0.3),
+                l.booked,
+              ),
               const SizedBox(width: 12),
               _legendDot(Colors.grey.shade200, l.unavailable),
             ],
@@ -62,8 +68,10 @@ class AvailabilityGrid extends StatelessWidget {
                     const SizedBox(width: 50), // time column
                     ...List.generate(7, (i) {
                       final date = weekStart.add(Duration(days: i));
-                      final isToday =
-                          CalendarDateUtils.isSameDay(date, DateTime.now());
+                      final isToday = CalendarDateUtils.isSameDay(
+                        date,
+                        DateTime.now(),
+                      );
                       return Container(
                         width: 56,
                         padding: const EdgeInsets.symmetric(vertical: 4),
@@ -124,11 +132,13 @@ class AvailabilityGrid extends StatelessWidget {
                         if (isWeekend) {
                           cellColor = Colors.grey.shade100;
                         } else if (isAvailable) {
-                          cellColor =
-                              const Color(0xFF4CAF50).withValues(alpha: 0.2);
+                          cellColor = const Color(
+                            0xFF4CAF50,
+                          ).withValues(alpha: 0.2);
                         } else {
-                          cellColor =
-                              const Color(0xFFF44336).withValues(alpha: 0.15);
+                          cellColor = const Color(
+                            0xFFF44336,
+                          ).withValues(alpha: 0.15);
                         }
 
                         return GestureDetector(

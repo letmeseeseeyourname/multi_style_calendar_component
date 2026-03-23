@@ -38,10 +38,7 @@ class DayCell extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // 公历日期
-              Text(
-                '${date.gregorian.day}',
-                style: _dayTextStyle(theme),
-              ),
+              Text('${date.gregorian.day}', style: _dayTextStyle(theme)),
               // 农历信息
               if (showLunar) ...[
                 const SizedBox(height: 1),
@@ -78,9 +75,7 @@ class DayCell extends StatelessWidget {
         borderRadius: BorderRadius.circular(theme.cellRadius),
       );
     }
-    return BoxDecoration(
-      borderRadius: BorderRadius.circular(theme.cellRadius),
-    );
+    return BoxDecoration(borderRadius: BorderRadius.circular(theme.cellRadius));
   }
 
   /// 日期数字文字样式
@@ -94,28 +89,23 @@ class DayCell extends StatelessWidget {
     }
     // 周末使用红色
     if (date.isWeekend) {
-      return theme.dayTextStyle.copyWith(
-        color: theme.weekendColor,
-      );
+      return theme.dayTextStyle.copyWith(color: theme.weekendColor);
     }
     return theme.dayTextStyle;
   }
 
   /// 农历文字样式
   TextStyle _lunarTextStyle(CalendarThemeData theme) {
-    final isSpecial = date.solarTerm != null ||
+    final isSpecial =
+        date.solarTerm != null ||
         date.lunarFestival != null ||
         date.holidayName != null;
 
     if (isSelected || date.isToday) {
-      return theme.lunarTextStyle.copyWith(
-        color: Colors.white70,
-      );
+      return theme.lunarTextStyle.copyWith(color: Colors.white70);
     }
     if (isSpecial) {
-      return theme.lunarTextStyle.copyWith(
-        color: theme.holidayColor,
-      );
+      return theme.lunarTextStyle.copyWith(color: theme.holidayColor);
     }
     return theme.lunarTextStyle;
   }
@@ -140,9 +130,7 @@ class DayCell extends StatelessWidget {
           height: 5,
           margin: const EdgeInsets.symmetric(horizontal: 1),
           decoration: BoxDecoration(
-            color: (isSelected || date.isToday)
-                ? Colors.white70
-                : event.color,
+            color: (isSelected || date.isToday) ? Colors.white70 : event.color,
             shape: BoxShape.circle,
           ),
         );

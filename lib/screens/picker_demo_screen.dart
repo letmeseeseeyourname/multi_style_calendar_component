@@ -44,7 +44,9 @@ class _PickerDemoScreenState extends State<PickerDemoScreen> {
             onTap: () async {
               final date = await SingleDatePicker.show(context);
               if (date != null) {
-                setState(() => _result = '${date.year}-${date.month}-${date.day}');
+                setState(
+                  () => _result = '${date.year}-${date.month}-${date.day}',
+                );
               }
             },
           ),
@@ -66,8 +68,10 @@ class _PickerDemoScreenState extends State<PickerDemoScreen> {
             onTap: () async {
               final range = await DateRangePicker.show(context);
               if (range != null) {
-                setState(() => _result =
-                    '${range.start.month}/${range.start.day} - ${range.end.month}/${range.end.day}');
+                setState(
+                  () => _result =
+                      '${range.start.month}/${range.start.day} - ${range.end.month}/${range.end.day}',
+                );
               }
             },
           ),
@@ -100,8 +104,10 @@ class _PickerDemoScreenState extends State<PickerDemoScreen> {
             onTap: () async {
               final dt = await DateTimePicker.show(context);
               if (dt != null) {
-                setState(() => _result =
-                    '${dt.year}-${dt.month}-${dt.day} ${dt.hour}:${dt.minute.toString().padLeft(2, '0')}');
+                setState(
+                  () => _result =
+                      '${dt.year}-${dt.month}-${dt.day} ${dt.hour}:${dt.minute.toString().padLeft(2, '0')}',
+                );
               }
             },
           ),

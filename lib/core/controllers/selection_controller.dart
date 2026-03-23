@@ -13,7 +13,7 @@ class SelectionController extends ChangeNotifier {
   bool _isSelectingRange = false;
 
   SelectionController({SelectionMode mode = SelectionMode.single})
-      : _mode = mode;
+    : _mode = mode;
 
   SelectionMode get mode => _mode;
   DateTime? get selectedDate => _selectedDate;
@@ -81,7 +81,9 @@ class SelectionController extends ChangeNotifier {
         return _selectedDate != null &&
             CalendarDateUtils.isSameDay(_selectedDate!, dateOnly);
       case SelectionMode.multiple:
-        return _selectedDates.any((d) => CalendarDateUtils.isSameDay(d, dateOnly));
+        return _selectedDates.any(
+          (d) => CalendarDateUtils.isSameDay(d, dateOnly),
+        );
       case SelectionMode.range:
         return isInRange(dateOnly);
     }
@@ -97,7 +99,8 @@ class SelectionController extends ChangeNotifier {
   }
 
   bool isRangeStart(DateTime date) {
-    return _rangeStart != null && CalendarDateUtils.isSameDay(_rangeStart!, date);
+    return _rangeStart != null &&
+        CalendarDateUtils.isSameDay(_rangeStart!, date);
   }
 
   bool isRangeEnd(DateTime date) {

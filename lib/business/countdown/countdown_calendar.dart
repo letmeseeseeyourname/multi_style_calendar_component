@@ -29,16 +29,22 @@ class _CountdownCalendarState extends State<CountdownCalendar> {
 
   void _changeMonth(int delta) {
     setState(() {
-      _currentMonth =
-          DateTime(_currentMonth.year, _currentMonth.month + delta, 1);
+      _currentMonth = DateTime(
+        _currentMonth.year,
+        _currentMonth.month + delta,
+        1,
+      );
     });
   }
 
   int get _daysRemaining {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
-    final target =
-        DateTime(_targetDate.year, _targetDate.month, _targetDate.day);
+    final target = DateTime(
+      _targetDate.year,
+      _targetDate.month,
+      _targetDate.day,
+    );
     return target.difference(today).inDays;
   }
 
@@ -53,23 +59,23 @@ class _CountdownCalendarState extends State<CountdownCalendar> {
 
     return SingleChildScrollView(
       child: Column(
-      children: [
-        // Countdown display
-        _buildCountdownCard(l),
-        const SizedBox(height: 16),
-        // Month header
-        _buildMonthHeader(l),
-        const SizedBox(height: 8),
-        // Weekday header
-        _buildWeekdayHeader(),
-        const SizedBox(height: 4),
-        // Calendar grid
-        _buildCalendarGrid(gridDays, l),
-        const SizedBox(height: 16),
-        // Milestones
-        MilestoneTracker(milestones: _milestones),
-      ],
-    ),
+        children: [
+          // Countdown display
+          _buildCountdownCard(l),
+          const SizedBox(height: 16),
+          // Month header
+          _buildMonthHeader(l),
+          const SizedBox(height: 8),
+          // Weekday header
+          _buildWeekdayHeader(),
+          const SizedBox(height: 4),
+          // Calendar grid
+          _buildCalendarGrid(gridDays, l),
+          const SizedBox(height: 16),
+          // Milestones
+          MilestoneTracker(milestones: _milestones),
+        ],
+      ),
     );
   }
 
@@ -111,7 +117,11 @@ class _CountdownCalendarState extends State<CountdownCalendar> {
           ),
           const SizedBox(height: 4),
           Text(
-            l.yearMonthDay(_targetDate.year, _targetDate.month, _targetDate.day),
+            l.yearMonthDay(
+              _targetDate.year,
+              _targetDate.month,
+              _targetDate.day,
+            ),
             style: const TextStyle(color: Colors.white60, fontSize: 13),
           ),
           const SizedBox(height: 12),
@@ -133,10 +143,7 @@ class _CountdownCalendarState extends State<CountdownCalendar> {
                 const SizedBox(height: 4),
                 Text(
                   '${((1 - days / 100).clamp(0.0, 1.0) * 100).toStringAsFixed(0)}%',
-                  style: const TextStyle(
-                    color: Colors.white60,
-                    fontSize: 11,
-                  ),
+                  style: const TextStyle(color: Colors.white60, fontSize: 11),
                 ),
               ],
             ),
@@ -221,18 +228,18 @@ class _CountdownCalendarState extends State<CountdownCalendar> {
             final isCurrentMonth = date.month == _currentMonth.month;
             final isToday = CalendarDateUtils.isSameDay(date, now);
             final isTarget = CalendarDateUtils.isSameDay(date, _targetDate);
-            final hasMilestone = _milestones.any((m) =>
-                CalendarDateUtils.isSameDay(m.targetDate, date));
+            final hasMilestone = _milestones.any(
+              (m) => CalendarDateUtils.isSameDay(m.targetDate, date),
+            );
 
             // Calculate days until target for color gradient
             final daysToTarget = DateTime(
               _targetDate.year,
               _targetDate.month,
               _targetDate.day,
-            )
-                .difference(DateTime(date.year, date.month, date.day))
-                .inDays;
-            final isBetween = isCurrentMonth &&
+            ).difference(DateTime(date.year, date.month, date.day)).inDays;
+            final isBetween =
+                isCurrentMonth &&
                 !date.isBefore(DateTime(now.year, now.month, now.day)) &&
                 daysToTarget >= 0 &&
                 daysToTarget <= _daysRemaining;
@@ -249,18 +256,17 @@ class _CountdownCalendarState extends State<CountdownCalendar> {
                     color: isTarget
                         ? const Color(0xFF6A1B9A)
                         : isBetween
-                            ? Color.lerp(
-                                const Color(0xFF6A1B9A).withValues(alpha: 0.05),
-                                const Color(0xFF6A1B9A).withValues(alpha: 0.2),
-                                daysToTarget > 0
-                                    ? (1 - daysToTarget / max(_daysRemaining, 1))
-                                    : 1.0,
-                              )
-                            : null,
+                        ? Color.lerp(
+                            const Color(0xFF6A1B9A).withValues(alpha: 0.05),
+                            const Color(0xFF6A1B9A).withValues(alpha: 0.2),
+                            daysToTarget > 0
+                                ? (1 - daysToTarget / max(_daysRemaining, 1))
+                                : 1.0,
+                          )
+                        : null,
                     borderRadius: BorderRadius.circular(6),
                     border: isToday
-                        ? Border.all(
-                            color: const Color(0xFF6A1B9A), width: 1.5)
+                        ? Border.all(color: const Color(0xFF6A1B9A), width: 1.5)
                         : null,
                   ),
                   child: Stack(
@@ -279,15 +285,17 @@ class _CountdownCalendarState extends State<CountdownCalendar> {
                               color: isTarget
                                   ? Colors.white
                                   : !isCurrentMonth
-                                      ? Colors.grey.shade300
-                                      : Colors.black87,
+                                  ? Colors.grey.shade300
+                                  : Colors.black87,
                             ),
                           ),
                           if (isTarget)
                             Text(
                               l.target,
                               style: const TextStyle(
-                                  fontSize: 8, color: Colors.white70),
+                                fontSize: 8,
+                                color: Colors.white70,
+                              ),
                             ),
                         ],
                       ),

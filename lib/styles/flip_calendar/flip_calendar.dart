@@ -133,10 +133,7 @@ class _FlipCalendarState extends State<FlipCalendar>
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _NavButton(
-              icon: Icons.chevron_left,
-              onTap: _previousDay,
-            ),
+            _NavButton(icon: Icons.chevron_left, onTap: _previousDay),
             const SizedBox(width: 8),
             _NavButton(
               icon: Icons.today,
@@ -144,17 +141,18 @@ class _FlipCalendarState extends State<FlipCalendar>
               onTap: _goToToday,
             ),
             const SizedBox(width: 8),
-            _NavButton(
-              icon: Icons.chevron_right,
-              onTap: _nextDay,
-            ),
+            _NavButton(icon: Icons.chevron_right, onTap: _nextDay),
           ],
         ),
       ],
     );
   }
 
-  Widget _buildDateCard(BuildContext context, DateTime date, {bool isBackground = false}) {
+  Widget _buildDateCard(
+    BuildContext context,
+    DateTime date, {
+    bool isBackground = false,
+  }) {
     final l = AppLocalizations.of(context);
     final monthName = l.monthName(date.month);
     final weekday = l.weekdayLong(date.weekday);
@@ -193,10 +191,7 @@ class _FlipCalendarState extends State<FlipCalendar>
               children: [
                 Text(
                   '${date.year}',
-                  style: const TextStyle(
-                    color: Colors.white70,
-                    fontSize: 14,
-                  ),
+                  style: const TextStyle(color: Colors.white70, fontSize: 14),
                 ),
                 Text(
                   monthName,
@@ -239,7 +234,8 @@ class _FlipCalendarState extends State<FlipCalendar>
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
-                color: (date.weekday == DateTime.saturday ||
+                color:
+                    (date.weekday == DateTime.saturday ||
                         date.weekday == DateTime.sunday)
                     ? CalendarColors.weekend
                     : Colors.grey[700],
@@ -257,11 +253,7 @@ class _NavButton extends StatelessWidget {
   final String? label;
   final VoidCallback onTap;
 
-  const _NavButton({
-    required this.icon,
-    this.label,
-    required this.onTap,
-  });
+  const _NavButton({required this.icon, this.label, required this.onTap});
 
   @override
   Widget build(BuildContext context) {

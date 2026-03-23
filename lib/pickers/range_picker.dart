@@ -144,8 +144,9 @@ class _DateRangePickerState extends State<DateRangePicker> {
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 color: CalendarColors.primary,
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(16)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(16),
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -219,15 +220,16 @@ class _DateRangePickerState extends State<DateRangePicker> {
                   return Row(
                     children: List.generate(7, (col) {
                       final date = gridDays[row * 7 + col];
-                      final isCurrentMonth =
-                          CalendarDateUtils.isSameMonth(date, _displayMonth);
+                      final isCurrentMonth = CalendarDateUtils.isSameMonth(
+                        date,
+                        _displayMonth,
+                      );
                       final isToday = CalendarDateUtils.isSameDay(date, now);
                       final disabled = _isDisabled(date);
                       final isStart = _isRangeStart(date);
                       final isEnd = _isRangeEnd(date);
                       final inRange = _isInRange(date);
-                      final isWeekend =
-                          date.weekday == 6 || date.weekday == 7;
+                      final isWeekend = date.weekday == 6 || date.weekday == 7;
 
                       Color? bgColor;
                       Color? textColor;
@@ -294,8 +296,9 @@ class _DateRangePickerState extends State<DateRangePicker> {
                               '${date.day}',
                               style: theme.textTheme.bodyMedium?.copyWith(
                                 color: textColor,
-                                fontWeight:
-                                    (isToday || isStart || isEnd) ? FontWeight.bold : null,
+                                fontWeight: (isToday || isStart || isEnd)
+                                    ? FontWeight.bold
+                                    : null,
                               ),
                             ),
                           ),
@@ -320,8 +323,9 @@ class _DateRangePickerState extends State<DateRangePicker> {
                   const SizedBox(width: 8),
                   FilledButton(
                     onPressed: (_startDate != null && _endDate != null)
-                        ? () => Navigator.of(context)
-                            .pop(DateRange(_startDate!, _endDate!))
+                        ? () => Navigator.of(
+                            context,
+                          ).pop(DateRange(_startDate!, _endDate!))
                         : null,
                     child: Text(l.confirm),
                   ),

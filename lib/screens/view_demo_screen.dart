@@ -40,10 +40,7 @@ class ViewDemoScreen extends StatelessWidget {
             WeekView(weekStart: _getWeekStart()),
             DayView(date: DateTime.now()),
             YearView(year: DateTime.now().year),
-            AgendaView(
-              events: const [],
-              startDate: DateTime.now(),
-            ),
+            AgendaView(events: const [], startDate: DateTime.now()),
             TimelineView(
               events: const [],
               startDate: DateTime.now().subtract(const Duration(days: 15)),

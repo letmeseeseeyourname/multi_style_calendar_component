@@ -27,8 +27,10 @@ class _PriceCalendarState extends State<PriceCalendar> {
 
   Map<String, PriceInfo> _generateMockPrices() {
     final prices = <String, PriceInfo>{};
-    final daysInMonth =
-        CalendarDateUtils.daysInMonth(_currentMonth.year, _currentMonth.month);
+    final daysInMonth = CalendarDateUtils.daysInMonth(
+      _currentMonth.year,
+      _currentMonth.month,
+    );
     for (int d = 1; d <= daysInMonth; d++) {
       final date = DateTime(_currentMonth.year, _currentMonth.month, d);
       final isWeekend = date.weekday == 6 || date.weekday == 7;
@@ -69,8 +71,11 @@ class _PriceCalendarState extends State<PriceCalendar> {
 
   void _changeMonth(int delta) {
     setState(() {
-      _currentMonth =
-          DateTime(_currentMonth.year, _currentMonth.month + delta, 1);
+      _currentMonth = DateTime(
+        _currentMonth.year,
+        _currentMonth.month + delta,
+        1,
+      );
       _prices = _generateMockPrices();
     });
   }
@@ -97,9 +102,15 @@ class _PriceCalendarState extends State<PriceCalendar> {
     if (_checkInDate == null || _checkOutDate == null) return false;
     final d = DateTime(date.year, date.month, date.day);
     final s = DateTime(
-        _checkInDate!.year, _checkInDate!.month, _checkInDate!.day);
+      _checkInDate!.year,
+      _checkInDate!.month,
+      _checkInDate!.day,
+    );
     final e = DateTime(
-        _checkOutDate!.year, _checkOutDate!.month, _checkOutDate!.day);
+      _checkOutDate!.year,
+      _checkOutDate!.month,
+      _checkOutDate!.day,
+    );
     return d.isAfter(s) && d.isBefore(e);
   }
 
@@ -127,33 +138,33 @@ class _PriceCalendarState extends State<PriceCalendar> {
 
     return SingleChildScrollView(
       child: Column(
-      children: [
-        // Month header
-        _buildMonthHeader(l),
-        const SizedBox(height: 4),
-        // Legend
-        _buildLegend(l),
-        const SizedBox(height: 8),
-        // Weekday header
-        _buildWeekdayHeader(),
-        const SizedBox(height: 4),
-        // Calendar grid
-        _buildCalendarGrid(gridDays, l),
-        // Price summary
-        if (_checkInDate != null) ...[
-          const SizedBox(height: 16),
-          _buildPriceSummary(l),
+        children: [
+          // Month header
+          _buildMonthHeader(l),
+          const SizedBox(height: 4),
+          // Legend
+          _buildLegend(l),
+          const SizedBox(height: 8),
+          // Weekday header
+          _buildWeekdayHeader(),
+          const SizedBox(height: 4),
+          // Calendar grid
+          _buildCalendarGrid(gridDays, l),
+          // Price summary
+          if (_checkInDate != null) ...[
+            const SizedBox(height: 16),
+            _buildPriceSummary(l),
+          ],
+          // Room availability
+          if (_checkInDate != null) ...[
+            const SizedBox(height: 16),
+            RoomAvailabilityWidget(
+              date: _checkInDate!,
+              rooms: generateMockRooms(l),
+            ),
+          ],
         ],
-        // Room availability
-        if (_checkInDate != null) ...[
-          const SizedBox(height: 16),
-          RoomAvailabilityWidget(
-            date: _checkInDate!,
-            rooms: generateMockRooms(l),
-          ),
-        ],
-      ],
-    ),
+      ),
     );
   }
 
@@ -169,8 +180,7 @@ class _PriceCalendarState extends State<PriceCalendar> {
           children: [
             Text(
               l.yearMonth(_currentMonth.year, _currentMonth.month),
-              style:
-                  const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             Text(
               _isSelectingCheckOut ? l.selectCheckOutDate : l.selectCheckInDate,
@@ -245,14 +255,17 @@ class _PriceCalendarState extends State<PriceCalendar> {
           children: List.generate(7, (j) {
             final date = gridDays[i + j];
             final isCurrentMonth = date.month == _currentMonth.month;
-            final isPast =
-                date.isBefore(DateTime(now.year, now.month, now.day));
+            final isPast = date.isBefore(
+              DateTime(now.year, now.month, now.day),
+            );
             final priceInfo = isCurrentMonth ? _prices['${date.day}'] : null;
             final isAvailable = priceInfo?.isAvailable ?? false;
 
-            final isCheckIn = _checkInDate != null &&
+            final isCheckIn =
+                _checkInDate != null &&
                 CalendarDateUtils.isSameDay(date, _checkInDate!);
-            final isCheckOut = _checkOutDate != null &&
+            final isCheckOut =
+                _checkOutDate != null &&
                 CalendarDateUtils.isSameDay(date, _checkOutDate!);
             final inRange = _isInRange(date);
             final isToday = CalendarDateUtils.isSameDay(date, now);
@@ -269,21 +282,24 @@ class _PriceCalendarState extends State<PriceCalendar> {
                     color: isCheckIn || isCheckOut
                         ? const Color(0xFF2196F3)
                         : inRange
-                            ? const Color(0xFFBBDEFB)
-                            : null,
+                        ? const Color(0xFFBBDEFB)
+                        : null,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(
-                          isCheckIn ? 8 : (inRange ? 0 : 4)),
+                        isCheckIn ? 8 : (inRange ? 0 : 4),
+                      ),
                       bottomLeft: Radius.circular(
-                          isCheckIn ? 8 : (inRange ? 0 : 4)),
+                        isCheckIn ? 8 : (inRange ? 0 : 4),
+                      ),
                       topRight: Radius.circular(
-                          isCheckOut ? 8 : (inRange ? 0 : 4)),
+                        isCheckOut ? 8 : (inRange ? 0 : 4),
+                      ),
                       bottomRight: Radius.circular(
-                          isCheckOut ? 8 : (inRange ? 0 : 4)),
+                        isCheckOut ? 8 : (inRange ? 0 : 4),
+                      ),
                     ),
                     border: isToday && !isCheckIn && !isCheckOut
-                        ? Border.all(
-                            color: const Color(0xFF2196F3), width: 1)
+                        ? Border.all(color: const Color(0xFF2196F3), width: 1)
                         : null,
                   ),
                   child: Opacity(
@@ -297,13 +313,17 @@ class _PriceCalendarState extends State<PriceCalendar> {
                           Text(
                             l.checkInLabel,
                             style: const TextStyle(
-                                fontSize: 8, color: Colors.white70),
+                              fontSize: 8,
+                              color: Colors.white70,
+                            ),
                           )
                         else if (isCheckOut)
                           Text(
                             l.checkOutLabel,
                             style: const TextStyle(
-                                fontSize: 8, color: Colors.white70),
+                              fontSize: 8,
+                              color: Colors.white70,
+                            ),
                           ),
                         Text(
                           '${date.day}',
@@ -360,9 +380,7 @@ class _PriceCalendarState extends State<PriceCalendar> {
       decoration: BoxDecoration(
         color: const Color(0xFFFFF3E0),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: const Color(0xFFFFE0B2),
-        ),
+        border: Border.all(color: const Color(0xFFFFE0B2)),
       ),
       child: Column(
         children: [
@@ -395,7 +413,10 @@ class _PriceCalendarState extends State<PriceCalendar> {
                     children: [
                       Text(
                         l.checkOutLabel,
-                        style: const TextStyle(fontSize: 12, color: Colors.grey),
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey,
+                        ),
                       ),
                       Text(
                         l.monthDay(_checkOutDate!.month, _checkOutDate!.day),
@@ -412,8 +433,7 @@ class _PriceCalendarState extends State<PriceCalendar> {
                   children: [
                     Text(
                       l.nightsTotal(_nightCount),
-                      style:
-                          const TextStyle(fontSize: 12, color: Colors.grey),
+                      style: const TextStyle(fontSize: 12, color: Colors.grey),
                     ),
                     Text(
                       '¥${_totalPrice.toInt()}',

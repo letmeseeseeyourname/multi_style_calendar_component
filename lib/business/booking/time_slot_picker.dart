@@ -84,10 +84,7 @@ class _TimeSlotPickerState extends State<TimeSlotPicker> {
         children: [
           Text(
             l.availableTimeTitle(widget.date.month, widget.date.day),
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 12),
           _buildLegend(),
@@ -140,7 +137,8 @@ class _TimeSlotPickerState extends State<TimeSlotPicker> {
       spacing: 8,
       runSpacing: 8,
       children: widget.slots.map((slot) {
-        final isSelected = _selectedSlot != null &&
+        final isSelected =
+            _selectedSlot != null &&
             _selectedSlot!.hour == slot.hour &&
             _selectedSlot!.minute == slot.minute;
 
@@ -285,12 +283,9 @@ List<BookingSlot> generateMockSlots({int startHour = 9, int endHour = 18}) {
       } else {
         status = SlotStatus.unavailable;
       }
-      slots.add(BookingSlot(
-        hour: h,
-        minute: m,
-        status: status,
-        bookedBy: bookedBy,
-      ));
+      slots.add(
+        BookingSlot(hour: h, minute: m, status: status, bookedBy: bookedBy),
+      );
     }
   }
   return slots;

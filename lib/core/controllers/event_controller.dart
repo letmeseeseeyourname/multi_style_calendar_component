@@ -18,12 +18,15 @@ class EventController extends ChangeNotifier {
       final startMonth = DateTime(e.startTime.year, e.startTime.month);
       final endMonth = DateTime(e.endTime.year, e.endTime.month);
       final targetMonth = DateTime(year, month);
-      return !targetMonth.isBefore(startMonth) && !targetMonth.isAfter(endMonth);
+      return !targetMonth.isBefore(startMonth) &&
+          !targetMonth.isAfter(endMonth);
     }).toList();
   }
 
   Map<DateTime, List<CalendarEvent>> getEventsGroupedByDate(
-      DateTime start, DateTime end) {
+    DateTime start,
+    DateTime end,
+  ) {
     final map = <DateTime, List<CalendarEvent>>{};
     var current = CalendarDateUtils.dateOnly(start);
     final endDate = CalendarDateUtils.dateOnly(end);

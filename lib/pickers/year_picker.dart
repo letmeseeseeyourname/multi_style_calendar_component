@@ -9,12 +9,7 @@ class YearPicker extends StatefulWidget {
   final int? minYear;
   final int? maxYear;
 
-  const YearPicker({
-    super.key,
-    this.initialYear,
-    this.minYear,
-    this.maxYear,
-  });
+  const YearPicker({super.key, this.initialYear, this.minYear, this.maxYear});
 
   /// Shows the year picker dialog.
   static Future<DateTime?> show(
@@ -87,8 +82,9 @@ class _YearPickerState extends State<YearPicker> {
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 color: CalendarColors.primary,
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(16)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(16),
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -149,34 +145,31 @@ class _YearPickerState extends State<YearPicker> {
 
                         return Expanded(
                           child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 4),
+                            padding: const EdgeInsets.symmetric(horizontal: 4),
                             child: Material(
                               color: isSelected
                                   ? CalendarColors.selected
                                   : isCurrent
-                                      ? CalendarColors.today
-                                          .withValues(alpha: 0.1)
-                                      : Colors.transparent,
+                                  ? CalendarColors.today.withValues(alpha: 0.1)
+                                  : Colors.transparent,
                               borderRadius: BorderRadius.circular(12),
                               child: InkWell(
                                 borderRadius: BorderRadius.circular(12),
                                 onTap: disabled
                                     ? null
-                                    : () => setState(
-                                        () => _selectedYear = year),
+                                    : () =>
+                                          setState(() => _selectedYear = year),
                                 child: Container(
                                   height: 48,
                                   alignment: Alignment.center,
                                   child: Text(
                                     '$year',
-                                    style:
-                                        theme.textTheme.bodyMedium?.copyWith(
+                                    style: theme.textTheme.bodyMedium?.copyWith(
                                       color: disabled
                                           ? CalendarColors.disabled
                                           : isSelected
-                                              ? Colors.white
-                                              : null,
+                                          ? Colors.white
+                                          : null,
                                       fontWeight: (isCurrent || isSelected)
                                           ? FontWeight.bold
                                           : null,
@@ -206,8 +199,8 @@ class _YearPickerState extends State<YearPicker> {
                   ),
                   const SizedBox(width: 8),
                   FilledButton(
-                    onPressed: () => Navigator.of(context)
-                        .pop(DateTime(_selectedYear)),
+                    onPressed: () =>
+                        Navigator.of(context).pop(DateTime(_selectedYear)),
                     child: Text(l.confirm),
                   ),
                 ],

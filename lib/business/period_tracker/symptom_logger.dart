@@ -3,16 +3,16 @@ import '../../../l10n/app_localizations.dart';
 
 /// 症状类型
 enum SymptomType {
-  cramps,       // 痛经
-  headache,     // 头痛
-  bloating,     // 腹胀
-  fatigue,      // 疲劳
-  moodSwings,   // 情绪波动
-  backPain,     // 腰痛
-  nausea,       // 恶心
-  acne,         // 痘痘
-  insomnia,     // 失眠
-  appetite,     // 食欲变化
+  cramps, // 痛经
+  headache, // 头痛
+  bloating, // 腹胀
+  fatigue, // 疲劳
+  moodSwings, // 情绪波动
+  backPain, // 腰痛
+  nausea, // 恶心
+  acne, // 痘痘
+  insomnia, // 失眠
+  appetite, // 食欲变化
 }
 
 extension SymptomTypeExtension on SymptomType {
@@ -216,10 +216,7 @@ class _SymptomLoggerState extends State<SymptomLogger> {
         children: [
           Text(
             l.symptomTitle(widget.date.month, widget.date.day),
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 12),
           Wrap(
@@ -238,7 +235,9 @@ class _SymptomLoggerState extends State<SymptomLogger> {
                   ),
                   decoration: BoxDecoration(
                     color: isSelected
-                        ? (severity?.color ?? Colors.grey).withValues(alpha: 0.15)
+                        ? (severity?.color ?? Colors.grey).withValues(
+                            alpha: 0.15,
+                          )
                         : Colors.grey.shade100,
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
@@ -318,8 +317,9 @@ class _SymptomLoggerState extends State<SymptomLogger> {
                               style: TextStyle(
                                 fontSize: 12,
                                 color: isActive ? severity.color : Colors.grey,
-                                fontWeight:
-                                    isActive ? FontWeight.bold : FontWeight.normal,
+                                fontWeight: isActive
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
                               ),
                             ),
                           ),

@@ -54,8 +54,10 @@ class _ResizableEventState extends State<ResizableEvent> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final currentHeight =
-        (_baseHeight + _extraHeight).clamp(_minHeight, _maxHeight);
+    final currentHeight = (_baseHeight + _extraHeight).clamp(
+      _minHeight,
+      _maxHeight,
+    );
 
     return GestureDetector(
       onTap: widget.onTap,
@@ -130,8 +132,8 @@ class _ResizableEventState extends State<ResizableEvent> {
                   widget.onResizeUpdate?.call(_extraHeight);
                 },
                 onVerticalDragEnd: (_) {
-                  final totalMinutes =
-                      (currentHeight / widget.minuteHeight).round();
+                  final totalMinutes = (currentHeight / widget.minuteHeight)
+                      .round();
                   final snappedMinutes =
                       (totalMinutes / 15).round() * 15; // snap to 15 min
                   final newDuration = Duration(minutes: snappedMinutes);
@@ -167,8 +169,8 @@ class _ResizableEventState extends State<ResizableEvent> {
 
   String _formatTimeRange() {
     final start = widget.event.startTime;
-    final totalMinutes =
-        ((_baseHeight + _extraHeight) / widget.minuteHeight).round();
+    final totalMinutes = ((_baseHeight + _extraHeight) / widget.minuteHeight)
+        .round();
     final end = start.add(Duration(minutes: totalMinutes));
 
     return '${_formatTime(start)} - ${_formatTime(end)}';

@@ -52,7 +52,7 @@ class WeekDayColumn extends StatelessWidget {
         if (onTimeTap != null) {
           final minutes =
               (details.localPosition.dy / hourHeight * 60).round() +
-                  startHour * 60;
+              startHour * 60;
           final hour = (minutes ~/ 60).clamp(0, 23);
           final minute = (minutes % 60);
           final tappedTime = DateTime(
@@ -118,15 +118,12 @@ class _EventBlock extends StatelessWidget {
   final CalendarEvent event;
   final VoidCallback? onTap;
 
-  const _EventBlock({
-    required this.event,
-    this.onTap,
-  });
+  const _EventBlock({required this.event, this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    final textColor = ThemeData.estimateBrightnessForColor(event.color) ==
-            Brightness.dark
+    final textColor =
+        ThemeData.estimateBrightnessForColor(event.color) == Brightness.dark
         ? Colors.white
         : Colors.black87;
 
@@ -137,10 +134,7 @@ class _EventBlock extends StatelessWidget {
         decoration: BoxDecoration(
           color: event.color.withValues(alpha: 0.85),
           borderRadius: BorderRadius.circular(4),
-          border: Border.all(
-            color: event.color,
-            width: 0.5,
-          ),
+          border: Border.all(color: event.color, width: 0.5),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

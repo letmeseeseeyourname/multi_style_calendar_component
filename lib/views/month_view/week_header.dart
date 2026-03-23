@@ -7,10 +7,7 @@ class WeekHeader extends StatelessWidget {
   /// 一周的起始日（1=周一, 7=周日）
   final int firstDayOfWeek;
 
-  const WeekHeader({
-    super.key,
-    this.firstDayOfWeek = 1,
-  });
+  const WeekHeader({super.key, this.firstDayOfWeek = 1});
 
   @override
   Widget build(BuildContext context) {

@@ -96,7 +96,8 @@ class AttendanceStats extends StatelessWidget {
           // Attendance rate bar
           _AttendanceRateBar(
             normalDays: normalDays,
-            totalWorkDays: normalDays + lateDays + leaveEarlyDays + absentDays + leaveDays,
+            totalWorkDays:
+                normalDays + lateDays + leaveEarlyDays + absentDays + leaveDays,
           ),
         ],
       ),
@@ -138,10 +139,7 @@ class _StatItem extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 4),
-          Text(
-            label,
-            style: const TextStyle(fontSize: 11, color: Colors.grey),
-          ),
+          Text(label, style: const TextStyle(fontSize: 11, color: Colors.grey)),
         ],
       ),
     );
@@ -180,8 +178,8 @@ class _AttendanceRateBar extends StatelessWidget {
                 color: rate >= 0.9
                     ? const Color(0xFF4CAF50)
                     : rate >= 0.7
-                        ? const Color(0xFFFF9800)
-                        : const Color(0xFFF44336),
+                    ? const Color(0xFFFF9800)
+                    : const Color(0xFFF44336),
               ),
             ),
           ],
@@ -197,8 +195,8 @@ class _AttendanceRateBar extends StatelessWidget {
               rate >= 0.9
                   ? const Color(0xFF4CAF50)
                   : rate >= 0.7
-                      ? const Color(0xFFFF9800)
-                      : const Color(0xFFF44336),
+                  ? const Color(0xFFFF9800)
+                  : const Color(0xFFF44336),
             ),
           ),
         ),

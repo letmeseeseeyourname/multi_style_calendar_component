@@ -10,8 +10,8 @@ class CalendarController extends ChangeNotifier {
   CalendarController({
     DateTime? initialDate,
     CalendarViewType viewType = CalendarViewType.month,
-  })  : _currentDate = initialDate ?? DateTime.now(),
-        _viewType = viewType;
+  }) : _currentDate = initialDate ?? DateTime.now(),
+       _viewType = viewType;
 
   DateTime get currentDate => _currentDate;
   CalendarViewType get viewType => _viewType;

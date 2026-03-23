@@ -66,8 +66,7 @@ class _TimelineViewState extends State<TimelineView> {
     super.dispose();
   }
 
-  int get _totalDays =>
-      widget.endDate.difference(widget.startDate).inDays + 1;
+  int get _totalDays => widget.endDate.difference(widget.startDate).inDays + 1;
 
   double get _totalWidth => _totalDays * widget.dayWidth;
 
@@ -221,9 +220,7 @@ class _TimelineViewState extends State<TimelineView> {
             left: 0,
             right: 0,
             height: 24,
-            child: Row(
-              children: _buildMonthHeaders(theme, start),
-            ),
+            child: Row(children: _buildMonthHeaders(theme, start)),
           ),
           // 日期行
           Positioned(
@@ -235,7 +232,8 @@ class _TimelineViewState extends State<TimelineView> {
               children: List.generate(_totalDays, (i) {
                 final day = start.add(Duration(days: i));
                 final isToday = day == today;
-                final isWeekend = day.weekday == DateTime.saturday ||
+                final isWeekend =
+                    day.weekday == DateTime.saturday ||
                     day.weekday == DateTime.sunday;
 
                 return GestureDetector(
@@ -259,8 +257,8 @@ class _TimelineViewState extends State<TimelineView> {
                         color: isToday
                             ? theme.colorScheme.primary
                             : isWeekend
-                                ? theme.hintColor.withValues(alpha: 0.5)
-                                : theme.hintColor,
+                            ? theme.hintColor.withValues(alpha: 0.5)
+                            : theme.hintColor,
                       ),
                     ),
                   ),
@@ -295,8 +293,12 @@ class _TimelineViewState extends State<TimelineView> {
           padding: const EdgeInsets.only(left: 4),
           decoration: BoxDecoration(
             border: Border(
-              bottom: BorderSide(color: theme.dividerColor.withValues(alpha: 0.5)),
-              right: BorderSide(color: theme.dividerColor.withValues(alpha: 0.3)),
+              bottom: BorderSide(
+                color: theme.dividerColor.withValues(alpha: 0.5),
+              ),
+              right: BorderSide(
+                color: theme.dividerColor.withValues(alpha: 0.3),
+              ),
             ),
           ),
           child: Text(

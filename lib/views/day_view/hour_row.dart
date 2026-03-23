@@ -56,9 +56,7 @@ class HourRow extends StatelessWidget {
                     ),
                   ),
                 ),
-                Expanded(
-                  child: Container(height: 0.5, color: lineColor),
-                ),
+                Expanded(child: Container(height: 0.5, color: lineColor)),
               ],
             ),
           ),

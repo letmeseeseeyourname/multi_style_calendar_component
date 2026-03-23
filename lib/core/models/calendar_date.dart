@@ -74,10 +74,7 @@ class CalendarDate {
     );
   }
 
-  CalendarDate copyWith({
-    bool? isHoliday,
-    String? holidayName,
-  }) {
+  CalendarDate copyWith({bool? isHoliday, String? holidayName}) {
     return CalendarDate(
       gregorian: gregorian,
       lunar: lunar,

@@ -68,10 +68,12 @@ class AgendaView extends StatelessWidget {
             if (dayEvents.isEmpty)
               _buildNoEvents(context)
             else
-              ...dayEvents.map((event) => AgendaItem(
-                    event: event,
-                    onTap: () => onEventTap?.call(event),
-                  )),
+              ...dayEvents.map(
+                (event) => AgendaItem(
+                  event: event,
+                  onTap: () => onEventTap?.call(event),
+                ),
+              ),
             const SizedBox(height: 8),
           ],
         );
@@ -85,9 +87,7 @@ class AgendaView extends StatelessWidget {
 
     for (int i = 0; i < daysToShow; i++) {
       final date = start.add(Duration(days: i));
-      final dayEvents = events
-          .where((e) => e.occursOn(date))
-          .toList()
+      final dayEvents = events.where((e) => e.occursOn(date)).toList()
         ..sort((a, b) {
           if (a.isAllDay && !b.isAllDay) return -1;
           if (!a.isAllDay && b.isAllDay) return 1;
@@ -116,9 +116,7 @@ class AgendaView extends StatelessWidget {
           const SizedBox(height: 16),
           Text(
             AppLocalizations.of(context).noSchedule,
-            style: theme.textTheme.bodyLarge?.copyWith(
-              color: theme.hintColor,
-            ),
+            style: theme.textTheme.bodyLarge?.copyWith(color: theme.hintColor),
           ),
         ],
       ),

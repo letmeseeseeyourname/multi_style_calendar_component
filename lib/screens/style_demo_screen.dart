@@ -59,15 +59,24 @@ class StyleDemoScreen extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        Text(l.circularWeekView, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        Text(
+          l.circularWeekView,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
         const SizedBox(height: 8),
         const SizedBox(height: 350, child: CircularWeekView()),
         const SizedBox(height: 24),
-        Text(l.ringMonthView, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        Text(
+          l.ringMonthView,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
         const SizedBox(height: 8),
         const SizedBox(height: 350, child: RingMonthView()),
         const SizedBox(height: 24),
-        Text(l.clockDayView, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        Text(
+          l.clockDayView,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
         const SizedBox(height: 8),
         SizedBox(height: 350, child: ClockDayView(date: DateTime.now())),
       ],
@@ -80,11 +89,20 @@ class StyleDemoScreen extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        Text(l.githubHeatmap, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        Text(
+          l.githubHeatmap,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
         const SizedBox(height: 8),
-        SizedBox(height: 200, child: GitHubHeatmap(year: now.year, data: const {})),
+        SizedBox(
+          height: 200,
+          child: GitHubHeatmap(year: now.year, data: const {}),
+        ),
         const SizedBox(height: 24),
-        Text(l.activityHeatmap, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        Text(
+          l.activityHeatmap,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
         const SizedBox(height: 8),
         SizedBox(
           height: 200,
@@ -103,11 +121,17 @@ class StyleDemoScreen extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        Text(l.ringMonthView, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        Text(
+          l.ringMonthView,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
         const SizedBox(height: 8),
         const SizedBox(height: 350, child: RingMonthView()),
         const SizedBox(height: 24),
-        Text(l.clockDayView, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        Text(
+          l.clockDayView,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
         const SizedBox(height: 8),
         SizedBox(height: 350, child: ClockDayView(date: DateTime.now())),
       ],

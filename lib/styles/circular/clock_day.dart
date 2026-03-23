@@ -58,7 +58,11 @@ class _ClockDayViewState extends State<ClockDayView>
         Padding(
           padding: const EdgeInsets.only(bottom: 16),
           child: Text(
-            l.yearMonthDay(widget.date.year, widget.date.month, widget.date.day),
+            l.yearMonthDay(
+              widget.date.year,
+              widget.date.month,
+              widget.date.day,
+            ),
             style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.w600,
             ),
@@ -92,7 +96,8 @@ class _ClockDayViewState extends State<ClockDayView>
                     // Hour labels
                     ...List.generate(totalHours, (i) {
                       final hour = widget.use24Hour ? i : (i == 0 ? 12 : i);
-                      final angle = (2 * math.pi / totalHours) * i - math.pi / 2;
+                      final angle =
+                          (2 * math.pi / totalHours) * i - math.pi / 2;
                       final radius = widget.size / 2 - 24;
                       final dx = radius * math.cos(angle);
                       final dy = radius * math.sin(angle);
@@ -127,7 +132,8 @@ class _ClockDayViewState extends State<ClockDayView>
   Widget _buildCenterInfo(BuildContext context, ThemeData theme) {
     final l = AppLocalizations.of(context);
     final now = DateTime.now();
-    final isToday = widget.date.year == now.year &&
+    final isToday =
+        widget.date.year == now.year &&
         widget.date.month == now.month &&
         widget.date.day == now.day;
 
@@ -148,9 +154,7 @@ class _ClockDayViewState extends State<ClockDayView>
           ),
         Text(
           l.nEvents(widget.events.length),
-          style: theme.textTheme.bodySmall?.copyWith(
-            color: Colors.grey,
-          ),
+          style: theme.textTheme.bodySmall?.copyWith(color: Colors.grey),
         ),
       ],
     );
@@ -277,7 +281,9 @@ class _ClockFacePainter extends CustomPainter {
 
     // Draw current time hand if date is today
     final now = DateTime.now();
-    if (date.year == now.year && date.month == now.month && date.day == now.day) {
+    if (date.year == now.year &&
+        date.month == now.month &&
+        date.day == now.day) {
       final nowMinutes = now.hour * 60 + now.minute;
       final totalMinutes = totalHours * 60;
       final angle = (2 * math.pi * nowMinutes / totalMinutes) - math.pi / 2;

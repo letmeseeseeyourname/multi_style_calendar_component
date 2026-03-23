@@ -31,7 +31,10 @@ class CalendarDateUtils {
     return dateOnly(date.subtract(Duration(days: diff)));
   }
 
-  static List<DateTime> daysInMonthGrid(DateTime month, {int firstDayOfWeek = 1}) {
+  static List<DateTime> daysInMonthGrid(
+    DateTime month, {
+    int firstDayOfWeek = 1,
+  }) {
     final first = firstDayOfMonth(month);
     final startOffset = (first.weekday - firstDayOfWeek + 7) % 7;
     final gridStart = first.subtract(Duration(days: startOffset));
@@ -56,8 +59,19 @@ class CalendarDateUtils {
 
   static String monthName(int month) {
     const names = [
-      '', '一月', '二月', '三月', '四月', '五月', '六月',
-      '七月', '八月', '九月', '十月', '十一月', '十二月',
+      '',
+      '一月',
+      '二月',
+      '三月',
+      '四月',
+      '五月',
+      '六月',
+      '七月',
+      '八月',
+      '九月',
+      '十月',
+      '十一月',
+      '十二月',
     ];
     return names[month];
   }

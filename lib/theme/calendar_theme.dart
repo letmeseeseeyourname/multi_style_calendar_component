@@ -31,7 +31,10 @@ class CalendarThemeData {
     this.surfaceColor = const Color(0xFFF5F5F5),
     this.headerColor = const Color(0xFF212121),
     this.dayTextStyle = const TextStyle(fontSize: 16),
-    this.lunarTextStyle = const TextStyle(fontSize: 10, color: Color(0xFF757575)),
+    this.lunarTextStyle = const TextStyle(
+      fontSize: 10,
+      color: Color(0xFF757575),
+    ),
     this.headerTextStyle = const TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.bold,
@@ -76,11 +79,7 @@ class CalendarThemeData {
 class CalendarTheme extends InheritedWidget {
   final CalendarThemeData data;
 
-  const CalendarTheme({
-    super.key,
-    required this.data,
-    required super.child,
-  });
+  const CalendarTheme({super.key, required this.data, required super.child});
 
   static CalendarThemeData of(BuildContext context) {
     final theme = context.dependOnInheritedWidgetOfExactType<CalendarTheme>();

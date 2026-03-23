@@ -80,9 +80,7 @@ class YearHeatmap extends StatelessWidget {
         const SizedBox(width: 8),
         Text(
           l.totalActivities(totalActivities),
-          style: theme.textTheme.bodySmall?.copyWith(
-            color: theme.hintColor,
-          ),
+          style: theme.textTheme.bodySmall?.copyWith(color: theme.hintColor),
         ),
       ],
     );
@@ -105,15 +103,17 @@ class YearHeatmap extends StatelessWidget {
             final monthStart = DateTime(year, i + 1, 1);
             final dayOfYear = monthStart.difference(firstDay).inDays;
             final weekIndex = (dayOfYear + offsetToMonday) ~/ 7;
-            final leftPos = weekIndex * (cellSize + cellSpacing);
+            // weekIndex used for positioning
+            final _ = weekIndex * (cellSize + cellSpacing);
 
             // Calculate width to next month or end
             final nextMonthWeek = i < 11
                 ? (DateTime(year, i + 2, 1).difference(firstDay).inDays +
-                        offsetToMonday) ~/
-                    7
+                          offsetToMonday) ~/
+                      7
                 : 53;
-            final width = (nextMonthWeek - weekIndex) * (cellSize + cellSpacing);
+            final width =
+                (nextMonthWeek - weekIndex) * (cellSize + cellSpacing);
 
             return SizedBox(
               width: width,
@@ -163,7 +163,7 @@ class YearHeatmap extends StatelessWidget {
 
     // Build week columns
     // First, organize days into a grid: row = weekday (0=Mon), col = week
-    final firstWeekday = firstDay.weekday; // 1=Monday
+    // firstDay.weekday is 1=Monday
     final weeks = <List<DateTime?>>[];
 
     // First partial week
@@ -201,7 +201,9 @@ class YearHeatmap extends StatelessWidget {
               final intensity = (value / clampedMax).clamp(0.0, 1.0);
 
               final color = value == 0
-                  ? theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5)
+                  ? theme.colorScheme.surfaceContainerHighest.withValues(
+                      alpha: 0.5,
+                    )
                   : CalendarColors.heatmapColor(intensity, baseColor);
 
               final isToday = CalendarDateUtils.isSameDay(day, DateTime.now());
@@ -211,7 +213,9 @@ class YearHeatmap extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () => onDateTap?.call(day),
                   child: Tooltip(
-                    message: AppLocalizations.of(context).dayActivityTooltip(day.month, day.day, value),
+                    message: AppLocalizations.of(
+                      context,
+                    ).dayActivityTooltip(day.month, day.day, value),
                     child: Container(
                       width: cellSize,
                       height: cellSize,
@@ -219,7 +223,10 @@ class YearHeatmap extends StatelessWidget {
                         color: color,
                         borderRadius: BorderRadius.circular(2),
                         border: isToday
-                            ? Border.all(color: CalendarColors.today, width: 1.5)
+                            ? Border.all(
+                                color: CalendarColors.today,
+                                width: 1.5,
+                              )
                             : null,
                       ),
                     ),

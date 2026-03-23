@@ -21,8 +21,11 @@ class AppLocalizations {
 
   // ====== Common ======
   String get appTitle => isChinese ? '多样式日历组件库' : 'Multi-Style Calendar';
-  String get appHeaderTitle => isChinese ? 'Flutter 多样式日历' : 'Flutter Multi-Style Calendar';
-  String get appHeaderSubtitle => isChinese ? '涵盖多种历法、视图、交互与业务场景' : 'Multiple calendars, views, interactions & scenarios';
+  String get appHeaderTitle =>
+      isChinese ? 'Flutter 多样式日历' : 'Flutter Multi-Style Calendar';
+  String get appHeaderSubtitle => isChinese
+      ? '涵盖多种历法、视图、交互与业务场景'
+      : 'Multiple calendars, views, interactions & scenarios';
   String get cancel => isChinese ? '取消' : 'Cancel';
   String get confirm => isChinese ? '确定' : 'OK';
   String get save => isChinese ? '保存' : 'Save';
@@ -53,7 +56,9 @@ class AppLocalizations {
   String get roomUnit => isChinese ? '间' : 'room(s)';
 
   String yearMonth(int year, int month) {
-    return isChinese ? '$year年$month月' : '$year-${month.toString().padLeft(2, '0')}';
+    return isChinese
+        ? '$year年$month月'
+        : '$year-${month.toString().padLeft(2, '0')}';
   }
 
   String yearMonthDay(int year, int month, int day) {
@@ -63,13 +68,17 @@ class AppLocalizations {
   }
 
   String monthDay(int month, int day) {
-    return isChinese ? '$month月$day日' : '${month.toString().padLeft(2, '0')}/$day';
+    return isChinese
+        ? '$month月$day日'
+        : '${month.toString().padLeft(2, '0')}/$day';
   }
 
   String nDays(int n) => isChinese ? '$n天' : '$n day${n > 1 ? 's' : ''}';
   String nItems(int n) => isChinese ? '$n 项' : '$n item${n > 1 ? 's' : ''}';
-  String nActivities(int n) => isChinese ? '$n 次活动' : '$n activit${n > 1 ? 'ies' : 'y'}';
-  String nSelected(int n) => isChinese ? '已选 $n 个日期' : '$n date${n > 1 ? 's' : ''} selected';
+  String nActivities(int n) =>
+      isChinese ? '$n 次活动' : '$n activit${n > 1 ? 'ies' : 'y'}';
+  String nSelected(int n) =>
+      isChinese ? '已选 $n 个日期' : '$n date${n > 1 ? 's' : ''} selected';
 
   String durationText(int minutes) {
     if (minutes >= 60) {
@@ -86,12 +95,68 @@ class AppLocalizations {
 
   // ====== Month names ======
   List<String> get monthNames => isChinese
-      ? const ['', '一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
-      : const ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      ? const [
+          '',
+          '一月',
+          '二月',
+          '三月',
+          '四月',
+          '五月',
+          '六月',
+          '七月',
+          '八月',
+          '九月',
+          '十月',
+          '十一月',
+          '十二月',
+        ]
+      : const [
+          '',
+          'January',
+          'February',
+          'March',
+          'April',
+          'May',
+          'June',
+          'July',
+          'August',
+          'September',
+          'October',
+          'November',
+          'December',
+        ];
 
   List<String> get monthNamesShort => isChinese
-      ? const ['', '1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
-      : const ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      ? const [
+          '',
+          '1月',
+          '2月',
+          '3月',
+          '4月',
+          '5月',
+          '6月',
+          '7月',
+          '8月',
+          '9月',
+          '10月',
+          '11月',
+          '12月',
+        ]
+      : const [
+          '',
+          'Jan',
+          'Feb',
+          'Mar',
+          'Apr',
+          'May',
+          'Jun',
+          'Jul',
+          'Aug',
+          'Sep',
+          'Oct',
+          'Nov',
+          'Dec',
+        ];
 
   String monthName(int month) => monthNames[month];
 
@@ -102,22 +167,39 @@ class AppLocalizations {
 
   List<String> get weekdayNamesLong => isChinese
       ? const ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-      : const ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+      : const [
+          'Monday',
+          'Tuesday',
+          'Wednesday',
+          'Thursday',
+          'Friday',
+          'Saturday',
+          'Sunday',
+        ];
 
   String weekdayShort(int weekday) => weekdayNamesShort[(weekday - 1) % 7];
   String weekdayLong(int weekday) => weekdayNamesLong[(weekday - 1) % 7];
 
   // ====== Home Screen ======
   String get viewModes => isChinese ? '视图模式' : 'View Modes';
-  String get viewModesSubtitle => isChinese ? '年 / 月 / 周 / 日 / 日程 / 时间线' : 'Year / Month / Week / Day / Agenda / Timeline';
+  String get viewModesSubtitle => isChinese
+      ? '年 / 月 / 周 / 日 / 日程 / 时间线'
+      : 'Year / Month / Week / Day / Agenda / Timeline';
   String get visualStyles => isChinese ? '视觉风格' : 'Visual Styles';
-  String get visualStylesSubtitle => isChinese ? '经典 / 卡片 / 圆形 / 热力图 / 翻页 / 极简 / 毛玻璃' : 'Classic / Card / Circular / Heatmap / Flip / Minimal / Glass';
+  String get visualStylesSubtitle => isChinese
+      ? '经典 / 卡片 / 圆形 / 热力图 / 翻页 / 极简 / 毛玻璃'
+      : 'Classic / Card / Circular / Heatmap / Flip / Minimal / Glass';
   String get datePickers => isChinese ? '日期选择器' : 'Date Pickers';
-  String get datePickersSubtitle => isChinese ? '单选 / 多选 / 范围 / 月份 / 年份 / 日期时间' : 'Single / Multi / Range / Month / Year / DateTime';
+  String get datePickersSubtitle => isChinese
+      ? '单选 / 多选 / 范围 / 月份 / 年份 / 日期时间'
+      : 'Single / Multi / Range / Month / Year / DateTime';
   String get businessScenarios => isChinese ? '业务场景' : 'Business Scenarios';
-  String get businessScenariosSubtitle => isChinese ? '考勤 / 习惯 / 预约 / 价格 / 农历 / 倒计时 / 共享' : 'Attendance / Habit / Booking / Pricing / Lunar / Countdown / Shared';
+  String get businessScenariosSubtitle => isChinese
+      ? '考勤 / 习惯 / 预约 / 价格 / 农历 / 倒计时 / 共享'
+      : 'Attendance / Habit / Booking / Pricing / Lunar / Countdown / Shared';
   String get playground => isChinese ? '自由配置' : 'Playground';
-  String get playgroundSubtitle => isChinese ? '自定义日历参数与交互' : 'Customize calendar parameters & interaction';
+  String get playgroundSubtitle =>
+      isChinese ? '自定义日历参数与交互' : 'Customize calendar parameters & interaction';
 
   // ====== View Tabs ======
   String get monthView => isChinese ? '月视图' : 'Month';
@@ -140,12 +222,15 @@ class AppLocalizations {
   String get circularWeekView => isChinese ? '圆形周视图' : 'Circular Week View';
   String get ringMonthView => isChinese ? '环形月视图' : 'Ring Month View';
   String get clockDayView => isChinese ? '时钟式日视图' : 'Clock Day View';
-  String get githubHeatmap => isChinese ? 'GitHub 风格热力图' : 'GitHub-Style Heatmap';
+  String get githubHeatmap =>
+      isChinese ? 'GitHub 风格热力图' : 'GitHub-Style Heatmap';
   String get activityHeatmap => isChinese ? '活动热力图' : 'Activity Heatmap';
 
   // ====== Picker ======
-  String get tapToShowPicker => isChinese ? '点击按钮查看选择器' : 'Tap a button to show picker';
-  String resultLabel(String result) => isChinese ? '选择结果: $result' : 'Result: $result';
+  String get tapToShowPicker =>
+      isChinese ? '点击按钮查看选择器' : 'Tap a button to show picker';
+  String resultLabel(String result) =>
+      isChinese ? '选择结果: $result' : 'Result: $result';
   String get singleDate => isChinese ? '单选日期' : 'Single Date';
   String get multiDate => isChinese ? '多选日期' : 'Multi Date';
   String get rangeSelect => isChinese ? '范围选择' : 'Range Select';
@@ -154,10 +239,13 @@ class AppLocalizations {
   String get dateTimeSelect => isChinese ? '日期时间选择' : 'Date & Time';
   String get selectDate => isChinese ? '选择日期' : 'Select Date';
   String get selectMultiDates => isChinese ? '选择多个日期' : 'Select Multiple Dates';
-  String selectedCount(int n) => isChinese ? '已选择 $n 天' : '$n day${n > 1 ? 's' : ''} selected';
+  String selectedCount(int n) =>
+      isChinese ? '已选择 $n 天' : '$n day${n > 1 ? 's' : ''} selected';
   String get selectRange => isChinese ? '选择日期范围' : 'Select Date Range';
   String get selectStartDate => isChinese ? '选择开始日期' : 'Select start date';
-  String selectEndDate(int days) => isChinese ? ' - 选择结束日期 ($days天)' : ' - Select end date ($days day${days > 1 ? 's' : ''})';
+  String selectEndDate(int days) => isChinese
+      ? ' - 选择结束日期 ($days天)'
+      : ' - Select end date ($days day${days > 1 ? 's' : ''})';
   String get selectMonth => isChinese ? '选择月份' : 'Select Month';
   String get selectYear => isChinese ? '选择年份' : 'Select Year';
   String get selectDateTime => isChinese ? '选择日期和时间' : 'Select Date & Time';
@@ -174,11 +262,14 @@ class AppLocalizations {
   String get allDayEvent => isChinese ? '全天事件' : 'All-day event';
   String get start => isChinese ? '开始' : 'Start';
   String get end => isChinese ? '结束' : 'End';
-  String get endBeforeStart => isChinese ? '结束时间不能早于开始时间' : 'End time cannot be before start time';
+  String get endBeforeStart =>
+      isChinese ? '结束时间不能早于开始时间' : 'End time cannot be before start time';
   String get location => isChinese ? '地点' : 'Location';
-  String get enterLocation => isChinese ? '输入地点（可选）' : 'Enter location (optional)';
+  String get enterLocation =>
+      isChinese ? '输入地点（可选）' : 'Enter location (optional)';
   String get description => isChinese ? '描述' : 'Description';
-  String get enterDescription => isChinese ? '输入事件描述（可选）' : 'Enter description (optional)';
+  String get enterDescription =>
+      isChinese ? '输入事件描述（可选）' : 'Enter description (optional)';
   String get color => isChinese ? '颜色' : 'Color';
   String get saveChanges => isChinese ? '保存修改' : 'Save Changes';
   String get createEvent => isChinese ? '创建事件' : 'Create Event';
@@ -193,7 +284,8 @@ class AppLocalizations {
   String get selectionMode => isChinese ? '选择模式' : 'Selection Mode';
   String get lunarLabel => isChinese ? '农历' : 'Lunar';
   String get startLabel => isChinese ? '起始' : 'Start';
-  String selectedLabel(String date) => isChinese ? '已选: $date' : 'Selected: $date';
+  String selectedLabel(String date) =>
+      isChinese ? '已选: $date' : 'Selected: $date';
   String startingFrom(String date) => isChinese ? '起始: $date' : 'From: $date';
 
   // ====== Business: Attendance ======
@@ -207,25 +299,29 @@ class AppLocalizations {
   String get restDay => isChinese ? '休息日' : 'Rest Day';
   String get notClocked => isChinese ? '未打卡' : 'Not clocked';
   String get annualLeave => isChinese ? '年假' : 'Annual leave';
-  String attendanceStatsTitle(int month) => isChinese ? '$month月考勤统计' : 'Attendance Stats for Month $month';
+  String attendanceStatsTitle(int month) =>
+      isChinese ? '$month月考勤统计' : 'Attendance Stats for Month $month';
   String get attendanceDays => isChinese ? '出勤' : 'Present';
   String get attendanceRate => isChinese ? '出勤率' : 'Rate';
   String get checkIn => isChinese ? '签到' : 'Check-in';
   String get checkOut => isChinese ? '签退' : 'Check-out';
   String get remark => isChinese ? '备注' : 'Note';
-  String noAttendanceRecord(int month, int day) => isChinese ? '$month月$day日 - 无考勤记录' : '$month/$day - No record';
+  String noAttendanceRecord(int month, int day) =>
+      isChinese ? '$month月$day日 - 无考勤记录' : '$month/$day - No record';
 
   // ====== Business: Habit ======
   String get habitTracker => isChinese ? '习惯追踪' : 'Habit Tracker';
   String get currentStreak => isChinese ? '当前连续' : 'Current Streak';
   String get longestStreak => isChinese ? '最长连续' : 'Longest Streak';
   String get totalCheckins => isChinese ? '总打卡' : 'Total';
-  String completionRate(int month) => isChinese ? '$month月完成率' : 'Month $month Completion';
+  String completionRate(int month) =>
+      isChinese ? '$month月完成率' : 'Month $month Completion';
 
   // ====== Business: Booking ======
   String get booking => isChinese ? '预约' : 'Booking';
   String get bookingManagement => isChinese ? '预约管理' : 'Booking Management';
-  String get selectDateForSlots => isChinese ? '选择日期查看可用时间段' : 'Select a date to view available slots';
+  String get selectDateForSlots =>
+      isChinese ? '选择日期查看可用时间段' : 'Select a date to view available slots';
   String get monthlyBookings => isChinese ? '本月预约' : 'This Month';
   String get available => isChinese ? '可选' : 'Available';
   String get selected => isChinese ? '已选' : 'Selected';
@@ -234,25 +330,30 @@ class AppLocalizations {
   String get confirmBooking => isChinese ? '确认预约' : 'Confirm Booking';
   String get weeklyAvailability => isChinese ? '本周可用时间' : 'Weekly Availability';
   String availableSlots(int n) => isChinese ? '${n}可约' : '$n available';
-  String availableTimeTitle(int month, int day) => isChinese ? '$month月$day日 可用时间' : '$month/$day Available Time';
+  String availableTimeTitle(int month, int day) =>
+      isChinese ? '$month月$day日 可用时间' : '$month/$day Available Time';
   String bookedSlot(String time) => isChinese ? '已预约 $time' : 'Booked: $time';
   String get selectedSlotLabel => isChinese ? '已选择: ' : 'Selected: ';
 
   // ====== Business: Hotel Pricing ======
   String get hotelPricing => isChinese ? '酒店价格' : 'Hotel Pricing';
-  String get selectCheckInDate => isChinese ? '请选择入住日期' : 'Select check-in date';
-  String get selectCheckOutDate => isChinese ? '请选择退房日期' : 'Select check-out date';
+  String get selectCheckInDate =>
+      isChinese ? '请选择入住日期' : 'Select check-in date';
+  String get selectCheckOutDate =>
+      isChinese ? '请选择退房日期' : 'Select check-out date';
   String get checkInLabel => isChinese ? '入住' : 'Check-in';
   String get checkOutLabel => isChinese ? '退房' : 'Check-out';
   String roomsLeft(int n) => isChinese ? '剩${n}间' : '$n left';
-  String nightsTotal(int n) => isChinese ? '$n晚 共' : '$n night${n > 1 ? 's' : ''} total';
+  String nightsTotal(int n) =>
+      isChinese ? '$n晚 共' : '$n night${n > 1 ? 's' : ''} total';
   String get perNight => isChinese ? '/晚' : '/night';
   String get soldOut => isChinese ? '已满' : 'Sold out';
   String get special => isChinese ? '特惠' : 'Special';
   String get normal_ => isChinese ? '平日' : 'Normal';
   String get peakSeason => isChinese ? '旺季' : 'Peak';
   String get highPeak => isChinese ? '高峰' : 'High Peak';
-  String roomTypeTitle(int month, int day) => isChinese ? '$month月$day日 房型' : '$month/$day Room Types';
+  String roomTypeTitle(int month, int day) =>
+      isChinese ? '$month月$day日 房型' : '$month/$day Room Types';
   String roomsAvailable(int n) => isChinese ? '剩余${n}间' : '$n available';
   String roomsLow(int n) => isChinese ? '仅剩${n}间' : 'Only $n left';
 
@@ -263,18 +364,22 @@ class AppLocalizations {
   String get zodiac => isChinese ? '生肖' : 'Zodiac';
   String get solarTerm => isChinese ? '节气' : 'Solar Term';
   String get festival => isChinese ? '节日' : 'Festival';
-  String get festivalAndSolarTerm => isChinese ? '节日/节气' : 'Festivals / Solar Terms';
+  String get festivalAndSolarTerm =>
+      isChinese ? '节日/节气' : 'Festivals / Solar Terms';
   String get lunarFestival => isChinese ? '农历节日' : 'Lunar Festival';
   String get gregorianHoliday => isChinese ? '公历节日' : 'Holiday';
   String get suitable => isChinese ? '宜' : 'Suitable';
   String get avoid => isChinese ? '忌' : 'Avoid';
-  String fortuneTitle(int month, int day) => isChinese ? '$month月$day日 宜忌' : '$month/$day Fortune';
+  String fortuneTitle(int month, int day) =>
+      isChinese ? '$month月$day日 宜忌' : '$month/$day Fortune';
 
   // ====== Business: Countdown ======
   String get countdown => isChinese ? '倒计时' : 'Countdown';
   String get targetCountdown => isChinese ? '目标倒计时' : 'Target Countdown';
-  String daysPassed(int n) => isChinese ? '已过 $n 天' : '$n day${n > 1 ? 's' : ''} passed';
-  String daysRemaining(int n) => isChinese ? '距目标还有 $n 天' : '$n day${n > 1 ? 's' : ''} remaining';
+  String daysPassed(int n) =>
+      isChinese ? '已过 $n 天' : '$n day${n > 1 ? 's' : ''} passed';
+  String daysRemaining(int n) =>
+      isChinese ? '距目标还有 $n 天' : '$n day${n > 1 ? 's' : ''} remaining';
   String get target => isChinese ? '目标' : 'Target';
   String get milestone => isChinese ? '里程碑' : 'Milestones';
   String get passed => isChinese ? '已过' : 'Passed';
@@ -287,13 +392,18 @@ class AppLocalizations {
   String get noSchedule => isChinese ? '暂无日程安排' : 'No upcoming events';
   String get noEventsShort => isChinese ? '无日程' : 'None';
   String get attendees => isChinese ? '参与者: ' : 'Attendees: ';
-  String daySchedule(int month, int day) => isChinese ? '$month月$day日 日程' : '$month/$day Schedule';
+  String daySchedule(int month, int day) =>
+      isChinese ? '$month月$day日 日程' : '$month/$day Schedule';
   String conflictText(String a, String b, String overlap, String members) =>
-      isChinese ? '$a 与 $b 冲突 ($overlap, $members)' : '$a conflicts with $b ($overlap, $members)';
+      isChinese
+      ? '$a 与 $b 冲突 ($overlap, $members)'
+      : '$a conflicts with $b ($overlap, $members)';
 
   // ====== Business: Period Tracker ======
   String get periodTracker => isChinese ? '经期追踪' : 'Period Tracker';
-  String daysUntilPeriod(int n) => isChinese ? '距下次经期还有 $n 天' : '$n day${n > 1 ? 's' : ''} until next period';
+  String daysUntilPeriod(int n) => isChinese
+      ? '距下次经期还有 $n 天'
+      : '$n day${n > 1 ? 's' : ''} until next period';
   String get expectedToday => isChinese ? '预计今天开始' : 'Expected to start today';
   String get periodOngoing => isChinese ? '经期进行中' : 'Period ongoing';
   String get averageCycle => isChinese ? '平均周期' : 'Avg. Cycle';
@@ -301,7 +411,8 @@ class AppLocalizations {
   String get predictedPeriod => isChinese ? '预测经期' : 'Predicted';
   String get fertileWindow => isChinese ? '易孕期' : 'Fertile';
   String get ovulationDay => isChinese ? '排卵日' : 'Ovulation';
-  String symptomTitle(int month, int day) => isChinese ? '$month月$day日 症状记录' : '$month/$day Symptom Log';
+  String symptomTitle(int month, int day) =>
+      isChinese ? '$month月$day日 症状记录' : '$month/$day Symptom Log';
   String get adjustSeverity => isChinese ? '调整严重程度' : 'Adjust severity';
 
   // ====== Symptom names ======
@@ -326,10 +437,13 @@ class AppLocalizations {
   String get more_ => isChinese ? '多' : 'More';
   String get total => isChinese ? '总计' : 'Total';
   String get activeDays => isChinese ? '活跃天' : 'Active Days';
-  String yearActivityTitle(int year) => isChinese ? '$year 年活动记录' : '$year Activity';
-  String totalActivities(int n) => isChinese ? '共 $n 次活动' : '$n total activities';
-  String dayActivityTooltip(int month, int day, int value) =>
-      isChinese ? '$month月$day日: $value 次活动' : '$month/$day: $value activit${value > 1 ? 'ies' : 'y'}';
+  String yearActivityTitle(int year) =>
+      isChinese ? '$year 年活动记录' : '$year Activity';
+  String totalActivities(int n) =>
+      isChinese ? '共 $n 次活动' : '$n total activities';
+  String dayActivityTooltip(int month, int day, int value) => isChinese
+      ? '$month月$day日: $value 次活动'
+      : '$month/$day: $value activit${value > 1 ? 'ies' : 'y'}';
   String dayData(int n) => isChinese ? '$n 天活动数据' : '$n days of data';
 
   // ====== Agenda ======
@@ -362,7 +476,8 @@ class AppLocalizations {
   // ====== Shared calendar mock data ======
   String get teamWeekly => isChinese ? '团队周会' : 'Team Weekly';
   String get projectReview => isChinese ? '项目评审' : 'Project Review';
-  String get requirementDiscussion => isChinese ? '产品需求讨论' : 'Requirement Discussion';
+  String get requirementDiscussion =>
+      isChinese ? '产品需求讨论' : 'Requirement Discussion';
   String get oneOnOne => isChinese ? '1对1沟通' : '1-on-1 Meeting';
   String get codeReview => isChinese ? '代码评审' : 'Code Review';
   String get teamBuilding => isChinese ? '团建活动' : 'Team Building';
@@ -373,16 +488,21 @@ class AppLocalizations {
 
   // ====== Room types ======
   String get standardRoom => isChinese ? '标准大床房' : 'Standard King Room';
-  String get standardRoomDesc => isChinese ? '1.8m大床 / 25m² / 含早' : '1.8m King Bed / 25m² / Breakfast';
+  String get standardRoomDesc =>
+      isChinese ? '1.8m大床 / 25m² / 含早' : '1.8m King Bed / 25m² / Breakfast';
   String get deluxeTwinRoom => isChinese ? '豪华双床房' : 'Deluxe Twin Room';
-  String get deluxeTwinRoomDesc => isChinese ? '2×1.2m单人床 / 30m² / 含早' : '2×1.2m Beds / 30m² / Breakfast';
+  String get deluxeTwinRoomDesc =>
+      isChinese ? '2×1.2m单人床 / 30m² / 含早' : '2×1.2m Beds / 30m² / Breakfast';
   String get executiveSuite => isChinese ? '行政套房' : 'Executive Suite';
-  String get executiveSuiteDesc => isChinese ? '1.8m大床 / 45m² / 行政酒廊' : '1.8m King / 45m² / Lounge';
+  String get executiveSuiteDesc =>
+      isChinese ? '1.8m大床 / 45m² / 行政酒廊' : '1.8m King / 45m² / Lounge';
   String get presidentialSuite => isChinese ? '总统套房' : 'Presidential Suite';
-  String get presidentialSuiteDesc => isChinese ? '2.0m大床 / 80m² / 全景' : '2.0m King / 80m² / Panoramic';
+  String get presidentialSuiteDesc =>
+      isChinese ? '2.0m大床 / 80m² / 全景' : '2.0m King / 80m² / Panoramic';
 }
 
-class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override

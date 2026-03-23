@@ -94,8 +94,12 @@ class _InfiniteScrollDateListState extends State<InfiniteScrollDateList> {
   bool _isDisabled(DateTime date) {
     final dateOnly = CalendarDateUtils.dateOnly(date);
     if (widget.disabledDates?.contains(dateOnly) == true) return true;
-    if (widget.minDate != null && dateOnly.isBefore(CalendarDateUtils.dateOnly(widget.minDate!))) return true;
-    if (widget.maxDate != null && dateOnly.isAfter(CalendarDateUtils.dateOnly(widget.maxDate!))) return true;
+    if (widget.minDate != null &&
+        dateOnly.isBefore(CalendarDateUtils.dateOnly(widget.minDate!)))
+      return true;
+    if (widget.maxDate != null &&
+        dateOnly.isAfter(CalendarDateUtils.dateOnly(widget.maxDate!)))
+      return true;
     return false;
   }
 
@@ -160,7 +164,8 @@ class _InfiniteScrollDateListState extends State<InfiniteScrollDateList> {
     final today = CalendarDateUtils.dateOnly(DateTime.now());
     final dateOnly = CalendarDateUtils.dateOnly(date);
     final isToday = dateOnly == today;
-    final isSelected = _selectedDate != null &&
+    final isSelected =
+        _selectedDate != null &&
         CalendarDateUtils.isSameDay(dateOnly, _selectedDate!);
     final isDisabled = _isDisabled(date);
     final isWeekend =
@@ -223,21 +228,26 @@ class _InfiniteScrollDateListState extends State<InfiniteScrollDateList> {
                           Text(
                             '${date.day}',
                             style: theme.textTheme.titleLarge?.copyWith(
-                              fontWeight:
-                                  isToday ? FontWeight.bold : FontWeight.w500,
+                              fontWeight: isToday
+                                  ? FontWeight.bold
+                                  : FontWeight.w500,
                               color: isToday
                                   ? CalendarColors.today
                                   : isWeekend
-                                      ? CalendarColors.weekend
-                                      : null,
+                                  ? CalendarColors.weekend
+                                  : null,
                             ),
                           ),
                           Text(
-                            CalendarDateUtils.weekdayName(date.weekday,
-                                short: false),
+                            CalendarDateUtils.weekdayName(
+                              date.weekday,
+                              short: false,
+                            ),
                             style: theme.textTheme.labelSmall?.copyWith(
                               color: isWeekend
-                                  ? CalendarColors.weekend.withValues(alpha: 0.7)
+                                  ? CalendarColors.weekend.withValues(
+                                      alpha: 0.7,
+                                    )
                                   : theme.hintColor,
                             ),
                           ),
@@ -246,16 +256,16 @@ class _InfiniteScrollDateListState extends State<InfiniteScrollDateList> {
                     ),
                     // 农历信息
                     if (widget.showLunar)
-                      Expanded(
-                        child: _buildLunarInfo(theme, date),
-                      )
+                      Expanded(child: _buildLunarInfo(theme, date))
                     else
                       const Spacer(),
                     // 今天标签
                     if (isToday)
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 2),
+                          horizontal: 8,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: CalendarColors.today,
                           borderRadius: BorderRadius.circular(10),
@@ -285,12 +295,14 @@ class _InfiniteScrollDateListState extends State<InfiniteScrollDateList> {
       final lunar = calDate.lunar;
       if (lunar == null) return const SizedBox();
 
-      final displayText = calDate.solarTerm ??
+      final displayText =
+          calDate.solarTerm ??
           calDate.lunarFestival ??
           calDate.holidayName ??
           lunar.fullChinese;
 
-      final isSpecial = calDate.solarTerm != null ||
+      final isSpecial =
+          calDate.solarTerm != null ||
           calDate.lunarFestival != null ||
           calDate.holidayName != null;
 

@@ -34,7 +34,10 @@ class YearMonthCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final days = CalendarDateUtils.daysInMonthGrid(month, firstDayOfWeek: firstDayOfWeek);
+    final days = CalendarDateUtils.daysInMonthGrid(
+      month,
+      firstDayOfWeek: firstDayOfWeek,
+    );
     final today = CalendarDateUtils.dateOnly(DateTime.now());
 
     return GestureDetector(
@@ -43,9 +46,7 @@ class YearMonthCell extends StatelessWidget {
         decoration: BoxDecoration(
           color: theme.colorScheme.surface,
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: theme.dividerColor.withValues(alpha: 0.3),
-          ),
+          border: Border.all(color: theme.dividerColor.withValues(alpha: 0.3)),
         ),
         padding: const EdgeInsets.all(6),
         child: Column(
@@ -68,9 +69,7 @@ class YearMonthCell extends StatelessWidget {
             _buildWeekdayHeader(theme),
             const SizedBox(height: 2),
             // 日期网格
-            Expanded(
-              child: _buildDayGrid(theme, days, today),
-            ),
+            Expanded(child: _buildDayGrid(theme, days, today)),
           ],
         ),
       ),
@@ -81,7 +80,8 @@ class YearMonthCell extends StatelessWidget {
     return Row(
       children: List.generate(7, (i) {
         final weekday = (firstDayOfWeek + i - 1) % 7 + 1;
-        final isWeekend = weekday == DateTime.saturday || weekday == DateTime.sunday;
+        final isWeekend =
+            weekday == DateTime.saturday || weekday == DateTime.sunday;
         return Expanded(
           child: Center(
             child: Text(
@@ -108,9 +108,11 @@ class YearMonthCell extends StatelessWidget {
           child: Row(
             children: List.generate(7, (col) {
               final index = row * 7 + col;
-              if (index >= days.length) return const Expanded(child: SizedBox());
+              if (index >= days.length)
+                return const Expanded(child: SizedBox());
               final day = days[index];
-              final isCurrentMonth = day.month == month.month && day.year == month.year;
+              final isCurrentMonth =
+                  day.month == month.month && day.year == month.year;
               final isToday = day == today;
               final hasEvent = events.any((e) => e.occursOn(day));
 
@@ -135,8 +137,8 @@ class YearMonthCell extends StatelessWidget {
                             color: isToday
                                 ? Colors.white
                                 : isCurrentMonth
-                                    ? theme.textTheme.bodySmall?.color
-                                    : Colors.transparent,
+                                ? theme.textTheme.bodySmall?.color
+                                : Colors.transparent,
                           ),
                         ),
                         if (hasEvent && isCurrentMonth && !isToday)

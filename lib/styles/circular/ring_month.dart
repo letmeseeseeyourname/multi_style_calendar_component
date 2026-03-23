@@ -65,8 +65,10 @@ class _RingMonthViewState extends State<RingMonthView>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final daysInMonth =
-        CalendarDateUtils.daysInMonth(_currentMonth.year, _currentMonth.month);
+    final daysInMonth = CalendarDateUtils.daysInMonth(
+      _currentMonth.year,
+      _currentMonth.month,
+    );
     final monthName = CalendarDateUtils.monthName(_currentMonth.month);
 
     // Split days into rings of ~10
@@ -156,7 +158,8 @@ class _RingMonthViewState extends State<RingMonthView>
                       children: List.generate(ringDays.length, (dayIdx) {
                         final day = ringDays[dayIdx];
                         final angle =
-                            (2 * math.pi / ringDays.length) * dayIdx - math.pi / 2;
+                            (2 * math.pi / ringDays.length) * dayIdx -
+                            math.pi / 2;
                         final dx = radius * math.cos(angle);
                         final dy = radius * math.sin(angle);
 
@@ -180,8 +183,10 @@ class _RingMonthViewState extends State<RingMonthView>
     final date = DateTime(_currentMonth.year, _currentMonth.month, day);
     final isToday = CalendarDateUtils.isSameDay(date, DateTime.now());
     final isSelected =
-        _selectedDate != null && CalendarDateUtils.isSameDay(date, _selectedDate!);
-    final isWeekend = date.weekday == DateTime.saturday || date.weekday == DateTime.sunday;
+        _selectedDate != null &&
+        CalendarDateUtils.isSameDay(date, _selectedDate!);
+    final isWeekend =
+        date.weekday == DateTime.saturday || date.weekday == DateTime.sunday;
 
     return GestureDetector(
       onTap: () {
@@ -196,14 +201,14 @@ class _RingMonthViewState extends State<RingMonthView>
           color: isSelected
               ? CalendarColors.selected
               : isToday
-                  ? CalendarColors.today
-                  : Colors.white,
+              ? CalendarColors.today
+              : Colors.white,
           border: Border.all(
             color: isToday
                 ? CalendarColors.today
                 : isWeekend
-                    ? CalendarColors.weekend.withValues(alpha: 0.5)
-                    : Colors.grey[300]!,
+                ? CalendarColors.weekend.withValues(alpha: 0.5)
+                : Colors.grey[300]!,
             width: isToday ? 2 : 1,
           ),
           boxShadow: [
@@ -219,12 +224,14 @@ class _RingMonthViewState extends State<RingMonthView>
           '$day',
           style: TextStyle(
             fontSize: 11,
-            fontWeight: (isToday || isSelected) ? FontWeight.bold : FontWeight.w500,
+            fontWeight: (isToday || isSelected)
+                ? FontWeight.bold
+                : FontWeight.w500,
             color: (isSelected || isToday)
                 ? Colors.white
                 : isWeekend
-                    ? CalendarColors.weekend
-                    : Colors.black87,
+                ? CalendarColors.weekend
+                : Colors.black87,
           ),
         ),
       ),

@@ -52,10 +52,12 @@ class _SingleDatePickerState extends State<SingleDatePicker> {
 
   bool _isDisabled(DateTime date) {
     final d = CalendarDateUtils.dateOnly(date);
-    if (widget.minDate != null && d.isBefore(CalendarDateUtils.dateOnly(widget.minDate!))) {
+    if (widget.minDate != null &&
+        d.isBefore(CalendarDateUtils.dateOnly(widget.minDate!))) {
       return true;
     }
-    if (widget.maxDate != null && d.isAfter(CalendarDateUtils.dateOnly(widget.maxDate!))) {
+    if (widget.maxDate != null &&
+        d.isAfter(CalendarDateUtils.dateOnly(widget.maxDate!))) {
       return true;
     }
     return false;
@@ -93,7 +95,9 @@ class _SingleDatePickerState extends State<SingleDatePicker> {
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 color: CalendarColors.primary,
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(16),
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,7 +111,11 @@ class _SingleDatePickerState extends State<SingleDatePicker> {
                   const SizedBox(height: 4),
                   Text(
                     _selectedDate != null
-                        ? l.yearMonthDay(_selectedDate!.year, _selectedDate!.month, _selectedDate!.day)
+                        ? l.yearMonthDay(
+                            _selectedDate!.year,
+                            _selectedDate!.month,
+                            _selectedDate!.day,
+                          )
                         : l.notSelected,
                     style: theme.textTheme.headlineSmall?.copyWith(
                       color: Colors.white,
@@ -170,9 +178,13 @@ class _SingleDatePickerState extends State<SingleDatePicker> {
                   return Row(
                     children: List.generate(7, (col) {
                       final date = gridDays[row * 7 + col];
-                      final isCurrentMonth = CalendarDateUtils.isSameMonth(date, _displayMonth);
+                      final isCurrentMonth = CalendarDateUtils.isSameMonth(
+                        date,
+                        _displayMonth,
+                      );
                       final isToday = CalendarDateUtils.isSameDay(date, now);
-                      final isSelected = _selectedDate != null &&
+                      final isSelected =
+                          _selectedDate != null &&
                           CalendarDateUtils.isSameDay(date, _selectedDate!);
                       final disabled = _isDisabled(date);
                       final isWeekend = date.weekday == 6 || date.weekday == 7;
@@ -181,7 +193,10 @@ class _SingleDatePickerState extends State<SingleDatePicker> {
                         child: GestureDetector(
                           onTap: (disabled || !isCurrentMonth)
                               ? null
-                              : () => setState(() => _selectedDate = CalendarDateUtils.dateOnly(date)),
+                              : () => setState(
+                                  () => _selectedDate =
+                                      CalendarDateUtils.dateOnly(date),
+                                ),
                           child: Container(
                             height: 40,
                             margin: const EdgeInsets.all(1),
@@ -189,8 +204,8 @@ class _SingleDatePickerState extends State<SingleDatePicker> {
                               color: isSelected
                                   ? CalendarColors.selected
                                   : isToday
-                                      ? CalendarColors.today.withValues(alpha: 0.1)
-                                      : null,
+                                  ? CalendarColors.today.withValues(alpha: 0.1)
+                                  : null,
                               shape: BoxShape.circle,
                             ),
                             alignment: Alignment.center,
@@ -200,12 +215,12 @@ class _SingleDatePickerState extends State<SingleDatePicker> {
                                 color: !isCurrentMonth
                                     ? CalendarColors.disabled
                                     : disabled
-                                        ? CalendarColors.disabled
-                                        : isSelected
-                                            ? Colors.white
-                                            : isWeekend
-                                                ? CalendarColors.weekend
-                                                : null,
+                                    ? CalendarColors.disabled
+                                    : isSelected
+                                    ? Colors.white
+                                    : isWeekend
+                                    ? CalendarColors.weekend
+                                    : null,
                                 fontWeight: isToday ? FontWeight.bold : null,
                               ),
                             ),

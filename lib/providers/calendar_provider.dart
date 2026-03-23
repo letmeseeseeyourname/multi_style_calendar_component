@@ -2,8 +2,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../core/controllers/calendar_controller.dart';
 import '../core/models/calendar_config.dart';
 
-final calendarControllerProvider =
-    ChangeNotifierProvider<CalendarController>((ref) {
+final calendarControllerProvider = ChangeNotifierProvider<CalendarController>((
+  ref,
+) {
   return CalendarController();
 });
 

@@ -42,9 +42,7 @@ class EventCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: bgColor,
           borderRadius: BorderRadius.circular(6),
-          border: Border(
-            left: BorderSide(color: borderColor, width: 3),
-          ),
+          border: Border(left: BorderSide(color: borderColor, width: 3)),
           boxShadow: [
             BoxShadow(
               color: event.color.withValues(alpha: 0.25),

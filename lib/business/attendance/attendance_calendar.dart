@@ -26,7 +26,11 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
 
   void _changeMonth(int delta) {
     setState(() {
-      _currentMonth = DateTime(_currentMonth.year, _currentMonth.month + delta, 1);
+      _currentMonth = DateTime(
+        _currentMonth.year,
+        _currentMonth.month + delta,
+        1,
+      );
       _records = generateMockAttendanceData(_currentMonth);
       _selectedDate = null;
     });
@@ -42,31 +46,28 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
 
     return SingleChildScrollView(
       child: Column(
-      children: [
-        // Stats summary
-        AttendanceStats(
-          records: _records,
-          month: _currentMonth,
-        ),
-        const SizedBox(height: 16),
-        // Month header
-        _buildMonthHeader(),
-        const SizedBox(height: 8),
-        // Weekday header
-        _buildWeekdayHeader(),
-        const SizedBox(height: 4),
-        // Calendar grid
-        _buildCalendarGrid(gridDays),
-        // Legend
-        const SizedBox(height: 16),
-        _buildLegend(),
-        // Selected date detail
-        if (_selectedDate != null) ...[
+        children: [
+          // Stats summary
+          AttendanceStats(records: _records, month: _currentMonth),
           const SizedBox(height: 16),
-          _buildDateDetail(),
+          // Month header
+          _buildMonthHeader(),
+          const SizedBox(height: 8),
+          // Weekday header
+          _buildWeekdayHeader(),
+          const SizedBox(height: 4),
+          // Calendar grid
+          _buildCalendarGrid(gridDays),
+          // Legend
+          const SizedBox(height: 16),
+          _buildLegend(),
+          // Selected date detail
+          if (_selectedDate != null) ...[
+            const SizedBox(height: 16),
+            _buildDateDetail(),
+          ],
         ],
-      ],
-    ),
+      ),
     );
   }
 
@@ -79,7 +80,9 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
           icon: const Icon(Icons.chevron_left),
         ),
         Text(
-          AppLocalizations.of(context).yearMonth(_currentMonth.year, _currentMonth.month),
+          AppLocalizations.of(
+            context,
+          ).yearMonth(_currentMonth.year, _currentMonth.month),
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         IconButton(
@@ -120,7 +123,8 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
             final date = gridDays[i + j];
             final isCurrentMonth = date.month == _currentMonth.month;
             final record = _records[_dateKey(date)];
-            final isSelected = _selectedDate != null &&
+            final isSelected =
+                _selectedDate != null &&
                 CalendarDateUtils.isSameDay(date, _selectedDate!);
 
             return Expanded(
@@ -226,7 +230,10 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
                     padding: const EdgeInsets.only(top: 2),
                     child: Text(
                       '${l.remark}: ${record.note}',
-                      style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey.shade500,
+                      ),
                     ),
                   ),
               ],
@@ -264,14 +271,14 @@ class _AttendanceDayCell extends StatelessWidget {
         color: isSelected
             ? const Color(0xFF2196F3).withValues(alpha: 0.15)
             : status != null
-                ? status.color.withValues(alpha: 0.08)
-                : null,
+            ? status.color.withValues(alpha: 0.08)
+            : null,
         borderRadius: BorderRadius.circular(6),
         border: isToday
             ? Border.all(color: const Color(0xFF2196F3), width: 1.5)
             : isSelected
-                ? Border.all(color: const Color(0xFF2196F3), width: 1)
-                : null,
+            ? Border.all(color: const Color(0xFF2196F3), width: 1)
+            : null,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -287,11 +294,7 @@ class _AttendanceDayCell extends StatelessWidget {
             ),
           ),
           if (isCurrentMonth && status != null)
-            Icon(
-              status.icon,
-              size: 12,
-              color: status.color,
-            ),
+            Icon(status.icon, size: 12, color: status.color),
           if (isCurrentMonth && record?.checkInTime != null)
             Text(
               record!.checkInText,

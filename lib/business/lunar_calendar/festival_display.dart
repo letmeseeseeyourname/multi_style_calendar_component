@@ -46,11 +46,7 @@ class FestivalDisplay extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Icon(
-                Icons.celebration,
-                color: Color(0xFFD32F2F),
-                size: 20,
-              ),
+              const Icon(Icons.celebration, color: Color(0xFFD32F2F), size: 20),
               const SizedBox(width: 8),
               Text(
                 l.festivalAndSolarTerm,
@@ -113,10 +109,7 @@ class _FestivalItem extends StatelessWidget {
           const SizedBox(width: 8),
           Text(
             label,
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.grey.shade600,
-            ),
+            style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
           ),
           const SizedBox(width: 8),
           Text(

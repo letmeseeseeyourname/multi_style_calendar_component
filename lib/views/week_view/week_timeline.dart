@@ -63,12 +63,7 @@ class WeekTimeline extends StatelessWidget {
                         : const SizedBox.shrink(),
                   ),
                   // Horizontal line
-                  Expanded(
-                    child: Container(
-                      height: 0.5,
-                      color: lineColor,
-                    ),
-                  ),
+                  Expanded(child: Container(height: 0.5, color: lineColor)),
                 ],
               ),
             ),
@@ -78,10 +73,7 @@ class WeekTimeline extends StatelessWidget {
                 top: i * hourHeight + hourHeight / 2,
                 left: timeColumnWidth,
                 right: 0,
-                child: Container(
-                  height: 0.5,
-                  color: halfLineColor,
-                ),
+                child: Container(height: 0.5, color: halfLineColor),
               ),
           ],
         ],
