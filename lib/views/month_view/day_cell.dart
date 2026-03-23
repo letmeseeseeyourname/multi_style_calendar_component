@@ -3,7 +3,11 @@ import '../../core/models/calendar_date.dart';
 import '../../core/models/calendar_event.dart';
 import '../../theme/calendar_theme.dart';
 
-/// 日期单元格，展示公历日期、农历文字和事件指示点
+/// A single day cell in the month grid view.
+///
+/// Displays the Gregorian day number, an optional lunar calendar label
+/// (solar term, festival, or lunar day), and up to 3 colored event dots.
+/// Highlights today and selected states with themed decorations.
 class DayCell extends StatelessWidget {
   final CalendarDate date;
   final List<CalendarEvent> events;
@@ -61,7 +65,7 @@ class DayCell extends StatelessWidget {
     );
   }
 
-  /// 构建单元格装饰（今天高亮、选中高亮）
+  /// Builds the cell decoration (highlights for today and selected states).
   BoxDecoration _buildDecoration(CalendarThemeData theme) {
     if (isSelected) {
       return BoxDecoration(
@@ -78,7 +82,7 @@ class DayCell extends StatelessWidget {
     return BoxDecoration(borderRadius: BorderRadius.circular(theme.cellRadius));
   }
 
-  /// 日期数字文字样式
+  /// Returns the text style for the day number.
   TextStyle _dayTextStyle(CalendarThemeData theme) {
     // 选中或今天使用白色文字
     if (isSelected || date.isToday) {
@@ -94,7 +98,7 @@ class DayCell extends StatelessWidget {
     return theme.dayTextStyle;
   }
 
-  /// 农历文字样式
+  /// Returns the text style for the lunar calendar label.
   TextStyle _lunarTextStyle(CalendarThemeData theme) {
     final isSpecial =
         date.solarTerm != null ||
@@ -110,7 +114,7 @@ class DayCell extends StatelessWidget {
     return theme.lunarTextStyle;
   }
 
-  /// 农历显示文字，优先级: 节气 > 农历节日 > 节假日名 > 农历日
+  /// Returns the lunar display text. Priority: solar term > lunar festival > holiday > lunar day.
   String _lunarDisplayText() {
     if (date.solarTerm != null) return date.solarTerm!;
     if (date.lunarFestival != null) return date.lunarFestival!;
@@ -119,7 +123,7 @@ class DayCell extends StatelessWidget {
     return '';
   }
 
-  /// 最多显示 3 个事件颜色点
+  /// Builds up to 3 colored event indicator dots.
   Widget _buildEventDots() {
     final dotEvents = events.take(3).toList();
     return Row(

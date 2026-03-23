@@ -3,7 +3,11 @@ import '../models/calendar_config.dart';
 import '../models/date_range.dart';
 import '../utils/date_utils.dart';
 
-/// 日期选择控制器
+/// Controls date selection state, supporting single, multiple, and range modes.
+///
+/// Call [onDateTap] when the user taps a date. The controller automatically
+/// manages selection state based on the current [SelectionMode] and notifies
+/// listeners of changes.
 class SelectionController extends ChangeNotifier {
   SelectionMode _mode;
   DateTime? _selectedDate;
@@ -28,11 +32,13 @@ class SelectionController extends ChangeNotifier {
     return null;
   }
 
+  /// Changes the selection mode and clears any existing selection.
   void setMode(SelectionMode mode) {
     _mode = mode;
     clearSelection();
   }
 
+  /// Handles a date tap, updating the selection based on the current mode.
   void onDateTap(DateTime date) {
     final dateOnly = CalendarDateUtils.dateOnly(date);
 
@@ -72,6 +78,7 @@ class SelectionController extends ChangeNotifier {
     }
   }
 
+  /// Returns `true` if [date] is currently selected (in any mode).
   bool isSelected(DateTime date) {
     final dateOnly = CalendarDateUtils.dateOnly(date);
     switch (_mode) {
@@ -89,6 +96,7 @@ class SelectionController extends ChangeNotifier {
     }
   }
 
+  /// Returns `true` if [date] falls within the currently selected range.
   bool isInRange(DateTime date) {
     if (_rangeStart == null) return false;
     final dateOnly = CalendarDateUtils.dateOnly(date);
@@ -98,15 +106,18 @@ class SelectionController extends ChangeNotifier {
     return !dateOnly.isBefore(_rangeStart!) && !dateOnly.isAfter(_rangeEnd!);
   }
 
+  /// Returns `true` if [date] is the start of the selected range.
   bool isRangeStart(DateTime date) {
     return _rangeStart != null &&
         CalendarDateUtils.isSameDay(_rangeStart!, date);
   }
 
+  /// Returns `true` if [date] is the end of the selected range.
   bool isRangeEnd(DateTime date) {
     return _rangeEnd != null && CalendarDateUtils.isSameDay(_rangeEnd!, date);
   }
 
+  /// Clears all selection state and notifies listeners.
   void clearSelection() {
     _selectedDate = null;
     _selectedDates.clear();

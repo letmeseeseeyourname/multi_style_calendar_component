@@ -4,7 +4,9 @@ import '../../l10n/app_localizations.dart';
 import 'attendance_status.dart';
 import 'attendance_stats.dart';
 
-/// 考勤日历组件
+/// An attendance tracking calendar that displays daily check-in/check-out
+/// status with color-coded indicators, monthly statistics, and a detail
+/// panel for the selected date.
 class AttendanceCalendar extends StatefulWidget {
   const AttendanceCalendar({super.key});
 

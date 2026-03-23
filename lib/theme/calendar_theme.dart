@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
-/// 日历主题数据
+/// Theme data that defines the visual appearance of calendar components.
+///
+/// Includes colors for today, selected dates, weekends, holidays, and
+/// disabled states, as well as text styles for day numbers, lunar labels,
+/// headers, and weekday labels.
 class CalendarThemeData {
   final Color primaryColor;
   final Color todayColor;
@@ -76,11 +80,17 @@ class CalendarThemeData {
   }
 }
 
+/// An [InheritedWidget] that provides [CalendarThemeData] to descendant widgets.
+///
+/// Use [CalendarTheme.of] to access the nearest theme data in the widget tree.
 class CalendarTheme extends InheritedWidget {
+  /// The calendar theme configuration.
   final CalendarThemeData data;
 
   const CalendarTheme({super.key, required this.data, required super.child});
 
+  /// Returns the [CalendarThemeData] from the nearest [CalendarTheme] ancestor,
+  /// or the default theme if none is found.
   static CalendarThemeData of(BuildContext context) {
     final theme = context.dependOnInheritedWidgetOfExactType<CalendarTheme>();
     return theme?.data ?? const CalendarThemeData();

@@ -1,6 +1,10 @@
 import 'dart:ui';
 
-/// 日历配置
+/// Configuration for the calendar component.
+///
+/// Controls the calendar system, view type, display options (lunar dates,
+/// holidays, solar terms), interaction modes (selection, drag, resize),
+/// and date constraints.
 class CalendarConfig {
   final CalendarSystem system;
   final int firstDayOfWeek;
@@ -89,8 +93,11 @@ class CalendarConfig {
   }
 }
 
+/// The calendar system (Gregorian, Lunar, Islamic, or Hebrew).
 enum CalendarSystem { gregorian, lunar, islamic, hebrew }
 
+/// The type of calendar view to display.
 enum CalendarViewType { year, month, week, day, agenda, timeline }
 
+/// The date selection mode for user interaction.
 enum SelectionMode { none, single, multiple, range }

@@ -5,7 +5,11 @@ import '../../core/models/calendar_config.dart';
 import '../../core/utils/date_utils.dart';
 import 'day_cell.dart';
 
-/// 月网格，7 列 6 行共 42 个日期单元格
+/// A month grid widget that displays 42 day cells (7 columns x 6 rows).
+///
+/// Renders the given [month] as a standard calendar grid, including leading
+/// and trailing days from adjacent months. Each cell shows the Gregorian date,
+/// optional lunar info, and event indicator dots.
 class MonthGrid extends StatelessWidget {
   final DateTime month;
   final CalendarConfig config;

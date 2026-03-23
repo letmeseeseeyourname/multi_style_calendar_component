@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-/// 日历事件
+/// A calendar event with a time range, color, and optional recurrence.
+///
+/// Supports all-day events, multi-day events, repeating rules, and
+/// reminders. Use [occursOn] to check whether the event falls on a given date.
 class CalendarEvent {
   final String id;
   final String title;
@@ -37,14 +40,17 @@ class CalendarEvent {
     this.extra,
   });
 
+  /// The duration of the event from start to end.
   Duration get duration => endTime.difference(startTime);
 
+  /// Whether the event spans more than one calendar day.
   bool get isMultiDay {
     return startTime.year != endTime.year ||
         startTime.month != endTime.month ||
         startTime.day != endTime.day;
   }
 
+  /// Returns `true` if this event occurs on the given [date].
   bool occursOn(DateTime date) {
     final dateOnly = DateTime(date.year, date.month, date.day);
     final startOnly = DateTime(startTime.year, startTime.month, startTime.day);
@@ -84,7 +90,10 @@ class CalendarEvent {
   }
 }
 
-/// 重复规则
+/// Defines a recurrence rule for a calendar event.
+///
+/// Supports daily, weekly, monthly, and yearly repetition with an optional
+/// end date or maximum number of occurrences.
 class EventRepeat {
   final RepeatType type;
   final int interval;
@@ -105,7 +114,7 @@ class EventRepeat {
 
 enum RepeatType { daily, weekly, monthly, yearly }
 
-/// 提醒设置
+/// Reminder settings for a calendar event.
 class EventReminder {
   final Duration beforeEvent;
   final String? message;

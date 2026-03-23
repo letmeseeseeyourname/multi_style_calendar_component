@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import '../../l10n/app_localizations.dart';
 import '../../theme/calendar_theme.dart';
 
-/// 周标题行，显示周一至周日的名称
+/// A row of weekday labels (Monday through Sunday) displayed above the month grid.
 class WeekHeader extends StatelessWidget {
-  /// 一周的起始日（1=周一, 7=周日）
+  /// The first day of the week (1 = Monday, 7 = Sunday).
   final int firstDayOfWeek;
 
   const WeekHeader({super.key, this.firstDayOfWeek = 1});
@@ -35,7 +35,7 @@ class WeekHeader extends StatelessWidget {
     );
   }
 
-  /// 根据 firstDayOfWeek 生成有序的周日编号列表 (1-7)
+  /// Generates an ordered list of weekday numbers (1-7) based on [firstDayOfWeek].
   List<int> _buildWeekdays() {
     final weekdays = <int>[];
     for (int i = 0; i < 7; i++) {

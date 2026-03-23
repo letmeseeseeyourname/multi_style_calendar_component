@@ -1,18 +1,39 @@
 import 'package:lunar/lunar.dart';
 
-/// 通用日历日期，支持多历法
+/// A universal calendar date that supports multiple calendar systems.
+///
+/// Wraps a Gregorian [DateTime] and optionally includes lunar and Islamic
+/// calendar representations, along with metadata such as solar terms,
+/// festivals, and holiday information.
 class CalendarDate {
+  /// The Gregorian (standard) date.
   final DateTime gregorian;
+
+  /// The Chinese lunar calendar date, if available.
   final LunarDate? lunar;
+
+  /// The Islamic (Hijri) calendar date, if available.
   final IslamicDate? islamic;
 
+  /// Whether this date is today.
   final bool isToday;
+
+  /// Whether this date falls on a weekend (Saturday or Sunday).
   final bool isWeekend;
+
+  /// Whether this date is a public holiday.
   final bool isHoliday;
+
+  /// The name of the holiday, if applicable.
   final String? holidayName;
 
+  /// The solar term name (e.g. "Spring Equinox"), if this date falls on one.
   final String? solarTerm;
+
+  /// The Chinese lunar festival name, if applicable.
   final String? lunarFestival;
+
+  /// The Chinese zodiac animal for this year.
   final String? zodiac;
 
   CalendarDate({
@@ -28,6 +49,8 @@ class CalendarDate {
     this.zodiac,
   });
 
+  /// Creates a [CalendarDate] from a [DateTime], automatically computing
+  /// lunar calendar data, solar terms, and festival information.
   factory CalendarDate.fromDateTime(DateTime date) {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
@@ -74,6 +97,7 @@ class CalendarDate {
     );
   }
 
+  /// Returns a copy with updated holiday information.
   CalendarDate copyWith({bool? isHoliday, String? holidayName}) {
     return CalendarDate(
       gregorian: gregorian,
@@ -90,20 +114,42 @@ class CalendarDate {
   }
 }
 
-/// 农历日期
+/// Represents a date in the Chinese lunar calendar.
+///
+/// Includes the Heavenly Stems and Earthly Branches (GanZhi) cycle,
+/// zodiac animal, and Chinese character representations.
 class LunarDate {
+  /// The lunar year number.
   final int year;
+
+  /// The lunar month (negative value indicates a leap month).
   final int month;
+
+  /// The lunar day of the month.
   final int day;
+
+  /// Whether this month is a leap month in the lunar calendar.
   final bool isLeapMonth;
 
+  /// The year expressed in the GanZhi (Heavenly Stems & Earthly Branches) cycle.
   final String yearGanZhi;
+
+  /// The month expressed in the GanZhi cycle.
   final String monthGanZhi;
+
+  /// The day expressed in the GanZhi cycle.
   final String dayGanZhi;
 
+  /// The Chinese zodiac animal for this year.
   final String zodiac;
+
+  /// The year in Chinese characters.
   final String yearChinese;
+
+  /// The month in Chinese characters (e.g. "正月").
   final String monthChinese;
+
+  /// The day in Chinese characters (e.g. "初一").
   final String dayChinese;
 
   const LunarDate({
@@ -120,10 +166,13 @@ class LunarDate {
     required this.dayChinese,
   });
 
+  /// The full Chinese representation combining month and day (e.g. "正月初一").
   String get fullChinese => '$monthChinese$dayChinese';
 }
 
-/// 伊斯兰历日期（占位）
+/// Represents a date in the Islamic (Hijri) calendar.
+///
+/// This is a placeholder implementation for future expansion.
 class IslamicDate {
   final int year;
   final int month;

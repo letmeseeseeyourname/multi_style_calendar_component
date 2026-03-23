@@ -4,7 +4,10 @@ import '../../l10n/app_localizations.dart';
 import 'streak_counter.dart';
 import 'habit_stats.dart';
 
-/// 习惯追踪日历组件
+/// A habit tracking calendar that lets users mark daily completions.
+///
+/// Displays streak statistics and a month grid where each day can be
+/// tapped to toggle its completion status. Future dates are disabled.
 class HabitCalendar extends StatefulWidget {
   const HabitCalendar({super.key});
 
