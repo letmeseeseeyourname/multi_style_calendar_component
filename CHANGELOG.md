@@ -1,3 +1,7 @@
+## 1.0.2
+
+- Fix README screenshot paths to use absolute GitHub URLs for pub.dev rendering
+
 ## 1.0.1
 
 - Add comprehensive README with usage examples and screenshots
