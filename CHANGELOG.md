@@ -1,3 +1,11 @@
+## 1.0.1
+
+- Add comprehensive README with usage examples and screenshots
+- Add English dartdoc comments to core public APIs
+- Add unit tests for core models and utilities
+- Add GitHub Actions CI workflow
+- Fix static analysis warnings and code formatting
+
 ## 1.0.0
 
 - Initial release

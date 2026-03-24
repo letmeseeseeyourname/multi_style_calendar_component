@@ -3,7 +3,7 @@ description: >-
   A comprehensive Flutter calendar widget library featuring multiple view modes,
   visual styles, date pickers, and business scenarios like attendance, booking,
   and lunar calendar.
-version: 1.0.0
+version: 1.0.1
 repository: https://github.com/letmeseeseeyourname/multi_style_calendar_component
 
 environment:
