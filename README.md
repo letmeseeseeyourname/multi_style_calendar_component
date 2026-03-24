@@ -57,6 +57,20 @@ A comprehensive Flutter calendar widget library featuring multiple view modes, v
 - Event duration resize
 - Swipe to switch months/weeks
 
+## Screenshots
+
+| Month View (Lunar) | Heatmap Styles | Glassmorphism Style |
+|:---:|:---:|:---:|
+| <img src="screenshots/Screenshot_20260323_195358.jpg" width="250"/> | <img src="screenshots/Screenshot_20260323_195432.jpg" width="250"/> | <img src="screenshots/Screenshot_20260323_195439.jpg" width="250"/> |
+
+| Habit Tracker | Hotel Pricing | Circular & Clock Styles |
+|:---:|:---:|:---:|
+| <img src="screenshots/Screenshot_20260324_105643.jpg" width="250"/> | <img src="screenshots/Screenshot_20260324_105704.jpg" width="250"/> | <img src="screenshots/Screenshot_20260324_105726.jpg" width="250"/> |
+
+| Demo |
+|:---:|
+| <img src="screenshots/Screenrecording_20260324_105321.gif" width="250"/> |
+
 ## Installation
 
 Add the package to your `pubspec.yaml`:

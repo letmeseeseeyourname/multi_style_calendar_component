@@ -5,6 +5,7 @@ linux/
 macos/
 windows/
 build/
+screenshots/
 test/
 .claude/
 CLAUDE.md
